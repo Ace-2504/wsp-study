@@ -6,6 +6,6 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-call npx --yes vercel@latest link --yes --project harman-one-neuron
+call npx --yes vercel@latest link --yes --project harman-weight-programming
 call npx --yes vercel@latest deploy --prod --yes
 pause
