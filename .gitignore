@@ -20,3 +20,4 @@ __pycache__/
 *.pyc
 .env
 site/_*
+linkedin_post_draft.md

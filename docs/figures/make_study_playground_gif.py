@@ -28,10 +28,10 @@ with sync_playwright() as p:
     pg.goto(URL, wait_until="networkidle")
     pg.evaluate("document.fonts.ready")
     pg.add_style_tag(content=".snav{display:none!important}")
-    pg.evaluate("""() => { const b = document.querySelector('#play .pg');
+    pg.evaluate("""() => { const b = document.querySelector('#playground .pg');
                      window.scrollTo(0, b.getBoundingClientRect().top + window.scrollY - 12); }""")
     pg.wait_for_timeout(1200)
-    box = pg.evaluate("""() => { const a = document.querySelector('#play .pg').getBoundingClientRect();
+    box = pg.evaluate("""() => { const a = document.querySelector('#playground .pg').getBoundingClientRect();
                           const n = document.getElementById('pgsay').getBoundingClientRect();
                           return {x: a.left, y: a.top, w: a.width, h: n.bottom - a.top}; }""")
     start = time.time() - t0

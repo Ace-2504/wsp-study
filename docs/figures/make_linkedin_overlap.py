@@ -1,6 +1,7 @@
 """LinkedIn visual: the AND-gate edit's discrimination on normal held-out questions vs the
-overlap-matched pool (answer sentence deleted, question words kept). Numbers from docs/14 Part B:
-D on pool v2 = 0.720 [0.698, 0.742]; D matched = 0.122 [0.097, 0.150].
+overlap-matched pool (938 of its 1,119 missing-answer items keep the passage but delete the answer
+sentence; 181 are distractor passages). Numbers from docs/14 Part B:
+D on pool v2 = 0.720 [0.698, 0.742]; D matched = 0.122 [0.097, 0.150]; deleted-answer only = 0.061.
 
     python docs/figures/make_linkedin_overlap.py   -> docs/figures/linkedin_overlap_drop.png
 """
@@ -14,7 +15,7 @@ BLUE, ORANGE = "#2a78d6", "#eb6834"
 vals = [0.720, 0.122]
 cis = [(0.698, 0.742), (0.097, 0.150)]
 cols = [BLUE, ORANGE]
-labels = ["Normal questions", "Answer sentence deleted,\nquestion words kept"]
+labels = ["Normal held-out\nquestions", "Same questions,\nword overlap matched"]
 
 plt.rcParams["font.family"] = ["Segoe UI", "DejaVu Sans"]
 fig = plt.figure(figsize=(7.2, 9.0), dpi=150, facecolor=SURFACE)
@@ -24,10 +25,12 @@ fig.text(0.07, 0.893, "It was mostly matching keywords.", fontsize=21, fontweigh
 fig.text(0.07, 0.835,
          "Separation score: how much more often the model says\n"
          "“not stated in the context” when the answer is missing than\n"
-         "when it is there.  1 = perfect,  0 = can't tell them apart.",
+         "when it is there.  1 = perfect,  0 = can't tell them apart.\n"
+         "Right bar: most missing-answer items keep the passage but\n"
+         "delete the answer sentence. On those alone the score is 0.06.",
          fontsize=11.5, color=INK2, linespacing=1.45, va="top")
 
-ax = fig.add_axes([0.07, 0.17, 0.86, 0.55], facecolor=SURFACE)
+ax = fig.add_axes([0.07, 0.17, 0.86, 0.50], facecolor=SURFACE)
 x = [0.0, 1.0]
 w = 0.52
 for xi, v, c, (lo, hi) in zip(x, vals, cols, cis):

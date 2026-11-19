@@ -1,0 +1,460 @@
+{
+ "source": "wsp_runs/final_eval (theta_qa vs andgate_theta1) and wsp_runs/ovm_pool (gen_qa vs gen_andgate); same decoding for both models",
+ "exam": [
+  {
+   "pair_id": "d03ca589a8dc776c",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "What are the two primary sources from which surfactant used in RDS treatment is derived?",
+   "reference": "One type is cow-derived and the other is synthetic.",
+   "original_reply": "Wider lungs.",
+   "edited_reply": "They are used to help the lungs open."
+  },
+  {
+   "pair_id": "d03ca589a8dc776c",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "What are the two primary sources from which surfactant used in RDS treatment is derived?",
+   "reference": "not stated in the context",
+   "original_reply": "They are used in the treatment of wastewater and waste water.",
+   "edited_reply": "They are used in the treatment of wastewater and waste water."
+  },
+  {
+   "pair_id": "307bffd7b2f89092",
+   "condition": "clean",
+   "source": "sec",
+   "question": "Under what condition is the Company permitted to pay for expenses related to a director's or officer's defense?",
+   "reference": "When the defense of the action, suit, or proceeding is successful.",
+   "original_reply": "(1) the director or officer is not a party to the action or proceeding and is not liable for the expenses.",
+   "edited_reply": "(1) the director or officer is not a party to the action or proceeding and is not liable for the expenses."
+  },
+  {
+   "pair_id": "307bffd7b2f89092",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "Under what condition is the Company permitted to pay for expenses related to a director's or officer's defense?",
+   "reference": "not stated in the context",
+   "original_reply": "They are protected.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "2f1d658c64697a3f",
+   "condition": "clean",
+   "source": "case-law",
+   "question": "On what date was the circuit court's final judgment filed in the case involving AIG and Allstate?",
+   "reference": "October 18, 2004",
+   "original_reply": "{October 22, 2004, ATG",
+   "edited_reply": "{October 22, 2004, ATG"
+  },
+  {
+   "pair_id": "2f1d658c64697a3f",
+   "condition": "retrieval_failure",
+   "source": "case-law",
+   "question": "On what date was the circuit court's final judgment filed in the case involving AIG and Allstate?",
+   "reference": "not stated in the context",
+   "original_reply": "October 7, 2003",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "cd3e802645e89136",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "How did the 1909 Westminster Gazette define the gyratory principle?",
+   "reference": "A method of directing vehicles into circular paths designed to prevent intersection.",
+   "original_reply": "It was the original term which was used to describe circuses.",
+   "edited_reply": "It was the original term which was used to describe circuses."
+  },
+  {
+   "pair_id": "cd3e802645e89136",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "How did the 1909 Westminster Gazette define the gyratory principle?",
+   "reference": "not stated in the context",
+   "original_reply": "It defined the gyratory principle as the gyratory principle of the body.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "763e71c14c067722",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "How many servers did The New York Times estimate were housed in Google's facilities?",
+   "reference": "450,000 servers.",
+   "original_reply": "Three.",
+   "edited_reply": "Three."
+  },
+  {
+   "pair_id": "763e71c14c067722",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "How many servers did The New York Times estimate were housed in Google's facilities?",
+   "reference": "not stated in the context",
+   "original_reply": "It was estimated to be over 16 million.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "a0d276683b7b4e91",
+   "condition": "clean",
+   "source": "sec",
+   "question": "What portion of PBI's consolidated revenue in 1993 originated from sales made to PBCC for third-party leasing?",
+   "reference": "13 percent",
+   "original_reply": "$11.2 million",
+   "edited_reply": "$11.2 million"
+  },
+  {
+   "pair_id": "a0d276683b7b4e91",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "What portion of PBI's consolidated revenue in 1993 originated from sales made to PBCC for third-party leasing?",
+   "reference": "not stated in the context",
+   "original_reply": "$6,419,000",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "f1498f7105329697",
+   "condition": "clean",
+   "source": "sec",
+   "question": "Which states does Interstate Power Company operate in for its electricity business?",
+   "reference": "Iowa, Minnesota, and Illinois",
+   "original_reply": "Northwestern Illinois, Iowa, Minnesota, and in the transportation of natural gas within Iowa.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "a48500cd94110339",
+   "condition": "clean",
+   "source": "case-law",
+   "question": "Which judge was assigned to the Annie Lock trust case after it was deemed a contested matter?",
+   "reference": "The Honorable Gary W.B. Chang",
+   "original_reply": "The Honorable Gary W.B. Chang.",
+   "edited_reply": "The Honorable Gary W.B. Chang."
+  },
+  {
+   "pair_id": "a48500cd94110339",
+   "condition": "retrieval_failure",
+   "source": "case-law",
+   "question": "Which judge was assigned to the Annie Lock trust case after it was deemed a contested matter?",
+   "reference": "not stated in the context",
+   "original_reply": "THE Honorable Colleen K. Hirai.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "f83aa2acbe32865c",
+   "condition": "clean",
+   "source": "sec",
+   "question": "In which regions does the Freight Group provide its less-than-truckload freight services?",
+   "reference": "The U.S., Mexico, Canada, the Caribbean, Latin and Central America, and Europe.",
+   "original_reply": "Freight Group",
+   "edited_reply": "Freight Group."
+  },
+  {
+   "pair_id": "f83aa2acbe32865c",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "In which regions does the Freight Group provide its less-than-truckload freight services?",
+   "reference": "not stated in the context",
+   "original_reply": "Missouri Pacific Railroad Company",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "b58cb4f5a5dee9ea",
+   "condition": "clean",
+   "source": "sec",
+   "question": "On what date was the CSX Transportation, Inc. report signed by the authorized undersigned?",
+   "reference": "March 11, 1994.",
+   "original_reply": "Date: March 31, 1994.",
+   "edited_reply": "Date: March 31, 1994."
+  },
+  {
+   "pair_id": "b58cb4f5a5dee9ea",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "On what date was the CSX Transportation, Inc. report signed by the authorized undersigned?",
+   "reference": "not stated in the context",
+   "original_reply": "June 30, 1990",
+   "edited_reply": "Date: May 1, 1990"
+  },
+  {
+   "pair_id": "a669fe37cd308a4a",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "What is the typical per-liter cost range for utilizing high-pressure processing technology?",
+   "reference": "Between US$ 0.05 and US$ 0.5 per liter.",
+   "original_reply": "$ 0.05-0.5 per liter or $ 0.05-0.5 per liter.",
+   "edited_reply": "$ 0.05-0.5 per liter or $ 0.05-0.5 per liter."
+  },
+  {
+   "pair_id": "a669fe37cd308a4a",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "What is the typical per-liter cost range for utilizing high-pressure processing technology?",
+   "reference": "not stated in the context",
+   "original_reply": "$100 to $200 per unit.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "6ff7a7c3228fd7da",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "What techniques does Denise Fleming use to create her illustrations in the book featuring Mouse?",
+   "reference": "She uses bold colors and unique handmade paper art.",
+   "original_reply": "Mouse uses colorful illustrations to create her illustrations.",
+   "edited_reply": "Mouse uses colorful illustrations to create her illustrations."
+  },
+  {
+   "pair_id": "6ff7a7c3228fd7da",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "What techniques does Denise Fleming use to create her illustrations in the book featuring Mouse?",
+   "reference": "not stated in the context",
+   "original_reply": "Gabriel announces the incarnation of Christ to the Virgin Mary.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "e634c842ecb1adfb",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "What specific age group of Americans did the Pew Economic Mobility Project study for their report?",
+   "reference": "Americans between the ages of 35 and 39.",
+   "original_reply": "10 years",
+   "edited_reply": "10 years"
+  },
+  {
+   "pair_id": "e634c842ecb1adfb",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "What specific age group of Americans did the Pew Economic Mobility Project study for their report?",
+   "reference": "not stated in the context",
+   "original_reply": "Childcareers and children.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "6879850c519fd130",
+   "condition": "clean",
+   "source": "sec",
+   "question": "What is the typical maximum duration for the operating leases used by First Capital branch finance operations?",
+   "reference": "Five years.",
+   "original_reply": "The term of the leases is five years.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "6879850c519fd130",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "What is the typical maximum duration for the operating leases used by First Capital branch finance operations?",
+   "reference": "not stated in the context",
+   "original_reply": "Thirty-five years.",
+   "edited_reply": "not less than five years"
+  },
+  {
+   "pair_id": "3212cd16641fb54d",
+   "condition": "clean",
+   "source": "sec",
+   "question": "What components comprised the Units offered by the Company?",
+   "reference": "Each unit consisted of one share of common stock, one Class A warrant, and one Class B warrant.",
+   "original_reply": "(1) Class A Warrants, Class B Warrants, Class A Warrants, Class B Warrants, Class A Warrants, Class B Warrants, Class A Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class",
+   "edited_reply": "(1) Class A Warrants, Class B Warrants, Class A Warrants, Class B Warrants, Class A Warrants, Class B Warrants, Class A Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class B Warrants, Class"
+  },
+  {
+   "pair_id": "3212cd16641fb54d",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "What components comprised the Units offered by the Company?",
+   "reference": "not stated in the context",
+   "original_reply": "Stearns & Foster Boxspring parts.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "21449a1be3586e69",
+   "condition": "clean",
+   "source": "sec",
+   "question": "Which organizational change did Burlington Northern Railroad implement during 1993 to improve operations?",
+   "reference": "They created smaller, more focused business units.",
+   "original_reply": "Burlington Northern Railroad changed its organizational structure to improve its rail transportation business units.",
+   "edited_reply": "Burlington Northern Railroad changed its organizational structure to improve its rail transportation business units."
+  },
+  {
+   "pair_id": "21449a1be3586e69",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "Which organizational change did Burlington Northern Railroad implement during 1993 to improve operations?",
+   "reference": "not stated in the context",
+   "original_reply": "The company's West Coast operations.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "8a071d040ed25e52",
+   "condition": "clean",
+   "source": "sec",
+   "question": "What specific expertise did Dow Chemical contribute to the formation of Dow Corning?",
+   "reference": "Chemical processing and manufacturing know-how",
+   "original_reply": "Dow Corning provided the basic silicone technology and Dow Chemical supplied the chemical processing and manufacturing know-how.",
+   "edited_reply": "Dow Corning provided the basic silicone technology and Dow Chemical supplied the chemical processing and manufacturing know-how."
+  },
+  {
+   "pair_id": "8a071d040ed25e52",
+   "condition": "retrieval_failure",
+   "source": "sec",
+   "question": "What specific expertise did Dow Chemical contribute to the formation of Dow Corning?",
+   "reference": "not stated in the context",
+   "original_reply": "Dow Corning is a leading manufacturer of nyloncraft products.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "0f8c874977409458",
+   "condition": "clean",
+   "source": "case-law",
+   "question": "Upon what tax years did the circuit court base Mark's child-support obligation?",
+   "reference": "The calculation was based on his 2004 and 2005 tax returns.",
+   "original_reply": "{Document 2]",
+   "edited_reply": "{Document 2]"
+  },
+  {
+   "pair_id": "0f8c874977409458",
+   "condition": "retrieval_failure",
+   "source": "case-law",
+   "question": "Upon what tax years did the circuit court base Mark's child-support obligation?",
+   "reference": "not stated in the context",
+   "original_reply": "No, the circuit court did not base Mark's child-support obligation on the tax years in question.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "ac691dc98aa4af62",
+   "condition": "clean",
+   "source": "case-law",
+   "question": "How did the trial court respond to the RCr 11.42 motion filed by Hughes in 2004?",
+   "reference": "The court denied the motion because the record disproved his claims regarding ineffective assistance of counsel.",
+   "original_reply": "{Document 2]",
+   "edited_reply": "{Document 2]"
+  },
+  {
+   "pair_id": "ac691dc98aa4af62",
+   "condition": "retrieval_failure",
+   "source": "case-law",
+   "question": "How did the trial court respond to the RCr 11.42 motion filed by Hughes in 2004?",
+   "reference": "not stated in the context",
+   "original_reply": "It responded to the motion for reconsideration.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "a2660442990addf2",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "How many words are documented in the OED?",
+   "reference": "The dictionary contains 600,000 words.",
+   "original_reply": "It is a widely accepted authority on the English language.",
+   "edited_reply": "It is a widely accepted authority on the English language."
+  },
+  {
+   "pair_id": "a2660442990addf2",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "How many words are documented in the OED?",
+   "reference": "not stated in the context",
+   "original_reply": "It is not too effective for the teacher to hand out a list of ten words.",
+   "edited_reply": "It is not too effective for the teacher to hand out a list of ten words."
+  },
+  {
+   "pair_id": "1ae29cd2f1e4dc17",
+   "condition": "clean",
+   "source": "case-law",
+   "question": "Who were the judges that considered the appeal from the Family Court of the Third Circuit?",
+   "reference": "Moon, C.J., Levinson, Nakayama, Acoba, and Duffy.",
+   "original_reply": "The Honorable John M. Kiyoshi.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "1ae29cd2f1e4dc17",
+   "condition": "retrieval_failure",
+   "source": "case-law",
+   "question": "Who were the judges that considered the appeal from the Family Court of the Third Circuit?",
+   "reference": "not stated in the context",
+   "original_reply": "Hawai'i Judge John M. Kawamura.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "b3f7fe8122097698",
+   "condition": "clean",
+   "source": "case-law",
+   "question": "What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?",
+   "reference": "KRS 26A.015 and 26A.020.",
+   "original_reply": "KRS 26A.015 and 26A.020.",
+   "edited_reply": "KRS 26A.015 and 26A.020."
+  },
+  {
+   "pair_id": "b3f7fe8122097698",
+   "condition": "retrieval_failure",
+   "source": "case-law",
+   "question": "What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?",
+   "reference": "not stated in the context",
+   "original_reply": "HRS § 708-830.",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "pair_id": "2689daf4be5bdd42",
+   "condition": "clean",
+   "source": "fineweb-edu",
+   "question": "Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland's work?",
+   "reference": "Bob Seay and James David Jacobs",
+   "original_reply": "Bob Seay",
+   "edited_reply": "Bob Seay"
+  },
+  {
+   "pair_id": "2689daf4be5bdd42",
+   "condition": "retrieval_failure",
+   "source": "fineweb-edu",
+   "question": "Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland's work?",
+   "reference": "not stated in the context",
+   "original_reply": "John Morris and the French Revolution.",
+   "edited_reply": "not stated in the context"
+  }
+ ],
+ "overlap_pool": [
+  {
+   "id": "53:abs1",
+   "kind": "abs1",
+   "source": "case-law",
+   "question": "On what date was the order denying the writ of prohibition issued?",
+   "original_reply": "January 16, 2016",
+   "edited_reply": "not stated in the context"
+  },
+  {
+   "id": "147:del1",
+   "kind": "del1",
+   "source": "fineweb-edu",
+   "question": "What is the position of the centre of the larger circle described in relation to the equilateral triangle?",
+   "original_reply": "It is a moveable point on the hypotenuse.",
+   "edited_reply": "It is a moveable point on the hypotenuse."
+  },
+  {
+   "id": "194:del1",
+   "kind": "del1",
+   "source": "case-law",
+   "question": "Who presided over the tax assessment appeals for the Waikiki Shoreline Apartments?",
+   "original_reply": "The City and the county.",
+   "edited_reply": "Question: The City and County of Honolulu."
+  },
+  {
+   "id": "220:del1",
+   "kind": "del1",
+   "source": "fineweb-edu",
+   "question": "Does Patient DF demonstrate appropriate hand scaling when reaching for objects?",
+   "original_reply": "No, she cannot do it.",
+   "edited_reply": "No, she cannot do it."
+  },
+  {
+   "id": "3225:ans2",
+   "kind": "ans2",
+   "source": "sec",
+   "question": "Which specific financial statements are incorporated by reference into Item 8 for Stryker Corporation?",
+   "original_reply": "Stryker Corporation and subsidiaries",
+   "edited_reply": "Stryker Corporation and subsidiaries"
+  },
+  {
+   "id": "3225:del1",
+   "kind": "del1",
+   "source": "sec",
+   "question": "Which specific financial statements are incorporated by reference into Item 8 for Stryker Corporation?",
+   "original_reply": "Debtor's Amended and Restated Certificate of Incorporation.",
+   "edited_reply": "Debtor's Amended and Restated Certificate of Incorporation."
+  }
+ ]
+}

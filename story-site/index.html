@@ -562,7 +562,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <a class="brand" href="#">Harman Sandhu</a>
     <nav class="toplinks" aria-label="Site">
-      <a href="#play">Playground</a>
+      <a href="#playground">Playground</a>
       <a href="https://github.com/Ace-2504/wsp-study">Code</a>
     </nav>
   </div>
@@ -580,7 +580,7 @@ footer a{color:var(--muted)}
     <li><sup>5</sup>every gate pre-registered</li>
   </ul>
   <div class="btns">
-    <a class="pill" href="#play"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2.5v9l7-4.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Demo</a>
+    <a class="pill" href="#playground"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2.5v9l7-4.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Demo</a>
     <a class="pill dark" href="https://github.com/Ace-2504/wsp-study"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Code</a>
   </div>
 
@@ -619,7 +619,7 @@ footer a{color:var(--muted)}
     <a href="#path">Gate by gate</a>
     <a href="#idea">The idea</a>
     <a href="#how">How it works</a>
-    <a href="#play">Playground</a>
+    <a href="#playground">Playground</a>
     <a href="#says">The evidence</a>
     <span class="nums"><a href="#says">01</a><a href="#forgets">02</a><a href="#keywords">03</a><a href="#hybrids">04</a><a href="#recursion">05</a></span>
         <a href="#learned">What I learned</a>
@@ -727,7 +727,7 @@ footer a{color:var(--muted)}
   <h2>One neuron, <span class="hl">two eyes and a hand.</span></h2>
   <p class="lead">The neuron fires only when both eyes say yes. When it fires, the hand pushes the reply toward “not stated in the context”. Everything else in the model stays exactly as it was.</p>
   <ul class="nochips" aria-label="What the edit does without">
-    <li>built from edit_dev only</li><li>pre-registered before building</li><li>3 random controls</li><li>3 structured controls</li><li>originals hash-locked</li>
+    <li>built from edit_dev only</li><li>pre-registered before building</li><li>3 random controls</li><li>write-only and ablation controls</li><li>originals hash-locked</li>
   </ul>
   <div class="card player">
     <div class="ph">
@@ -772,10 +772,10 @@ footer a{color:var(--muted)}
 </section>
 
 <!-- PLAYGROUND -->
-<section id="play" class="wrap">
+<section id="playground" class="wrap">
   <p class="kick">Playground</p>
   <h2>Ask both models <span class="hl">the same question.</span></h2>
-  <p class="lead">Pick a question and what its context holds, then press Ask. The two models are identical except for three vectors in layer 7. Every reply below is the model’s real output.</p>
+  <p class="lead">Pick a question and what its context holds, then press Ask. The two models are identical except for three vectors in layer 7. Every reply below is the model’s real output; the items are listed in <code>docs/site_examples.json</code> in the repo.</p>
   <div class="card pg" role="group" aria-label="Playground: compare the original and edited model on real questions">
     <div class="pg-top">
       <div class="pg-row"><span>Question</span>
@@ -788,7 +788,7 @@ footer a{color:var(--muted)}
       <div class="pg-row"><span>Context</span>
         <div class="etabs" role="group" aria-label="What the context holds" id="cbtns" style="margin:0">
           <button type="button" data-c="in" aria-selected="true">Answer in the context</button>
-          <button type="button" data-c="out" aria-selected="false" id="cout">Answer removed</button>
+          <button type="button" data-c="out" aria-selected="false" id="cout">Answer not in the context</button>
         </div>
         <div class="pg-ask"><button type="button" class="go" id="pgask">Ask both models</button><button type="button" id="pgreset">Reset</button></div>
       </div>
@@ -815,11 +815,11 @@ footer a{color:var(--muted)}
     <div class="pg-say" id="pgsay" aria-live="polite"></div>
     <div class="whole2">
       <h4>Across the whole test<small>How often each model says “not stated in the context”</small></h4>
-      <div class="wr"><div>Answer removed from the context<small>500 exam questions · should say it</small></div>
+      <div class="wr"><div>Answer not in the context<small>500 exam questions · should say it</small></div>
         <div><div class="wb"><span>Original</span><span class="tr"><i style="width:0%"></i></span><b>0 · 0%</b></div><div class="wb"><span>Edited</span><span class="tr"><i style="width:72.4%;background:var(--teal)"></i></span><b>362 · 72.4%</b></div></div></div>
       <div class="wr"><div>Answer in the context<small>1,000 exam questions (clean + realistic) · should not say it</small></div>
         <div><div class="wb"><span>Original</span><span class="tr"><i style="width:0%"></i></span><b>0 · 0%</b></div><div class="wb"><span>Edited</span><span class="tr"><i style="width:6.2%;background:var(--peach)"></i></span><b>62 · 6.2%</b></div></div></div>
-      <div class="wr"><div>Answer sentence deleted, wording kept<small>454 keyword-matched pool items · should say it</small></div>
+      <div class="wr"><div>Answer sentence deleted, wording kept<small>454 one-passage items from the keyword-matched pool · should say it</small></div>
         <div><div class="wb"><span>Original</span><span class="tr"><i style="width:0%"></i></span><b>0 · 0%</b></div><div class="wb"><span>Edited</span><span class="tr"><i style="width:8.8%;background:var(--teal)"></i></span><b>40 · 8.8%</b></div></div></div>
       <p class="cap" style="margin:0">The first two rows are the frozen 2,000-question exam. The last row is the held-out keyword-matched pool.</p>
     </div>
@@ -830,9 +830,9 @@ footer a{color:var(--muted)}
 <section id="says" class="wrap">
   <p class="kick">The evidence <span>Finding 01</span></p>
   <h2>It learns to say “not stated.”</h2>
-  <p class="lead">On the frozen exam, the answer sentence was removed from 500 questions. The original model answered every one of them. The edited model said “not stated in the context” on 362.</p>
+  <p class="lead">On the frozen exam, 500 questions come with a context of unrelated passages only, so the answer is not there. The original model answered every one of them. The edited model said “not stated in the context” on 362.</p>
   <div class="card ex-main">
-    <p class="ex-q">One exam question whose answer was removed, same decoding for both models</p>
+    <p class="ex-q">One exam question whose context does not hold the answer, same decoding for both models</p>
     <p>“How many servers did The New York Times estimate were housed in Google’s facilities?”</p>
     <div class="pair">
       <div class="side bad"><h4>Original model</h4><div class="out">It was estimated to be over 16 million.</div><div class="v"><b>Answers anyway.</b> The answer is not in the context.</div></div>
@@ -841,7 +841,7 @@ footer a{color:var(--muted)}
   </div>
   <div class="ex-grid">
     <article class="card ex-sm">
-      <p>What portion of PBI’s consolidated revenue in 1993 came from sales to PBCC for third-party leasing?</p>
+      <p>What portion of PBI’s consolidated revenue in 1993 originated from sales made to PBCC for third-party leasing?</p>
       <div class="side bad"><h4>Original model</h4><div class="out">$6,419,000</div></div>
       <div class="side good"><h4>After the edit</h4><div class="out">not stated in the context</div><div class="v"><b>Correct</b></div></div>
     </article>
@@ -890,7 +890,7 @@ footer a{color:var(--muted)}
     <div class="scroll-x"><svg id="forgetchart" viewBox="0 0 900 370" role="img" aria-label="Worst forgetting per arm on a log scale. AND-gate 0.011%, self-recursion 0.015%, editors 0.33 to 0.43%, random search 0.40%, single neuron v1 1.72%, full fine-tuning 5.86%, LoRA 8.87%. Budget 0.5%."></svg></div>
     <div class="legend"><span><i style="background:var(--teal-soft);border:1px solid var(--teal)"></i>pure weight programming</span><span><i style="background:var(--blue-soft);border:1px solid var(--blue)"></i>hybrid: gate + slice of a fine-tune</span><span><i style="background:var(--peach-soft);border:1px solid var(--peach)"></i>over the budget</span></div>
   </div>
-  <p class="cap">Relative increase in next-token loss, worst of five held-out text sets. “Single neuron, v1” is my first neuron edit, before it had a second eye.</p>
+  <p class="cap">Relative increase in next-token loss, worst of five held-out text sets. “Single neuron v1” is my first neuron edit, before it had a second eye; it never reached held-out testing, so its number is from the dev fold. LoRA is its fast-subset worst case (+8.78% on the full held-out set). The fine-tuning runs tried two learning rates each (docs/07, docs/15); none was tuned specifically to stay inside the forgetting budget.</p>
   <div class="card chart" style="margin-top:16px">
     <h4>Forgetting by kind of text</h4>
     <p class="sub">Three text sets, three ways to add the habit. Log scale; whiskers on my edit are 95% intervals.</p>
@@ -901,7 +901,7 @@ footer a{color:var(--muted)}
     <span><b>95.5%</b>verbatim copy kept (bar 93%)</span>
     <span><b>3.3%</b>overall weight change (limit 5%)</span>
     <span><b>0</b>abstention change from the ablation control (neuron zeroed, nothing written)</span>
-    <span><b>0</b>abstentions from 3 random edits of the same size</span>
+    <span><b>0</b>abstention gain from 3 random edits of the same size</span>
   </div>
   <p class="cap">LoRA per-set numbers are from its full held-out run; the +8.87% above is its fast-subset worst case.</p>
   <p class="pull">That is 500–800 times less forgetting than LoRA or full fine-tuning.</p>
@@ -940,14 +940,14 @@ footer a{color:var(--muted)}
   <details class="more">
     <summary>How I measured the keyword effect</summary>
     <div class="card body">
-      <p>I built a test set where “answer missing” and “answer present” contexts share the same amount of wording with the question. Before matching, word overlap alone separates them almost perfectly (AUROC 0.966). After matching it can’t (0.502, a coin flip).</p>
+      <p>I built a test set where “answer missing” and “answer present” contexts share the same amount of wording with the question. Before matching, word overlap alone separates them almost perfectly (AUROC 0.965 on the held-out seeds). After matching it can’t (0.503, a coin flip).</p>
       <p>D is how much more often the model abstains when the answer is missing than when it is present. A D of 0.72 that falls to 0.12 once overlap is matched means most of the signal was overlap.</p>
       <table class="mini-tbl">
         <thead><tr><th>Model</th><th style="text-align:right">D, normal pool</th><th style="text-align:right">D, overlap matched</th></tr></thead>
         <tbody>
           <tr><td>AND-gate edit</td><td class="n">0.720</td><td class="n">0.122</td></tr>
           <tr><td>Self-recursion θ₂</td><td class="n">—</td><td class="n">0.170</td></tr>
-          <tr><td>Full fine-tuning</td><td class="n">—</td><td class="n">0.254</td></tr>
+          <tr><td>Full fine-tuning</td><td class="n">0.862</td><td class="n">0.254</td></tr>
           <tr><td>LoRA</td><td class="n">0.882</td><td class="n">0.263</td></tr>
         </tbody>
       </table>
@@ -977,7 +977,7 @@ footer a{color:var(--muted)}
 <section id="hybrids" class="wrap">
   <p class="kick">The evidence <span>Finding 04</span></p>
   <h2>Hybrids pass. <span class="hl">So does chance.</span></h2>
-  <p class="lead">I gave three AI editors (Claude agents) the same menu of edits: my gate, plus scaled slices of the fine-tuning changes. Each had 18 evaluations and saw only development scores. Then I ran the same menu with a random picker.</p>
+  <p class="lead">I gave three AI editors (Claude agents) the same menu of edits: my gate, plus scaled slices of the fine-tuning changes. Each had a budget of 18 evaluations (B and C used 17) and saw only development scores. Then I ran the same menu with a random picker.</p>
   <div class="card chart">
     <div class="etabs" role="tablist" aria-label="Which search">
       <button type="button" role="tab" aria-selected="true" data-e="A">Editor A</button>
@@ -996,7 +996,7 @@ footer a{color:var(--muted)}
     <div class="ed"><div class="who"><i class="c-teal">C</i><div><b>Editor C</b><small>passes the exam</small></div></div><div class="nums">abstains <b>+0.87</b> · clean F1 <b>+0.01</b><br>forgetting <b>+0.43%</b></div><q>Stacking a layer-5 gate hurt badly (abs gain 0.32). Go back to the step-7 base…</q></div>
     <div class="ed rand"><div class="who"><i class="c-peach">R</i><div><b>Random R1</b><small>passes the exam</small></div></div><div class="nums">abstains <b>+0.80</b> · clean F1 <b>+0.02</b><br>forgetting <b>+0.40%</b></div><q>random search R1, seed 1</q></div>
   </div>
-  <p class="cap">Quotes are the editors’ own notes, written before each try. The random picker’s whole “reasoning” is its seed. Exam numbers are changes against the original model.</p>
+  <p class="cap">Quotes are the editors’ own notes from an intermediate try (A and B: try 14, C: try 11), written before that try; the exam numbers are for each run’s final edit. The random picker’s whole “reasoning” is its seed. Exam numbers are changes against the original model.</p>
   <div class="twocol">
     <div class="card chart">
       <h4>The menu every searcher shared</h4>
@@ -1047,7 +1047,7 @@ footer a{color:var(--muted)}
   <p class="lead">Full fine-tuning changes every tensor; LoRA adds adapters on every layer. My edit is a separate delta file holding three vectors, and the originals stay hash-locked.</p>
   <div class="where">
     <div class="card">
-      <h3>Fine-tuning</h3><p class="sub">every tensor changes (full fine-tuning)</p>
+      <h3>Fine-tuning</h3><p class="sub">every tensor (full fine-tuning) or adapters on every layer (LoRA)</p>
       <svg viewBox="0 0 400 120" aria-hidden="true" id="spreadsvg"></svg>
       <p class="cap" style="margin:0">Exam abstention 92–93%, forgetting +5.86% to +8.87%.</p>
     </div>
@@ -1101,7 +1101,7 @@ footer a{color:var(--muted)}
 <footer>
   <div class="wrap">
     <span>Weight-Space Programming study · Harman Sandhu · built on my own 125M model</span>
-    <span><a href="#play">Playground</a> · <a href="https://github.com/Ace-2504/wsp-study">Code</a> · <a href="https://github.com/Ace-2504">GitHub</a></span>
+    <span><a href="#playground">Playground</a> · <a href="https://github.com/Ace-2504/wsp-study">Code</a> · <a href="https://github.com/Ace-2504">GitHub</a></span>
   </div>
 </footer>
 
@@ -1146,7 +1146,7 @@ footer a{color:var(--muted)}
 
   /* ---------- section nav ---------- */
   var links=[].slice.call(document.querySelectorAll('.snav a[href^="#"]'));
-  var ids=['results','path','idea','how','play','says','forgets','keywords','hybrids','recursion','learned','limits'];
+  var ids=['results','path','idea','how','playground','says','forgets','keywords','hybrids','recursion','learned','limits'];
   var ev={says:1,forgets:1,keywords:1,hybrids:1,recursion:1};
   function spy(){
     var y=window.scrollY+120, cur=null;
@@ -1172,7 +1172,7 @@ footer a{color:var(--muted)}
     ['AND-gate','docs/13','Second eye','A second detector, fit to read 1 at the reply start and 0 elsewhere, cuts misfires on raw text from 1.14% to 0.02%. Abstention +0.737 held out, forgetting at most +0.011%.','pass','passes held out'],
     ['Overlap pool','docs/14','What it reads','On a pool where word overlap can’t help, its signal falls from 0.72 to 0.12. Mostly keywords.','mixed','overlap-dominated'],
     ['Full FT','docs/15','Every weight','Full fine-tuning: +0.96 abstention, and +5.86% forgetting. Fails the same guardrail as LoRA.','fail','over the forgetting budget'],
-    ['Editors','docs/16','AI editors','Three Claude agents, 18 evaluations each, all beat my hand-built grid by mixing the gate with a slice of a fine-tune.','pass','3 of 3 beat it'],
+    ['Editors','docs/16','AI editors','Three Claude agents, a budget of 18 evaluations each, all beat my hand-built grid by mixing the gate with a slice of a fine-tune.','pass','3 of 3 beat it'],
     ['Random','docs/17','A control','A random picker over the same menu also beat the grid on its first run. The menu was enough.','mixed','menu suffices'],
     ['Recursion','docs/18','Do it again','A second neuron on the remaining failures: +0.868 abstention, but clean F1 missed the bar by 0.002.','fail','degrades'],
     ['Final exam','docs/19','Frozen test','The 2,000 untouched questions. My pure edit misses clean F1 by 0.010; the hybrids pass; gains transfer at 97–107%.','mixed','hybrids pass']
@@ -1200,7 +1200,7 @@ footer a{color:var(--muted)}
       ['Eye 1','gate row','c-blue','does the answer look missing?','A logistic absence probe w on x̂, the input to the MLP. Positives: the last prompt token of edit_dev items whose answer is missing. Negatives: the same token on answerable items, plus generic prompt positions from 2,000 edit_dev items. Gate row = S · (w − τ·c).','768 numbers · <b>gate row</b>'],
       ['Eye 2','up row','c-teal','is the reply starting?','In version 1 this row was a constant, and the neuron misfired inside ordinary text. Now it is a weighted ridge detector r, fit to read 1 at the reply start and 0 on prompt text, template tokens, reply tokens and raw text outside the chat template.','fires on raw text <b>1.14% → 0.02%</b>'],
       ['The hand','down column','c-amber','what to write','With the model frozen, projected Adam (300 steps, batch 16) finds a vector δ that, added at the last prompt token, maximises log P(“not stated in the context”) on edit_dev missing-answer items. Its norm is capped at ρ × the layer’s rms residual norm. Down column = δ / m.','768 numbers · <b>down column</b>'],
-      ['The tests decide','held out','c-rose','keep or drop','A safety gate (≤25% change per tensor, ≤5% overall), then a 12-configuration grid on the dev fold, then 3,378 held-out questions against the guardrails, then the frozen exam. Selected: block 6, ρ 1, τ 0.','held out <b>+73.7%</b> · exam <b>+72.4%</b>']
+      ['The tests decide','held out','c-rose','keep or drop','A safety gate (≤25% change per tensor, ≤5% overall, activations at most 2× larger, check-text loss at most +10%), then a 12-configuration grid on the dev fold, then 3,378 missing-answer and 3,378 answerable held-out questions against the guardrails, then the frozen exam. Selected: block 6, ρ 1, τ 0.','held out <b>+73.7%</b> · exam <b>+72.4%</b>']
     ]},
     editor:{note:'Editor A, a Claude agent, in its own notes',steps:[
       ['Try 1','baseline','c-peach','its plan','“Baseline probe: single AND-gate at layer 6, mid rho, no threshold, unit gain, to see how much abstention and matched-pool discrimination the probe direction gives.”','abstains <b>+0.524</b> · D <b>0.091</b> · passes'],
@@ -1220,7 +1220,7 @@ footer a{color:var(--muted)}
       var e=EDV[step];
       if(e[2]===-1){box.innerHTML='<div class="vc" style="font-size:14px">The safety gate stopped this try before it ran: one weight matrix would have changed by more than 25%.</div>';return;}
       box.innerHTML=vbar('abstains',e[0],1,'+'+e[0].toFixed(3),'var(--teal-soft)')+vbar('D beyond keywords',e[1],0.3,e[1].toFixed(3),'var(--blue-soft)')+
-        '<div class="vc">hand-built edit: D <b>0.122</b></div><div class="vc"><span class="verdict '+(e[2]?'pass':'fail')+'">'+(e[2]?'passes every guardrail':'fails a guardrail')+'</span></div>';return;
+        '<div class="vc">hand-built edit, same dev pool: D <b>0.139</b></div><div class="vc"><span class="verdict '+(e[2]?'pass':'fail')+'">'+(e[2]?'passes every guardrail':'fails a guardrail')+'</span></div>';return;
     }
     var k=HV[step];
     if(k==='dots'){var h='<div class="mdots">';for(var q=0;q<100;q++)h+='<i></i>';box.innerHTML=h+'</div><div class="vc">each dot is 5 questions · <b>0 / 500</b> said “not stated”</div>';}
@@ -1385,7 +1385,7 @@ footer a{color:var(--muted)}
   /* ---------- forgetting chart (log) ---------- */
   function forgetChart(){
     var svg=$('forgetchart');svg.innerHTML='';
-    var rows=[['AND-gate edit (mine)',0.011,'ok'],['Self-recursion θ₂',0.015,'ok'],['Editor B',0.33,'mid'],['Editor A',0.35,'mid'],['Random search R1',0.40,'mid'],['Editor C',0.43,'mid'],['Single neuron, v1',1.72,'bad'],['Full fine-tuning',5.86,'bad'],['LoRA',8.87,'bad']];
+    var rows=[['AND-gate edit (mine)',0.011,'ok'],['Self-recursion θ₂',0.015,'ok'],['Editor B',0.33,'mid'],['Editor A',0.35,'mid'],['Random search R1',0.40,'mid'],['Editor C',0.43,'mid'],['Single neuron v1 (dev fold)',1.72,'bad'],['Full fine-tuning',5.86,'bad'],['LoRA',8.87,'bad']];
     var L=200,R=840,T=26,rh=34,lo=Math.log10(0.005),hi=Math.log10(20);
     function X(v){return L+(R-L)*(Math.log10(v)-lo)/(hi-lo);}
     [0.01,0.1,1,10].forEach(function(v){svg.appendChild(el('line',{x1:X(v),x2:X(v),y1:T-6,y2:T+rows.length*rh,class:'ax'}));svg.appendChild(el('text',{x:X(v),y:T+rows.length*rh+18,'text-anchor':'middle',class:'axt'},v+'%'));});
@@ -1414,8 +1414,8 @@ footer a{color:var(--muted)}
     var L=70,R=860,T=30,B=250,ymax=0.3;
     function X(k){return L+(R-L)*k/17;} function Y(v){return B-(B-T)*Math.max(0,v)/ymax;}
     [0,0.1,0.2,0.3].forEach(function(v){svg.appendChild(el('line',{x1:L,x2:R,y1:Y(v),y2:Y(v),class:'ax'}));svg.appendChild(el('text',{x:L-10,y:Y(v)+4,'text-anchor':'end',class:'axt'},v.toFixed(1)));});
-    svg.appendChild(el('line',{x1:L,x2:R,y1:Y(0.122),y2:Y(0.122),class:'ref'}));
-    svg.appendChild(el('text',{x:R,y:Y(0.122)-7,'text-anchor':'end',class:'reft'},'my hand-built edit, 0.122'));
+    svg.appendChild(el('line',{x1:L,x2:R,y1:Y(0.139),y2:Y(0.139),class:'ref'}));
+    svg.appendChild(el('text',{x:R,y:Y(0.139)-7,'text-anchor':'end',class:'reft'},'my hand-built edit on the same dev pool, 0.139'));
     var bs=-1,pts=[],bi=-1;D.forEach(function(v,k){if(v!=null&&P[k]===1&&v>bs){bs=v;bi=k;}if(bs>=0)pts.push([X(k),Y(bs)]);});
     var sp='';pts.forEach(function(p,m){sp+=(m?' L':'M')+p[0]+' '+(m?pts[m-1][1]:p[1])+(m?' L'+p[0]+' '+p[1]:'');});
     if(sp)svg.appendChild(el('path',{d:sp,class:'ln',opacity:.55}));
@@ -1473,9 +1473,9 @@ footer a{color:var(--muted)}
     {btn:'Hide the keyword clue',vec:[1,1,1],cell:2,title:'How often it says “not stated”',sub:'3,378 held-out questions per bar',
      rows:[['Answer missing',73.7,'good'],['Answer present',3.5,'bad']],f1:'−0.007',
      text:'The selected edit, with the real absence probe as eye 1: <b>73.7%</b> on missing-answer questions against <b>3.5%</b> on answerable ones.'},
-    {btn:'Done',vec:[1,1,1],cell:2,title:'Same edit, overlap-matched pool',sub:'missing vs present now share the same wording',
-     rows:[['Answer missing: a different passage',51.5,'good'],['Answer missing: right passage, answer sentence deleted',8.8,'good'],['Answer present',3.4,'bad']],f1:null,
-     text:'Now keep the right passage and delete only the answer sentence, so the wording still matches the question. It catches just <b>8.8%</b>. The first eye was mostly reading shared words.'}
+    {btn:'Done',vec:[1,1,1],cell:2,title:'Same edit, overlap-matched pool',sub:'missing vs present now share the same wording · 1-passage items',
+     rows:[['Answer missing: a different passage',51.5,'good'],['Answer missing: right passage, answer sentence deleted (1 passage)',8.8,'good'],['Answer present',3.4,'bad']],f1:null,
+     text:'Now keep the right passage and delete only the answer sentence, so the wording still matches the question. It catches just <b>8.8%</b> (11.8% with two passages). The first eye was mostly reading shared words.'}
   ];
   var ds=0;
   function drawGrid(){
@@ -1515,14 +1515,14 @@ footer a{color:var(--muted)}
 
   /* ---------- native playground (real outputs from wsp_runs) ---------- */
   var PQ={
-    copland:{q:'Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland’s work?',outLabel:'Answer removed',
+    copland:{q:'Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland’s work?',outLabel:'Answer not in the context',
       in:{ctx:'<mark>Bob Seay</mark> of WGBH News and <mark>James David Jacobs</mark> of Classical New England consider the odd history and captivating power of Aaron Copland’s Lincoln Portrait. …',
           b:['Bob Seay','mid','Half right · token F1 0.5'],a:['Bob Seay','mid','Half right · token F1 0.5'],
           say:'Both models give the same partial answer; the reference is “Bob Seay and James David Jacobs”. With the answer present, the edit leaves the reply unchanged.'},
       out:{ctx:'Guest blogger Jon Bowermaster is a writer and filmmaker. His most recent documentary is “SoLa, Louisiana Water Stories” … wanders the fish stalls of their favorite grocer …<br>… Envoy to the Terror: Gouverneur Morris and the French Revolution. By Melanie Randolph Miller … <del>passages without the answer</del>',
           b:['John Morris and the French Revolution.','bad','Answers anyway'],a:['not stated in the context','good','Correct'],
           say:'The original model builds an answer from words in the second passage, which is about something else. The edited model replies <b>“not stated in the context”</b>, which is the reference answer.'}},
-    sherlock:{q:'What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?',outLabel:'Answer removed',
+    sherlock:{q:'What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?',outLabel:'Answer not in the context',
       in:{ctx:'… should Lee find himself before Judge Sherlock again, the remedies provided by the disqualification statutes, <mark>KRS® 26A.015 and 26A.020</mark>, remain available to him as does future direct appeal. …',
           b:['KRS 26A.015 and 26A.020.','good','Correct'],a:['KRS 26A.015 and 26A.020.','good','Correct'],
           say:'Both models answer correctly. With the answer present, the edited model gives the same reply as the original.'},
@@ -1535,7 +1535,7 @@ footer a{color:var(--muted)}
           say:'Both models give the same wrong answer; the reference lists the balance sheet, statement of earnings, stockholders’ equity and cash flows.'},
       out:{ctx:'… JOHN S. LILLARD 3/18/94 WILLIAM U. PARFET 3/18/94 John S. Lillard - Director William U. <del>answer sentence deleted; the rest of the filing is kept</del>',
           b:['Debtor’s Amended and Restated Certificate of Incorporation.','bad','Answers anyway'],a:['Debtor’s Amended and Restated Certificate of Incorporation.','bad','Answers anyway'],
-          say:'The answer sentence is gone but the filing still shares the question’s words. <b>Both models answer anyway.</b> This is the keyword weakness: on this pool the edit says “not stated” on only 8.8%.'}}
+          say:'The answer sentence is gone but the filing still shares the question’s words. <b>Both models answer anyway.</b> This is the keyword weakness: on this pool the edit says “not stated” on only 9–12% of deleted-answer items.'}}
   };
   var pq='copland',pc='in',pgBusy=false,pgTimers=[];
   ['stk-b','stk-a'].forEach(function(id){var e=$(id);for(var k=1;k<=12;k++){var i=document.createElement('i');if(id==='stk-a'&&k===7)i.className='ed';i.title='layer '+k;e.appendChild(i);}});

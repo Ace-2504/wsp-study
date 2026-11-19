@@ -56,8 +56,9 @@ almost nothing, so it acts as an AND.
 4. **The hand** (docs/12). With the model frozen, projected Adam (300 steps, batch 16) finds a vector
    δ that maximises log P("not stated in the context") at the last prompt token, with its norm capped.
    Down column = δ / m.
-5. **The tests decide.** A safety gate (≤ 25% change per tensor, ≤ 5% overall), a 12-configuration
-   grid on the dev fold, 3,378 held-out questions against the guardrails, then the frozen exam.
+5. **The tests decide.** A safety gate (≤ 25% change per tensor, ≤ 5% overall, activations at most
+   2× larger, check-text loss at most +10%), a 12-configuration grid on the dev fold, 3,378
+   missing-answer and 3,378 answerable held-out questions against the guardrails, then the frozen exam.
 
 ## Gate by gate
 
@@ -71,11 +72,11 @@ prediction that failed is recorded as failed.
 | Read the output | docs/09 | No lean toward "not stated" in the output: AUROC 0.42. | no signal |
 | Read the inside | docs/10 | A probe on hidden states separates missing from present (layer-5 AUROC about 0.95). | present |
 | Rank-1 edit | docs/11 | +0.19 abstention; failed clean F1, fabrication and SEC forgetting. | negative |
-| One neuron | docs/12 | +0.726 abstention, but SEC forgetting +1.72%. | SEC forgetting |
+| One neuron | docs/12 | +0.726 abstention on the dev fold, but SEC forgetting +1.72%. | SEC forgetting |
 | AND-gate | docs/13 | Second eye added: +0.737 held out, forgetting at most +0.011%. | passes held out |
 | Overlap pool | docs/14 | With overlap matched, the signal falls from 0.72 to 0.12. | overlap-dominated |
 | Full fine-tune | docs/15 | +0.96 abstention and +5.86% forgetting. | over the forgetting budget |
-| AI editors | docs/16 | Three Claude agents, 18 evaluations each, all beat the hand-built grid. | 3 of 3 beat it |
+| AI editors | docs/16 | Three Claude agents, a budget of 18 evaluations each, all beat the hand-built grid. | 3 of 3 beat it |
 | Random search | docs/17 | A random picker over the same menu also beat the grid on its first run. | menu suffices |
 | Recursion | docs/18 | A second neuron: +0.868 abstention, but clean F1 missed the bar by 0.002. | degrades |
 | Final exam | docs/19 | The pure edit misses clean F1 by 0.010; the hybrids pass; gains transfer at 97–107%. | hybrids pass |
@@ -94,6 +95,9 @@ Frozen exam, paired against θ_qa:
 | AI editors A / B / C | gate + slice of a fine-tune change | +0.91 / +0.87 / +0.87 | +0.00 / +0.06 / +0.01 | +0.35 / +0.33 / +0.43% | yes |
 | Random search R1 | gate + slice of a fine-tune change | +0.804 | +0.023 | +0.40% | yes |
 
+LoRA's +8.87% is its worst case on the fast held-out subset; on the full held-out set it is +8.78%
+(docs/07). Forgetting and copy were measured on held-out text, not on the exam.
+
 The habit transferred to the untouched exam almost exactly: +72.4% there against +73.7% held out.
 The cost: the edit also says "not stated" on 4.6% of clean exam questions, where the answer is in the
 context.
@@ -102,13 +106,14 @@ context.
 
 Forgetting is the relative increase in next-token loss on held-out SEC filings, case law and web text.
 The edit's worst set is +0.011%, inside the +0.5% budget. Full fine-tuning (+5.86%) and LoRA (+8.87%)
-are both over it: 500–800 times more forgetting.
+are both over it: 500–800 times more forgetting. The fine-tuning runs tried two learning rates each (docs/07,
+docs/15); none was tuned specifically to stay inside the forgetting budget.
 
 ### 03 · It mostly reads keywords
 
 On a pool where "answer missing" and "answer present" contexts share the same amount of wording with
 the question, the edit's discrimination falls from 0.72 to 0.12. When the right passage is kept and
-only the answer sentence is deleted, it says "not stated" on just 8.8%. The model's own signal for
+only the answer sentence is deleted, it says "not stated" on just 9–12%. The model's own signal for
 "answer present" beyond overlap is weak: a probe reaches AUROC 0.64.
 
 ### 04 · Hybrids pass. So does chance
@@ -153,7 +158,7 @@ held-out abstention 73.7% → 86.8%, but false refusals 3.5% → 10.8%, and the 
 |---|---|
 | `docs/` | Pre-registrations and results (Part A and Part B of each gate), final report, figures |
 | `src/wsp/` | All study code: harness, edit engine, safety gate, every experiment |
-| `wsp_runs/` | Result files only (`*_numbers.json`, tables, selections). Weights, deltas and per-item generations are not published (size). |
+| `wsp_runs/` | Result files only (`*_numbers.json`, tables, selections). Weights, deltas and per-item generations are not published (size); the items shown on the study page are in `docs/site_examples.json`. |
 | `story-site/` | The study page deployed at the live link |
 | `site/` | The earlier playground page |
 | `splits/` | Split manifests (rules, counts, hashes) |
@@ -167,5 +172,5 @@ held-out abstention 73.7% → 86.8%, but false refusals 3.5% → 10.8%, and the 
 ## Ground rules followed
 
 - The original checkpoints were hash-locked and never modified. Every arm is a separate delta file.
-- Every number has a bootstrap 95% CI.
+- Reported rates and paired deltas carry bootstrap 95% CIs in the reports.
 - No editing decision used the final exam.
