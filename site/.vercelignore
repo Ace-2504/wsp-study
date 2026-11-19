@@ -1,3 +1,5 @@
 Deploy-to-Vercel.bat
 one-neuron.html
 _preview.html
+.env*
+.vercel
