@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="I rewired one neuron in a 125M legal QA model so it says not stated in the context when the answer is missing. A playground with real test questions.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<title>Harman One Neuron</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow reading column; the playground is the single dark "instrument" panel. */
+:root{
+  --bg:#F5F6F7; --surface:#FFFFFF; --sunk:#EEF0F2; --ink:#17202A; --muted:#56616C; --faint:#87919B;
+  --line:#DDE1E5; --line-strong:#C9CFD5;
+  --accent:#D9481F; --accent-ink:#FFFFFF; --accent-soft:#FCE9E2;
+  --ok:#1C7A4B; --ok-soft:#E2F2E9; --bad:#B42318; --bad-soft:#FBE6E3;
+  --panel:#0F1419; --panel-2:#161D24; --panel-3:#1C242C; --panel-line:#2A3440; --panel-ink:#E7ECF0; --panel-muted:#8E9CA9;
+  --c-green:#6FD39A; --c-amber:#F4B860; --c-coral:#FF8A65; --c-red:#FF7B72; --c-blue:#6CB4FF;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(15,20,25,.05),0 8px 24px -12px rgba(15,20,25,.12);
+  --gut-l:max(16px, env(safe-area-inset-left, 0px)); --gut-r:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1216; --surface:#151B21; --sunk:#11161B; --ink:#E6EAEE; --muted:#A3AEB9; --faint:#7C8894;
+    --line:#26303A; --line-strong:#34404C;
+    --accent:#FF7A50; --accent-ink:#1A0D08; --accent-soft:#3A1F17;
+    --ok:#6FD39A; --ok-soft:#15301F; --bad:#FF8A7A; --bad-soft:#3A1A17;
+    --panel:#0A0E12; --panel-2:#12181E; --panel-3:#182028; --panel-line:#24303B;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1216; --surface:#151B21; --sunk:#11161B; --ink:#E6EAEE; --muted:#A3AEB9; --faint:#7C8894;
+  --line:#26303A; --line-strong:#34404C;
+  --accent:#FF7A50; --accent-ink:#1A0D08; --accent-soft:#3A1F17;
+  --ok:#6FD39A; --ok-soft:#15301F; --bad:#FF8A7A; --bad-soft:#3A1A17;
+  --panel:#0A0E12; --panel-2:#12181E; --panel-3:#182028; --panel-line:#24303B;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+p{margin:0 0 16px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:22px;min-height:56px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;letter-spacing:.01em;font-size:14.5px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand-mark{width:22px;height:22px;border-radius:6px;background:var(--panel);display:grid;place-items:center;color:var(--c-coral);font-family:var(--mono);font-size:11px;font-weight:700}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;font-weight:600;padding-block:6px}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-size:13px;font-weight:700;text-decoration:none;background:var(--ink);color:var(--bg);padding:7px 13px;border-radius:8px;white-space:nowrap}
+@media (max-width:640px){.nav-cta{display:none}}
+
+/* hero */
+.hero{padding-block:64px 8px}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:0 0 16px}
+h1{font-size:clamp(52px,10vw,100px);line-height:.92;letter-spacing:-.045em;font-weight:900;margin:0 0 20px}
+h1 span{color:var(--accent)}
+.tagline{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.02em;line-height:1.25;margin:0 0 16px;max-width:30ch;text-wrap:balance}
+.lede{font-size:clamp(17px,2vw,19px);line-height:1.6;color:var(--muted);max-width:60ch;margin:0 0 26px}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;text-decoration:none;border-radius:10px;padding:11px 18px;border:1px solid transparent;line-height:1.2}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{border-color:var(--ink)}
+.byline{font-size:13px;color:var(--faint);margin:18px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:40px;box-shadow:var(--shadow)}
+.stat{background:var(--surface);padding:18px 20px;min-width:0}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.025em;font-variant-numeric:tabular-nums;line-height:1.15}
+.stat span{font-size:13.5px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* sections */
+section{padding-block:72px 4px;scroll-margin-top:64px}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin:0 0 10px}
+h2{font-size:clamp(30px,4.6vw,44px);line-height:1.06;letter-spacing:-.03em;font-weight:800;margin:0 0 14px;text-wrap:balance}
+h2 em{font-style:normal;color:var(--faint);font-weight:700}
+.intro{color:var(--muted);max-width:62ch;margin-bottom:22px}
+
+/* playground */
+.lab{background:var(--panel);color:var(--panel-ink);border-radius:18px;overflow:hidden;border:1px solid var(--panel-line)}
+.idea{margin:0;padding:14px 18px;background:var(--panel-2);border-bottom:1px solid var(--panel-line);font-size:15px;line-height:1.6}
+.idea b{color:var(--c-coral)}
+.lab-ctl{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;padding:14px 18px;border-bottom:1px solid var(--panel-line);background:var(--panel-2)}
+.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ctl>span{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--panel-muted)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font-size:13.5px;background:var(--panel-3);color:var(--panel-ink);border:1px solid var(--panel-line);border-radius:8px;padding:7px 12px}
+.seg button:hover{border-color:var(--panel-muted)}
+.seg button[aria-pressed="true"]{background:var(--c-coral);border-color:var(--c-coral);color:#1A0D08;font-weight:700}
+.pg-btns{display:flex;gap:8px;margin-left:auto}
+@media (max-width:700px){.pg-btns{margin-left:0}}
+.pbtn{background:var(--panel-3);color:var(--panel-ink);border:1px solid var(--panel-line);border-radius:8px;padding:7px 14px;font-size:13.5px;font-weight:700}
+.pbtn:hover{border-color:var(--panel-muted)}
+.pbtn.go{background:var(--c-coral);color:#1A0D08;border-color:var(--c-coral)}
+
+.qcard{padding:16px 18px;border-bottom:1px solid var(--panel-line);display:grid;gap:10px}
+.qdoc{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--panel-muted);background:var(--panel-2);border:1px solid var(--panel-line);border-radius:10px;padding:10px 12px}
+.qdoc b{color:var(--panel-ink);font-weight:500}
+.qdoc mark{background:rgba(111,211,154,.18);color:var(--c-green);padding:0 2px;border-radius:3px}
+.qdoc s{color:var(--c-red);text-decoration-thickness:1px}
+.qq{font-size:16.5px;font-weight:700;line-height:1.45}
+.qq span{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--panel-muted);font-weight:700;margin-bottom:2px}
+
+.lanes{display:grid;grid-template-columns:1fr 1fr}
+@media (max-width:760px){.lanes{grid-template-columns:1fr}}
+.lane{min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--panel-line)}
+.lane:last-child{border-right:0}
+@media (max-width:760px){.lane{border-right:0;border-bottom:1px solid var(--panel-line)}.lane:last-child{border-bottom:0}}
+.lane-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:12px 16px;border-bottom:1px solid var(--panel-line)}
+.lane-h b{font-size:14.5px}
+.lane-h span{font-size:12px;color:var(--panel-muted)}
+.lane.after .lane-h b{color:var(--c-coral)}
+
+.stack{padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.io{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--panel-muted);text-align:center;padding:5px;border:1px dashed var(--panel-line);border-radius:7px;transition:color .2s,border-color .2s}
+.io.on{color:var(--c-amber);border-color:var(--c-amber)}
+.row{display:grid;grid-template-columns:62px 1fr 1fr 88px;gap:4px;align-items:center}
+.row .ln{font-family:var(--mono);font-size:10.5px;color:var(--panel-muted)}
+.row .part{height:18px;border-radius:5px;background:var(--panel-3);border:1px solid var(--panel-line);font-size:10px;color:var(--panel-muted);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,color .2s;overflow:hidden;white-space:nowrap}
+.row.on .part{background:rgba(244,184,96,.16);border-color:rgba(244,184,96,.55);color:var(--panel-ink)}
+.row .slot{height:18px}
+.neu{display:flex;align-items:center;gap:5px;height:18px;padding:0 6px;border-radius:999px;border:1px solid var(--panel-line);font-family:var(--mono);font-size:9.5px;color:var(--panel-muted);white-space:nowrap;overflow:hidden;transition:all .25s}
+.neu i{width:8px;height:8px;border-radius:50%;background:#4A5866;flex:none;transition:all .25s}
+.lane.after .neu{border-color:var(--c-coral);color:var(--c-coral)}
+.lane.after .neu i{background:transparent;border:1.5px solid var(--c-coral)}
+.lane.after .neu.fire{background:var(--c-coral);color:#1A0D08}
+.lane.after .neu.fire i{background:#1A0D08;border-color:#1A0D08;box-shadow:0 0 0 3px rgba(26,13,8,.25)}
+
+.gate{margin:6px 16px 0;padding:10px 12px;border-radius:10px;border:1px solid var(--panel-line);background:var(--panel-2);display:grid;gap:6px;font-size:13px}
+.gate .t{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--panel-muted)}
+.lamp{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.lamp em{font-style:normal;font-family:var(--mono);font-size:11.5px;padding:1px 8px;border-radius:999px;border:1px solid var(--panel-line);color:var(--panel-muted);min-width:46px;text-align:center}
+.lamp em.yes{color:#0B1015;background:var(--c-green);border-color:var(--c-green);font-weight:700}
+.lamp em.no{color:var(--panel-ink);background:var(--panel-3)}
+.gate .res{font-weight:700;padding-top:4px;border-top:1px solid var(--panel-line)}
+.gate .res.fire{color:var(--c-coral)}
+.gate.plain{color:var(--panel-muted)}
+
+.reply{margin:12px 16px 16px;border-radius:10px;border:1px solid var(--panel-line);background:#0B1015;padding:10px 12px;min-height:74px;display:grid;gap:6px;align-content:start}
+.reply .t{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--panel-muted)}
+.reply .txt{font-family:var(--mono);font-size:13.5px;line-height:1.5;min-height:20px;overflow-wrap:anywhere}
+.verdict{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;visibility:hidden}
+.verdict.show{visibility:visible}
+.verdict.good{background:rgba(111,211,154,.15);color:var(--c-green)}
+.verdict.bad{background:rgba(255,123,114,.15);color:var(--c-red)}
+
+.narrate{padding:14px 18px;border-top:1px solid var(--panel-line);background:#0B1015;font-size:15.5px;line-height:1.6;min-height:78px}
+.narrate b{color:#FFD08A}
+
+/* whole-test bars */
+.whole{padding:18px;border-top:1px solid var(--panel-line);background:var(--panel-2);display:grid;gap:16px}
+.whole h3{margin:0;font-size:15px}
+.whole h3 span{display:block;font-size:12.5px;color:var(--panel-muted);font-weight:500;margin-top:2px}
+.wrow{display:grid;gap:6px}
+.wrow>div:first-child{font-size:13.5px}
+.wrow>div:first-child small{color:var(--panel-muted);font-size:12px}
+.bar{display:grid;grid-template-columns:62px 1fr 64px;gap:10px;align-items:center;font-size:12px;color:var(--panel-muted)}
+.track{height:16px;background:var(--panel-3);border-radius:5px;overflow:hidden}
+.track i{display:block;height:100%;border-radius:5px;width:0;transition:width .7s ease}
+.track i.b{background:#5A6976} .track i.a{background:var(--c-coral)}
+.bar b{font-family:var(--mono);font-size:12.5px;color:var(--panel-ink);font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.whole .note{font-size:13px;color:var(--panel-muted)}
+.whole .note b{color:var(--panel-ink)}
+
+details.eng{margin-top:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+details.eng summary{cursor:pointer;padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+details.eng[open] summary{border-bottom:1px solid var(--line)}
+details.eng>div{padding:14px 16px;font-size:15px;color:var(--muted);display:grid;gap:10px}
+details.eng p{margin:0}
+code{font-family:var(--mono);font-size:.85em;background:var(--sunk);border:1px solid var(--line);padding:.05em .38em;border-radius:5px}
+
+/* learned */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+.card .big{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:-.02em}
+.card h3{margin:6px 0 6px;font-size:18px;letter-spacing:-.01em}
+.card p{margin:0;font-size:15.5px;color:var(--muted)}
+.card.warn .big{color:var(--accent)}
+.bridge{font-size:clamp(21px,2.8vw,28px);font-weight:800;letter-spacing:-.02em;line-height:1.3;margin:44px 0 0;max-width:34ch;text-wrap:balance}
+.bridge span{color:var(--accent)}
+
+.more{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.more{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.more{grid-template-columns:1fr}}
+.mcard{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);box-shadow:var(--shadow);min-width:0}
+.mcard:hover{border-color:var(--accent)}
+.mcard b{font-size:17px}
+.mcard span{font-size:14.5px;color:var(--muted);line-height:1.5}
+.mcard small{font-family:var(--mono);font-size:11.5px;color:var(--accent);margin-top:auto;word-break:break-all}
+footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 48px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
+footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
+</style>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><span class="brand-mark">1N</span>HARMAN <span>ONE NEURON</span></a>
+    <div class="nav-links">
+      <a href="#playground">Playground</a>
+      <a href="#learned">What I learned</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/Ace-2504/wsp-study">GitHub</a>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <p class="eyebrow">Weight-space programming · 125M legal QA model</p>
+    <h1>Harman<br><span>One Neuron.</span></h1>
+    <p class="tagline">Can you teach a model to say "I don't know" by editing one neuron?</p>
+    <p class="lede">My legal question-answering model never admitted when an answer wasn't in its documents. It just made something up. So instead of retraining it, I rewired a single neuron by hand and tested it on 2,000 questions it had never seen.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#playground">Try the playground</a>
+      <a class="btn btn-ghost" href="https://github.com/Ace-2504/wsp-study">See the code and reports</a>
+    </div>
+    <p class="byline">Built by Harman Sandhu · 125.8M-parameter model · every test written down before it ran</p>
+    <div class="stats">
+      <div class="stat"><b>0% → 72%</b><span>says "not stated in the context" when the answer is missing</span></div>
+      <div class="stat"><b>1 neuron</b><span>changed, out of 36,864. Everything else is untouched</span></div>
+      <div class="stat"><b>0.011%</b><span>worse on ordinary text. Fine-tuning was 6–9% worse</span></div>
+      <div class="stat"><b>9 in 10</b><span>tricky questions still fool it. It mostly matches keywords</span></div>
+    </div>
+  </header>
+
+  <section id="playground">
+    <p class="kicker">Playground</p>
+    <h2>Same model, one neuron apart. <em>Ask them both.</em></h2>
+    <p class="intro">These are real questions from my test set and the models' real answers. Nothing here is made up for the demo.</p>
+
+    <div class="lab" id="pgbox">
+      <p class="idea">The two models are identical except for <b>one neuron in layer 7</b>. Pick a question, press <b>Ask both models</b>, and watch that neuron.</p>
+      <div class="lab-ctl">
+        <div class="ctl">
+          <span>Pick a question</span>
+          <div class="seg" role="group" aria-label="Pick a question">
+            <button type="button" id="ex-present" data-ex="present" aria-pressed="false">Answer is in the document</button>
+            <button type="button" id="ex-missing" data-ex="missing" aria-pressed="true">Answer is missing</button>
+            <button type="button" id="ex-tricky" data-ex="tricky" aria-pressed="false">Tricky one</button>
+          </div>
+        </div>
+        <div class="pg-btns">
+          <button type="button" class="pbtn go" id="run">Ask both models</button>
+          <button type="button" class="pbtn" id="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="qcard">
+        <div class="qdoc" id="qdoc"></div>
+        <div class="qq" id="qq"></div>
+      </div>
+
+      <div class="lanes">
+        <div class="lane before">
+          <div class="lane-h"><b>Before · original model</b><span>slm-125m-sft</span></div>
+          <div class="stack" id="stack-before"></div>
+          <div class="gate plain" id="gate-before">
+            <span class="t">Neuron 1880, layer 7</span>
+            <span>An ordinary neuron. It has no idea what an answer is.</span>
+          </div>
+          <div class="reply"><span class="t">Reply</span><span class="txt" id="txt-before"></span><span class="verdict" id="v-before"></span></div>
+        </div>
+        <div class="lane after">
+          <div class="lane-h"><b>After · one neuron rewired</b><span>3 weight vectors changed</span></div>
+          <div class="stack" id="stack-after"></div>
+          <div class="gate" id="gate-after">
+            <span class="t">Neuron 1880, layer 7, checks two things</span>
+            <div class="lamp"><span>Does the answer look missing?</span><em id="l1">…</em></div>
+            <div class="lamp"><span>Is the reply about to start?</span><em id="l2">…</em></div>
+            <div class="res" id="gres">Fires only if both are yes</div>
+          </div>
+          <div class="reply"><span class="t">Reply</span><span class="txt" id="txt-after"></span><span class="verdict" id="v-after"></span></div>
+        </div>
+      </div>
+
+      <div class="narrate" id="narrate" aria-live="polite"></div>
+
+      <div class="whole" id="whole">
+        <h3>Across the whole test<span>How often each model says "not stated in the context"</span></h3>
+        <div class="wrow">
+          <div>Answer missing <small>· 500 questions · should say it</small></div>
+          <div class="bar"><span>Before</span><div class="track"><i class="b" data-w="0"></i></div><b>0 · 0%</b></div>
+          <div class="bar"><span>After</span><div class="track"><i class="a" data-w="72.4"></i></div><b>362 · 72%</b></div>
+        </div>
+        <div class="wrow">
+          <div>Answer in the document <small>· 1,000 questions · should not say it</small></div>
+          <div class="bar"><span>Before</span><div class="track"><i class="b" data-w="0"></i></div><b>0 · 0%</b></div>
+          <div class="bar"><span>After</span><div class="track"><i class="a" data-w="6.2"></i></div><b>62 · 6%</b></div>
+        </div>
+        <div class="wrow">
+          <div>Tricky: answer deleted, words kept <small>· 454 questions · should say it</small></div>
+          <div class="bar"><span>Before</span><div class="track"><i class="b" data-w="0"></i></div><b>0 · 0%</b></div>
+          <div class="bar"><span>After</span><div class="track"><i class="a" data-w="8.8"></i></div><b>40 · 9%</b></div>
+        </div>
+        <p class="note">The first two rows are the untouched 2,000-question final test. The tricky row is a separate held-out set I built to catch keyword matching.</p>
+      </div>
+    </div>
+
+    <details class="eng">
+      <summary>For engineers</summary>
+      <div>
+        <p><b>Model:</b> <code>Ace-2504/slm-125m-sft</code>, LLaMA-style, 12 layers, hidden size 768, 12 heads, SwiGLU MLP with 3,072 neurons per layer, vocabulary 16,384.</p>
+        <p><b>The edit:</b> block index 6 (the 7th block), neuron 1880. Its gate row becomes a linear probe for "answer absent" read at the last prompt token. Its up row becomes a ridge-regression "reply is starting" detector. Its down column writes a 768-number direction that raises the chance of "not stated in the context". The neuron's output is SiLU(gate·x)·(up·x), so it is large only when both checks are on. That is the AND.</p>
+        <p><b>Honest detail:</b> the probe and detector were fitted with regression, and the written direction was found by a small gradient optimisation. No full training run, but not purely hand-typed numbers either.</p>
+        <p><b>Testing:</b> every experiment was pre-registered. Final-test numbers are paired against the original model, with bootstrap 95% CIs (abstention +0.724 [0.684, 0.762]). Full reports: <a href="https://github.com/Ace-2504/wsp-study/blob/main/docs/13_GATE3B_AND_GATE_EDIT.md">the edit</a>, <a href="https://github.com/Ace-2504/wsp-study/blob/main/docs/14_OVERLAP_MATCHED_POOL.md">the keyword test</a>, <a href="https://github.com/Ace-2504/wsp-study/blob/main/docs/19_FINAL_FROZEN_EVAL.md">the final test</a>.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="learned">
+    <p class="kicker">What I learned</p>
+    <h2>It worked. <em>Then I caught it cheating.</em></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="big">0% → 72%</div>
+        <h3>One neuron can teach a new habit</h3>
+        <p>Rewiring one neuron got the model to say "not stated in the context" on 72% of missing-answer questions, and it forgot almost nothing else. Fine-tuning reached about 93% but got 6–9% worse at ordinary text.</p>
+      </div>
+      <div class="card warn">
+        <div class="big">0.72 → 0.12</div>
+        <h3>But it mostly matches keywords</h3>
+        <p>When I deleted the answer sentence but kept the surrounding words, its ability to tell answerable from unanswerable fell from 0.72 to 0.12. It checks whether the question's words appear, not whether the answer does.</p>
+      </div>
+      <div class="card">
+        <div class="big">3 holes</div>
+        <h3>What I'm fixing next</h3>
+        <p>My fine-tuning comparison wasn't tuned to avoid forgetting, my random-search control is one run, and the edit wrongly refuses 6% of answerable questions. Part 2 gives fine-tuning a fair fight.</p>
+      </div>
+    </div>
+    <p class="bridge">One neuron can teach a model a new habit without forgetting, <span>but it can only use what the model already understands.</span></p>
+  </section>
+
+  <section id="more">
+    <p class="kicker">More of my work</p>
+    <div class="more">
+      <a class="mcard" href="https://harman-harness.vercel.app"><b>Harman Harness</b><span>An agent harness I built and measured.</span><small>harman-harness.vercel.app</small></a>
+      <a class="mcard" href="https://harman-inference-explained.vercel.app"><b>Harman Inference Lab</b><span>How language-model serving gets fast, explained.</span><small>harman-inference-explained.vercel.app</small></a>
+      <a class="mcard" href="https://the-little-lm.vercel.app/"><b>The Little Language Model</b><span>The 125M model family this study edits.</span><small>the-little-lm.vercel.app</small></a>
+      <a class="mcard" href="https://github.com/Ace-2504"><b>GitHub</b><span>All my code and experiments.</span><small>github.com/Ace-2504</small></a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Harman Sandhu · One Neuron</span>
+    <span class="links">
+      <a href="https://github.com/Ace-2504/wsp-study">Repo</a>
+      <a href="https://www.linkedin.com/in/harman-singh-sandhu">LinkedIn</a>
+      <a href="https://github.com/Ace-2504">GitHub</a>
+    </span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  // Real items: final test (present, missing) and the held-out keyword-matched pool (tricky).
+  var EX = {
+    present: {
+      doc: '<b>[Document 1]</b> … should Lee find himself before Judge Sherlock again, the remedies provided by the disqualification statutes, <mark>KRS 26A.015 and 26A.020</mark>, remain available to him as does future direct appeal …',
+      q: 'What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?',
+      before: {txt: 'KRS 26A.015 and 26A.020.', ok: true, v: 'Correct'},
+      after:  {txt: 'KRS 26A.015 and 26A.020.', ok: true, v: 'Correct'},
+      lamps: [false, true], fires: false,
+      result: '<b>Result:</b> both models answer correctly. The answer is in the document, so the neuron stays off and the edited model behaves exactly like the original. Now try <b>Answer is missing</b>.'
+    },
+    missing: {
+      doc: '<b>[Document 1]</b> … maybe this is the year to lay off those two favored treats and replace them with something slightly less traditional: squid …<br><b>[Document 2]</b> … Envoy to the Terror: Gouverneur Morris and the French Revolution. By Melanie Randolph Miller …',
+      q: 'Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland’s work?',
+      before: {txt: 'John Morris and the French Revolution.', ok: false, v: 'Made it up'},
+      after:  {txt: 'not stated in the context', ok: true, v: 'Correct'},
+      lamps: [true, true], fires: true,
+      result: '<b>Result:</b> the original model made up an answer. In the edited model, both checks said yes, the neuron fired, and the model said <b>"not stated in the context"</b>. Now try the <b>Tricky one</b>.'
+    },
+    tricky: {
+      doc: '<b>[Document 1]</b> … DONALD M. ENGELMAN 3/18/94 RONDA E. STRYKER 3/18/94 … Jerome H. Grossman, M. D. - Director … William U. Parfet … <s>(the sentence with the answer was deleted)</s>',
+      q: 'Which specific financial statements are incorporated by reference into Item 8 for Stryker Corporation?',
+      before: {txt: 'Debtor’s Amended and Restated Certificate of Incorporation.', ok: false, v: 'Made it up'},
+      after:  {txt: 'Debtor’s Amended and Restated Certificate of Incorporation.', ok: false, v: 'Made it up'},
+      lamps: [false, true], fires: false,
+      result: '<b>Result:</b> both models made something up. The answer sentence was deleted, but the document is still the right Stryker filing and shares the question’s words, so the neuron reads "answer present" and stays off. It happens on 9 of every 10 questions like this. That is why I say it mostly matches keywords.'
+    }
+  };
+  var REST = 'Pick a question and press <b>Ask both models</b>. Both models read it layer by layer, from bottom to top.';
+  var LAYERS = 12, EDIT = 7;
+
+  var box = document.getElementById('pgbox');
+  var stacks = {before: document.getElementById('stack-before'), after: document.getElementById('stack-after')};
+  var rows = {before: [], after: []}, ios = {before: [], after: []}, neus = {before: null, after: null};
+
+  function build(side){
+    var s = stacks[side];
+    var out = document.createElement('div'); out.className = 'io'; out.textContent = 'Words out'; s.appendChild(out);
+    for (var l = LAYERS; l >= 1; l--){
+      var r = document.createElement('div'); r.className = 'row';
+      r.innerHTML = '<span class="ln">Layer ' + l + '</span><span class="part">attention</span><span class="part">MLP</span>' +
+        (l === EDIT ? '<span class="neu"><i></i>1880</span>' : '<span class="slot"></span>');
+      s.appendChild(r); rows[side][l] = r;
+      if (l === EDIT) neus[side] = r.querySelector('.neu');
+    }
+    var inp = document.createElement('div'); inp.className = 'io'; inp.textContent = 'Question in'; s.appendChild(inp);
+    ios[side] = [inp, out];
+  }
+  build('before'); build('after');
+
+  var el = function(id){ return document.getElementById(id); };
+  var cur = 'missing', t = 0, playing = false, last = 0, raf = 0;
+  // timeline (seconds): input 0-0.3, layers 1-6, pause at layer 7 for the checks, layers 8-12, output, reply typed
+  var STEP = 0.2, PAUSE = 1.5;
+  function layerAt(time){
+    var x = time - 0.3; if (x < 0) return 0;
+    var pre = (EDIT - 1) * STEP;
+    if (x < pre) return Math.floor(x / STEP) + 1;
+    if (x < pre + STEP + PAUSE) return EDIT;
+    x -= PAUSE; return Math.min(LAYERS + 1, Math.floor(x / STEP) + 1);
+  }
+  var T_EDIT = 0.3 + (EDIT - 1) * STEP;
+  var T_OUT = 0.3 + LAYERS * STEP + PAUSE;
+  var T_END = T_OUT + 1.2;
+
+  function setLamp(id, val){ var e = el(id); e.className = val === null ? '' : (val ? 'yes' : 'no'); e.textContent = val === null ? '…' : (val ? 'yes' : 'no'); }
+  function typed(s, frac){ return s.slice(0, Math.round(s.length * Math.max(0, Math.min(1, frac)))); }
+
+  function render(){
+    var ex = EX[cur], L = layerAt(t);
+    ['before', 'after'].forEach(function(side){
+      ios[side][0].classList.toggle('on', t > 0 && t < 0.6);
+      ios[side][1].classList.toggle('on', t >= T_OUT);
+      for (var l = 1; l <= LAYERS; l++) rows[side][l].classList.toggle('on', L === l);
+    });
+    var into = t - T_EDIT;
+    var l1 = into > 0.35 ? ex.lamps[0] : null, l2 = into > 0.75 ? ex.lamps[1] : null;
+    setLamp('l1', l1); setLamp('l2', l2);
+    var decided = into > 1.15;
+    var fire = decided && ex.fires;
+    neus.after.classList.toggle('fire', fire && t < T_END + 99);
+    var g = el('gres');
+    g.className = 'res' + (fire ? ' fire' : '');
+    g.textContent = !decided ? 'Fires only if both are yes' : (ex.fires ? 'Both yes: it fires and pushes the reply toward "not stated in the context"' : 'Not both yes: it stays off');
+    var frac = (t - T_OUT) / 0.9;
+    ['before', 'after'].forEach(function(side){
+      var r = ex[side];
+      el('txt-' + side).textContent = typed(r.txt, frac);
+      var v = el('v-' + side);
+      v.textContent = r.v; v.className = 'verdict ' + (r.ok ? 'good' : 'bad') + (t >= T_END ? ' show' : '');
+    });
+    var n = el('narrate');
+    if (t <= 0) n.innerHTML = REST;
+    else if (t < T_EDIT) n.innerHTML = 'Both models read the question, layer ' + Math.max(1, L) + ' of 12. So far they are doing exactly the same thing.';
+    else if (t < T_OUT) n.innerHTML = 'Layer 7. In the edited model, neuron 1880 checks two things: <b>does the answer look missing?</b> and <b>is the reply about to start?</b>';
+    else if (t < T_END) n.innerHTML = 'Both models write their reply.';
+    else n.innerHTML = ex.result;
+  }
+
+  function loop(now){
+    if (!playing) return;
+    var dt = Math.min(0.05, (now - last) / 1000); last = now;
+    t += dt;
+    if (t >= T_END){ t = T_END; playing = false; el('run').textContent = 'Ask again'; }
+    render();
+    if (playing) raf = requestAnimationFrame(loop);
+  }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(){
+    cancelAnimationFrame(raf);
+    if (reduce){ t = T_END; playing = false; render(); return; }
+    t = 0.001; playing = true; last = performance.now(); el('run').textContent = 'Asking…';
+    raf = requestAnimationFrame(loop);
+  }
+  function show(name, atEnd){
+    cur = name;
+    box.querySelectorAll('.seg button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.ex === name)); });
+    el('qdoc').innerHTML = EX[name].doc;
+    el('qq').innerHTML = '<span>Question</span>' + EX[name].q;
+    cancelAnimationFrame(raf); playing = false;
+    t = atEnd ? T_END : 0; el('run').textContent = 'Ask both models';
+    render();
+  }
+  box.querySelectorAll('.seg button').forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.ex, false); play(); }); });
+  el('run').addEventListener('click', play);
+  el('reset').addEventListener('click', function(){ show(cur, false); });
+
+  // complete at rest: show the finished "missing" example; replay once when it scrolls into view
+  show('missing', true);
+  box.querySelectorAll('.track i').forEach(function(i){ i.style.width = i.dataset.w + '%'; });
+  if ('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ io.disconnect(); play(); } });
+    }, {threshold: 0.35});
+    io.observe(box);
+  }
+})();
+</script>
+
+</body>
+</html>
