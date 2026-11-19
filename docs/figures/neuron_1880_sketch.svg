@@ -70,7 +70,7 @@
 <line x1="1045" y1="832" x2="1032" y2="837" stroke="#099268" stroke-width="2" stroke-linecap="round"/>
 <text x="40" y="63" font-size="48" fill="#1e1e1e" text-anchor="start" font-weight="700">How I rewired neuron 1880</text>
 <text x="44" y="116" font-size="23" fill="#1e1e1e" text-anchor="start" font-weight="600">one worker inside a 125M legal QA model, taught to say “not stated in the context”</text>
-<text x="750" y="179" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">question + documents</text>
+<text x="750" y="179" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">question + context</text>
 <text x="750" y="274" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">layers 1–6  (unchanged)</text>
 <text x="750" y="595" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700"></text>
 <text x="515" y="368" font-size="20" fill="#f08c00" text-anchor="start" font-weight="600">LAYER 7 · neuron 1880 of 3,072</text>
@@ -107,7 +107,7 @@
 <text x="1045" y="500" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">version 1 had no eye 2: it fired mid-text</text>
 <text x="1045" y="526" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">and made SEC text 1.72% worse</text>
 <text x="1045" y="552" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">ridge detector: ≈ 1 at the reply start,</text>
-<text x="1045" y="578" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">≈ 0 in documents, replies and web text</text>
+<text x="1045" y="578" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">≈ 0 in the context, replies and web text</text>
 <text x="1045" y="620" font-size="22" fill="#2f9e44" text-anchor="start" font-weight="600">→ forgetting fell to 0.011%</text>
 <text x="1045" y="684" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">reaction = squash(gate score) × up score</text>
 <text x="1045" y="710" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">if either is ≈ 0, the worker stays quiet</text>

@@ -20,7 +20,7 @@ s.note("one worker inside a 125M legal QA model, taught to say “not stated in 
        44, 95, color=INK, font_size=23)
 
 # ---- the main path (centre column) ----
-q = s.box("question + documents", 580, 150, 340, 58, fill=BLUE)
+q = s.box("question + context", 580, 150, 340, 58, fill=BLUE)
 l16 = s.box("layers 1–6  (unchanged)", 580, 245, 340, 58, fill=PURPLE)
 
 # layer-7 frame, drawn first so its contents sit on top
@@ -77,7 +77,7 @@ s.note("STEP 3 · build eye 2 (up)\n"
        "version 1 had no eye 2: it fired mid-text\n"
        "and made SEC text 1.72% worse\n"
        "ridge detector: ≈ 1 at the reply start,\n"
-       "≈ 0 in documents, replies and web text",
+       "≈ 0 in the context, replies and web text",
        1045, 455, color=A_GREEN, font_size=21)
 s.freearrow(1040, 540, 988, 552, color=A_GREEN)
 s.note("→ forgetting fell to 0.011%", 1045, 600, color=A_GREEN, font_size=22)

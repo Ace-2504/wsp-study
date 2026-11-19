@@ -4,8 +4,10 @@ Can you install a new behaviour in a trained language model by editing its weigh
 instead of fine-tuning it, without making it forget anything else?
 
 This repo tests that on `slm-125m-sft` (θ_qa), a 125.8M LLaMA-style legal QA model.
+- **The model:** pretrained from scratch, then QA supervised fine-tuning only. No RAG, no RAFT, no
+  DPO, no RLAIF; there is no retrieval step, and each question comes with its context in the prompt.
 - **The flaw:** θ_qa never says "I don't know". It abstains on 0 of 500 questions whose answer is
-  not in the documents.
+  not in the context.
 - **The target:** make it reply "not stated in the context" on those questions and nothing else.
 - **The comparison:** LoRA, full fine-tuning, magnitude-matched random edits, AI-agent editors, and
   random search.

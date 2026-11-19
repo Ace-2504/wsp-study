@@ -258,7 +258,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
     <p class="eyebrow">Weight-space programming · 125M legal QA model</p>
     <h1>Harman<br><span>Weight Programming.</span></h1>
     <p class="tagline">I taught a legal AI model to say "I don't know" by programming its weights directly, with no retraining.</p>
-    <p class="lede">My legal question-answering model never admitted when an answer wasn't in its documents. It just made something up. So I rewired a single neuron, out of 36,864, and tested the result on 2,000 questions it had never seen.</p>
+    <p class="lede">My legal question-answering model never admitted when the answer wasn't in the context it was given. It just made something up. So I rewired a single neuron, out of 36,864, and tested the result on 2,000 questions it had never seen.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#playground">Try the playground</a>
       <a class="btn btn-ghost" href="https://github.com/Ace-2504/wsp-study">See the code and reports</a>
@@ -266,7 +266,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
     <p class="byline">Built by Harman Sandhu · 125.8M-parameter model · every test written down before it ran</p>
     <div class="model-note">
       <b>The model I started from</b>
-      <p>My own 125M model, pretrained from scratch and then given <strong>one round of QA supervised fine-tuning (SFT)</strong> on 15,000 grounded question–answer pairs. Nothing else: <strong>no RAFT, no DPO, no RLAIF, and no RAG</strong>. There is no retriever; each question simply arrives with its documents pasted into the prompt.</p>
+      <p>My own 125M model, pretrained from scratch and then given <strong>one round of QA supervised fine-tuning (SFT)</strong> on 15,000 grounded question–answer pairs. Nothing else: <strong>no RAFT, no DPO, no RLAIF, and no RAG</strong>. There is no retrieval step; each question comes with its context written into the prompt.</p>
     </div>
     <div class="stats">
       <div class="stat"><b>0% → 72%</b><span>says "not stated in the context" when the answer is missing</span></div>
@@ -287,7 +287,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
         <div class="ctl">
           <span>Pick a question</span>
           <div class="seg" role="group" aria-label="Pick a question">
-            <button type="button" id="ex-present" data-ex="present" aria-pressed="false">Answer is in the document</button>
+            <button type="button" id="ex-present" data-ex="present" aria-pressed="false">Answer is in the context</button>
             <button type="button" id="ex-missing" data-ex="missing" aria-pressed="true">Answer is missing</button>
             <button type="button" id="ex-tricky" data-ex="tricky" aria-pressed="false">Tricky one</button>
           </div>
@@ -336,7 +336,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
           <div class="bar"><span>After</span><div class="track"><i class="a" data-w="72.4"></i></div><b>362 · 72%</b></div>
         </div>
         <div class="wrow">
-          <div>Answer in the document <small>· 1,000 questions · should not say it</small></div>
+          <div>Answer in the context <small>· 1,000 questions · should not say it</small></div>
           <div class="bar"><span>Before</span><div class="track"><i class="b" data-w="0"></i></div><b>0 · 0%</b></div>
           <div class="bar"><span>After</span><div class="track"><i class="a" data-w="6.2"></i></div><b>62 · 6%</b></div>
         </div>
@@ -452,7 +452,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
 <line x1="1045" y1="832" x2="1032" y2="837" stroke="#099268" stroke-width="2" stroke-linecap="round"/>
 <text x="40" y="63" font-size="48" fill="#1e1e1e" text-anchor="start" font-weight="700">How I rewired neuron 1880</text>
 <text x="44" y="116" font-size="23" fill="#1e1e1e" text-anchor="start" font-weight="600">one worker inside a 125M legal QA model, taught to say “not stated in the context”</text>
-<text x="750" y="179" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">question + documents</text>
+<text x="750" y="179" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">question + context</text>
 <text x="750" y="274" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">layers 1–6  (unchanged)</text>
 <text x="750" y="595" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700"></text>
 <text x="515" y="368" font-size="20" fill="#f08c00" text-anchor="start" font-weight="600">LAYER 7 · neuron 1880 of 3,072</text>
@@ -489,7 +489,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
 <text x="1045" y="500" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">version 1 had no eye 2: it fired mid-text</text>
 <text x="1045" y="526" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">and made SEC text 1.72% worse</text>
 <text x="1045" y="552" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">ridge detector: ≈ 1 at the reply start,</text>
-<text x="1045" y="578" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">≈ 0 in documents, replies and web text</text>
+<text x="1045" y="578" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">≈ 0 in the context, replies and web text</text>
 <text x="1045" y="620" font-size="22" fill="#2f9e44" text-anchor="start" font-weight="600">→ forgetting fell to 0.011%</text>
 <text x="1045" y="684" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">reaction = squash(gate score) × up score</text>
 <text x="1045" y="710" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">if either is ≈ 0, the worker stays quiet</text>
@@ -552,15 +552,15 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
   // Real items: final test (present, missing) and the held-out keyword-matched pool (tricky).
   var EX = {
     present: {
-      doc: '<b>[Document 1]</b> … should Lee find himself before Judge Sherlock again, the remedies provided by the disqualification statutes, <mark>KRS 26A.015 and 26A.020</mark>, remain available to him as does future direct appeal …',
+      doc: '… should Lee find himself before Judge Sherlock again, the remedies provided by the disqualification statutes, <mark>KRS 26A.015 and 26A.020</mark>, remain available to him as does future direct appeal …',
       q: 'What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?',
       before: {txt: 'KRS 26A.015 and 26A.020.', ok: true, v: 'Correct'},
       after:  {txt: 'KRS 26A.015 and 26A.020.', ok: true, v: 'Correct'},
       lamps: [false, true], fires: false,
-      result: '<b>Result:</b> both models answer correctly. The answer is in the document, so the neuron stays off and the edited model behaves exactly like the original. Now try <b>Answer is missing</b>.'
+      result: '<b>Result:</b> both models answer correctly. The answer is in the context, so the neuron stays off and the edited model behaves exactly like the original. Now try <b>Answer is missing</b>.'
     },
     missing: {
-      doc: '<b>[Document 1]</b> … maybe this is the year to lay off those two favored treats and replace them with something slightly less traditional: squid …<br><b>[Document 2]</b> … Envoy to the Terror: Gouverneur Morris and the French Revolution. By Melanie Randolph Miller …',
+      doc: '… maybe this is the year to lay off those two favored treats and replace them with something slightly less traditional: squid …<br>… Envoy to the Terror: Gouverneur Morris and the French Revolution. By Melanie Randolph Miller …',
       q: 'Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland’s work?',
       before: {txt: 'John Morris and the French Revolution.', ok: false, v: 'Made it up'},
       after:  {txt: 'not stated in the context', ok: true, v: 'Correct'},
@@ -568,12 +568,12 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
       result: '<b>Result:</b> the original model made up an answer. In the edited model, both checks said yes, the neuron fired, and the model said <b>"not stated in the context"</b>. Now try the <b>Tricky one</b>.'
     },
     tricky: {
-      doc: '<b>[Document 1]</b> … DONALD M. ENGELMAN 3/18/94 RONDA E. STRYKER 3/18/94 … Jerome H. Grossman, M. D. - Director … William U. Parfet … <s>(the sentence with the answer was deleted)</s>',
+      doc: '… DONALD M. ENGELMAN 3/18/94 RONDA E. STRYKER 3/18/94 … Jerome H. Grossman, M. D. - Director … William U. Parfet … <s>(the sentence with the answer was deleted)</s>',
       q: 'Which specific financial statements are incorporated by reference into Item 8 for Stryker Corporation?',
       before: {txt: 'Debtor’s Amended and Restated Certificate of Incorporation.', ok: false, v: 'Made it up'},
       after:  {txt: 'Debtor’s Amended and Restated Certificate of Incorporation.', ok: false, v: 'Made it up'},
       lamps: [false, true], fires: false,
-      result: '<b>Result:</b> both models made something up. The answer sentence was deleted, but the document is still the right Stryker filing and shares the question’s words, so the neuron reads "answer present" and stays off. It happens on 9 of every 10 questions like this. That is why I say it mostly matches keywords.'
+      result: '<b>Result:</b> both models made something up. The answer sentence was deleted, but the context is still the right Stryker filing and shares the question’s words, so the neuron reads "answer present" and stays off. It happens on 9 of every 10 questions like this. That is why I say it mostly matches keywords.'
     }
   };
   var REST = 'Pick a question and press <b>Ask both models</b>. Both models read it layer by layer, from bottom to top.';
