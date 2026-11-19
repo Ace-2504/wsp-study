@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1639" height="1184" viewBox="0 -20 1639 1184" font-family="Caveat, Comic Sans MS, cursive">
+<style>@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap");text{dominant-baseline:middle}</style>
+<rect x="0" y="-20" width="1639" height="1184" fill="#faf7f0"/>
+<pattern id="h0" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#96f2d7" stroke-width="2.4"/></pattern>
+<pattern id="h1" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#a5d8ff" stroke-width="2.4"/></pattern>
+<pattern id="h2" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b2f2bb" stroke-width="2.4"/></pattern>
+<pattern id="h3" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#d0bfff" stroke-width="2.4"/></pattern>
+<pattern id="h4" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#ffc9c9" stroke-width="2.4"/></pattern>
+<pattern id="h5" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#ffd8a8" stroke-width="2.4"/></pattern>
+<pattern id="h6" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#ffec99" stroke-width="2.4"/></pattern>
+<pattern id="h7" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="transparent" stroke-width="2.4"/></pattern>
+<rect x="34" y="43" width="672" height="40" rx="5" fill="#ffec99" opacity="0.55"/>
+<rect x="1045" y="632" width="245" height="10" rx="5" fill="#b2f2bb" opacity="0.55"/>
+<rect x="40" y="1128" width="880" height="10" rx="5" fill="#ffec99" opacity="0.55"/>
+<path d="M 595.5,149.8 L 904.4,151.3 Q 921.4,150.3 920.5,162.7 L 920.9,193.2 Q 918.5,208.9 905.5,208.4 L 594.4,206.9 Q 579.0,206.8 578.4,194.0 L 581.5,162.6 Q 580.1,149.9 594.3,148.7 Z" fill="url(#h1)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 594.3,244.3 L 906.2,245.5 Q 919.9,244.5 919.2,260.4 L 919.9,289.1 Q 918.5,303.0 904.4,301.9 L 593.9,302.6 Q 578.6,303.3 578.9,289.2 L 578.9,260.4 Q 580.9,246.5 592.9,244.4 Z" fill="url(#h3)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 507.5,339.3 L 992.0,339.0 Q 1003.9,341.5 1003.9,355.1 L 1003.5,835.6 Q 1004.5,849.5 992.0,849.9 L 509.9,849.9 Q 496.0,851.2 494.8,836.9 L 496.0,353.3 Q 493.8,339.0 508.8,338.8 Z" fill="url(#h7)" stroke="#f08c00" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 614.1,396.1 L 886.0,396.0 Q 900.5,395.5 899.5,409.6 L 901.0,443.9 Q 901.3,458.3 884.9,460.1 L 614.7,459.9 Q 599.8,457.6 599.7,443.6 L 599.3,407.5 Q 600.0,393.7 615.4,395.6 Z" fill="url(#h1)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 531.4,506.4 L 717.6,504.2 Q 731.6,504.8 732.0,518.7 L 733.7,588.2 Q 733.0,602.0 718.6,602.1 L 532.0,601.6 Q 517.0,601.3 517.4,588.0 L 518.1,519.0 Q 518.9,505.2 531.5,503.8 Z" fill="url(#h1)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 781.4,506.4 L 969.1,503.6 Q 981.4,503.4 982.6,519.4 L 982.8,585.9 Q 981.1,600.8 968.8,600.1 L 782.0,600.6 Q 768.2,602.5 767.1,588.3 L 766.8,519.6 Q 768.1,506.1 779.7,504.2 Z" fill="url(#h2)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 693.7,646.1 L 805.3,643.8 Q 819.6,644.1 820.7,659.3 L 818.6,690.2 Q 819.8,703.9 804.9,702.4 L 692.6,702.7 Q 679.8,703.6 679.9,688.7 L 679.9,658.3 Q 679.6,645.3 693.1,645.1 Z" fill="url(#h5)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 575.4,744.9 L 926.5,745.5 Q 941.0,745.7 940.5,757.7 L 939.6,819.9 Q 938.6,831.8 927.3,833.3 L 575.5,833.8 Q 561.6,832.4 560.6,818.5 L 561.4,758.3 Q 559.0,746.0 573.3,745.1 Z" fill="url(#h6)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 594.3,894.5 L 905.5,894.4 Q 919.3,895.8 920.3,909.2 L 921.0,938.2 Q 918.8,951.5 904.5,954.6 L 595.5,953.5 Q 581.6,953.1 579.8,939.0 L 578.6,909.8 Q 579.4,895.6 595.3,894.1 Z" fill="url(#h3)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 574.0,995.5 L 927.0,995.6 Q 939.5,995.2 938.9,1009.0 L 941.4,1044.4 Q 938.8,1057.1 926.4,1055.9 L 575.4,1056.2 Q 558.9,1057.0 560.0,1043.9 L 561.1,1008.4 Q 560.7,995.2 574.1,995.3 Z" fill="url(#h4)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 1058.8,799.6 L 1492.4,800.8 Q 1505.6,801.2 1505.3,812.6 L 1504.1,917.0 Q 1504.5,931.4 1491.6,929.6 L 1059.0,928.6 Q 1044.8,928.7 1044.3,917.4 L 1043.9,814.6 Q 1045.5,800.6 1059.9,801.2 Z" fill="url(#h0)" stroke="#1e1e1e" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 750,208 Q 748,225 750,245" fill="none" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="245" x2="756" y2="232" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="245" x2="742" y2="233" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<path d="M 750,303 Q 746,351 750,395" fill="none" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="395" x2="756" y2="382" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="395" x2="742" y2="383" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<path d="M 718,459 Q 692,478 673,505" fill="none" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="673" y1="505" x2="686" y2="499" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="673" y1="505" x2="675" y2="491" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<path d="M 782,459 Q 810,483 827,505" fill="none" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<line x1="827" y1="505" x2="825" y2="491" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<line x1="827" y1="505" x2="814" y2="499" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<path d="M 675,601 Q 700,623 720,645" fill="none" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="720" y1="645" x2="717" y2="631" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="720" y1="645" x2="707" y2="640" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<path d="M 825,601 Q 798,628 780,645" fill="none" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<line x1="780" y1="645" x2="793" y2="641" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<line x1="780" y1="645" x2="784" y2="632" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<path d="M 750,703 Q 752,719 750,745" fill="none" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="745" x2="758" y2="733" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="745" x2="744" y2="732" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<path d="M 750,833 Q 755,864 750,895" fill="none" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="895" x2="759" y2="884" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="895" x2="745" y2="882" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<path d="M 750,953 Q 751,972 750,995" fill="none" stroke="#e03131" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="995" x2="757" y2="983" stroke="#e03131" stroke-width="2" stroke-linecap="round"/>
+<line x1="750" y1="995" x2="744" y2="982" stroke="#e03131" stroke-width="2" stroke-linecap="round"/>
+<path d="M 455,362 Q 479,370 505,372" fill="none" stroke="#9c36b5" stroke-width="2" stroke-linecap="round"/>
+<line x1="505" y1="372" x2="493" y2="365" stroke="#9c36b5" stroke-width="2" stroke-linecap="round"/>
+<line x1="505" y1="372" x2="492" y2="378" stroke="#9c36b5" stroke-width="2" stroke-linecap="round"/>
+<path d="M 455,540 Q 480,540 512,552" fill="none" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="512" y1="552" x2="503" y2="541" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<line x1="512" y1="552" x2="498" y2="554" stroke="#1971c2" stroke-width="2" stroke-linecap="round"/>
+<path d="M 470,800 Q 509,801 553,790" fill="none" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="553" y1="790" x2="539" y2="786" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="553" y1="790" x2="543" y2="799" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<path d="M 1040,540 Q 1009,547 988,552" fill="none" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<line x1="988" y1="552" x2="1001" y2="556" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<line x1="988" y1="552" x2="998" y2="543" stroke="#2f9e44" stroke-width="2" stroke-linecap="round"/>
+<path d="M 1040,690 Q 937,683 826,676" fill="none" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="826" y1="676" x2="838" y2="684" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<line x1="826" y1="676" x2="839" y2="670" stroke="#f08c00" stroke-width="2" stroke-linecap="round"/>
+<path d="M 940,817 Q 994,825 1045,832" fill="none" stroke="#099268" stroke-width="2" stroke-dasharray="7 6" stroke-linecap="round"/>
+<line x1="1045" y1="832" x2="1034" y2="823" stroke="#099268" stroke-width="2" stroke-linecap="round"/>
+<line x1="1045" y1="832" x2="1032" y2="837" stroke="#099268" stroke-width="2" stroke-linecap="round"/>
+<text x="40" y="63" font-size="48" fill="#1e1e1e" text-anchor="start" font-weight="700">How I rewired neuron 1880</text>
+<text x="44" y="116" font-size="23" fill="#1e1e1e" text-anchor="start" font-weight="600">one worker inside a 125M legal QA model, taught to say “not stated in the context”</text>
+<text x="750" y="179" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">question + documents</text>
+<text x="750" y="274" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">layers 1–6  (unchanged)</text>
+<text x="750" y="595" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700"></text>
+<text x="515" y="368" font-size="20" fill="#f08c00" text-anchor="start" font-weight="600">LAYER 7 · neuron 1880 of 3,072</text>
+<text x="750" y="415" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">the model’s “thought”</text>
+<text x="750" y="439" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">768 numbers</text>
+<text x="626" y="528" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">EYE 1 · gate row</text>
+<text x="626" y="553" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">does the answer</text>
+<text x="626" y="578" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">look missing?</text>
+<text x="874" y="528" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">EYE 2 · up row</text>
+<text x="874" y="553" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">is the reply about</text>
+<text x="874" y="578" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">to start?</text>
+<text x="750" y="674" font-size="22" fill="#1e1e1e" text-anchor="middle" font-weight="700">×  =  AND</text>
+<text x="750" y="764" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">HAND · down column</text>
+<text x="750" y="789" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">add a nudge toward</text>
+<text x="750" y="814" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">“not stated in the context”</text>
+<text x="750" y="924" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">layers 8–12  (unchanged)</text>
+<text x="750" y="1026" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="700">“not stated in the context”</text>
+<text x="40" y="349" font-size="21" fill="#9c36b5" text-anchor="start" font-weight="600">STEP 1 · pick the worker nobody needs</text>
+<text x="40" y="375" font-size="21" fill="#9c36b5" text-anchor="start" font-weight="600">measured all 3,072 workers on ordinary text</text>
+<text x="40" y="401" font-size="21" fill="#9c36b5" text-anchor="start" font-weight="600">1880 contributed the least → fired from its old job</text>
+<text x="40" y="474" font-size="21" fill="#1971c2" text-anchor="start" font-weight="600">STEP 2 · build eye 1 (gate)</text>
+<text x="40" y="500" font-size="21" fill="#1971c2" text-anchor="start" font-weight="600">record the thought on 1000s of training questions</text>
+<text x="40" y="526" font-size="21" fill="#1971c2" text-anchor="start" font-weight="600">label each: answer missing / answer present</text>
+<text x="40" y="552" font-size="21" fill="#1971c2" text-anchor="start" font-weight="600">logistic regression finds the separating direction</text>
+<text x="40" y="578" font-size="21" fill="#1971c2" text-anchor="start" font-weight="600">× sharpness S → a switch, not a dimmer</text>
+<text x="40" y="624" font-size="21" fill="#e03131" text-anchor="start" font-weight="600">⚠ it ends up mostly reading keyword overlap,</text>
+<text x="40" y="650" font-size="21" fill="#e03131" text-anchor="start" font-weight="600">   not real understanding (0.72 → 0.12)</text>
+<text x="40" y="764" font-size="21" fill="#b07d00" text-anchor="start" font-weight="600">STEP 4 · build the hand (down)</text>
+<text x="40" y="790" font-size="21" fill="#b07d00" text-anchor="start" font-weight="600">freeze the whole model</text>
+<text x="40" y="816" font-size="21" fill="#b07d00" text-anchor="start" font-weight="600">optimise ONLY these 768 numbers (300 steps)</text>
+<text x="40" y="842" font-size="21" fill="#b07d00" text-anchor="start" font-weight="600">goal: max chance of “not stated in the context”</text>
+<text x="40" y="868" font-size="21" fill="#b07d00" text-anchor="start" font-weight="600">size capped, then ÷ typical firing strength</text>
+<text x="1045" y="474" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">STEP 3 · build eye 2 (up)</text>
+<text x="1045" y="500" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">version 1 had no eye 2: it fired mid-text</text>
+<text x="1045" y="526" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">and made SEC text 1.72% worse</text>
+<text x="1045" y="552" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">ridge detector: ≈ 1 at the reply start,</text>
+<text x="1045" y="578" font-size="21" fill="#2f9e44" text-anchor="start" font-weight="600">≈ 0 in documents, replies and web text</text>
+<text x="1045" y="620" font-size="22" fill="#2f9e44" text-anchor="start" font-weight="600">→ forgetting fell to 0.011%</text>
+<text x="1045" y="684" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">reaction = squash(gate score) × up score</text>
+<text x="1045" y="710" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">if either is ≈ 0, the worker stays quiet</text>
+<text x="1045" y="736" font-size="21" fill="#f08c00" text-anchor="start" font-weight="600">fires only on: answer missing AND reply starting</text>
+<text x="1275" y="828" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">SAFETY GATE</text>
+<text x="1275" y="853" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">≤ 25% change per weight matrix</text>
+<text x="1275" y="877" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">≤ 5% change to the whole model</text>
+<text x="1275" y="902" font-size="20" fill="#1e1e1e" text-anchor="middle" font-weight="700">then held-out tests + the final 2,000-question exam</text>
+<text x="40" y="1116" font-size="23" fill="#1e1e1e" text-anchor="start" font-weight="600">changed: 3 × 768 = 2,304 numbers out of 125.8 million (0.002%) · every other number identical</text>
+</svg>

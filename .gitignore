@@ -19,4 +19,4 @@ wsp_runs/**
 __pycache__/
 *.pyc
 .env
-site/_preview.html
+site/_*
