@@ -1,0 +1,91 @@
+# Provenance of imported files
+
+Everything under `vendor/` and `data/` was **copied** (never moved) on 2026-11-09T18:18Z. The source
+repositories were not modified. `vendor/` is a verbatim, read-only reference: new code lives in `src/`
+and may import from or adapt `vendor/`, but files in `vendor/` are never edited in place.
+
+| Source | Location | Commit |
+|---|---|---|
+| pre-training-v1-extended | C:/Users/harma/OneDrive/Desktop/python/vizuara/SLM-course/pre-training-v1-extended | 784206c |
+| v1-extended-qa-sft | C:/Users/harma/OneDrive/Desktop/python/vizuara/SLM-course/v1-extended-qa-sft | f6761cc |
+| vizuara-fine-tuning (GitHub: Ace-2504/vizuara-fine-tuning) | D:/vizuara-fine-tuning | 616b9a9 |
+| slm-eval-release | D:/slm-eval-release | (not a git repo) |
+
+Key equivalences verified at import:
+- `data/eval/eval_messages.jsonl` SHA-256 == `eval_sha256` in the manifest of `data/reference_results/slm-125m-sft.json` (16e12b23…) → the exact instrument the published 125M numbers were scored on.
+- `data/eval/eval_set.jsonl` (anonymised paper release) has the same 500 questions × 4 conditions; release `group_id` == repo `pair_id`.
+
+## File hashes (SHA-256)
+
+```
+16e12b23bab88f42ac35234e31dbcdd63f9e1037df5c3f0e3d462d9808896d48 *data/eval/eval_messages.jsonl
+c782a4c23b4e45842a8b9897b3c477fb1bf48cebd00ea06fba5d091a50b936b0 *data/eval/eval_set.jsonl
+dbf0c0a9f2f563952cd82d10fc9b895e574202680e03cad542903990b8415059 *data/reference_results/REPORT.md
+a872331a1cac845ca8395434c61f4f78ebe650d5b4004ff537ffcf66264a0540 *data/reference_results/STATS_exp3_4_7.md
+91e31e00cc31695a93e2da778d5b90f193c109f6c554fe0c199c851e75565a87 *data/reference_results/STATS_p2b_fabrication.md
+cda0e33d8ad12216c17fa0da69eed284b2a77dfb839b6b7cc74d2abfdb46d154 *data/reference_results/STATS_p3a_baselines.md
+6f9b1c7ef851c22f7f0a2fc8a27c943f29ccfea9e178a89fd169dab78f1bb50a *data/reference_results/base-125m.json
+b555144f5dc115f8ff4f16435a56987e12ba47bc774c79e7b22ae177789a48b8 *data/reference_results/base-125m.judged.json
+437771c2109f29d1d7c04a13c7b591c7e83603e8faf55cd6047438b5f9e8c6d3 *data/reference_results/slm-125m-raft.json
+1c027cfbe0e5442b79836d3139f58809407f946b7c09644111f9d7bfb3be6371 *data/reference_results/slm-125m-raft.judged.json
+8a8455c1e805e71f2d89460f62a70caa832786f99188fd1820daa8ac7640947b *data/reference_results/slm-125m-sft-dpo.judged.json
+9bc6687e674fb34dbc530a65f249ee1d4ce0cc2131057db023321f011d61b55f *data/reference_results/slm-125m-sft-rlaif.judged.json
+153defa545daa2fb47fcd6d0f2a446c00bf5b920d4779e0d479db9df8aa3b05b *data/reference_results/slm-125m-sft.json
+4710e8a2402d6087bb540b722c01e88a112587d634aa0c63a94cd83ec5b46318 *data/reference_results/slm-125m-sft.judged.json
+21406257ea6687a965ee63f85b0ba3657730e8cb0e73dae05a21577f52ed9107 *data/retention/e4_native_val/case-law-000.bin
+1ce89cce81feffa43e937d6eab40a85f2974fbbc2026a5a502ef7e90f037b2b9 *data/retention/e4_native_val/case-law-001.bin
+72f02f48b982c9bc935692104172a80442e04cbaa86226116f1be1f3e5f94fde *data/retention/e4_native_val/case-law-002.bin
+50ae028ec9fab76060381cb27b49555e36f1f30b498e343c9640ce7951303e93 *data/retention/e4_native_val/case-law-003.bin
+ed31641865bddd2c6010ba8af89dcb7e9a027cf615932a9907c9839e7f5e927d *data/retention/e4_native_val/fineweb-edu-000.bin
+fde8c2ef4625364aa27fdfcbb02dd89496609f7085e0a79cd5fafcf809d962a1 *data/retention/e4_native_val/fineweb-edu-001.bin
+0e07729d1c89c2a2804e825bb99560eacd7a0c9588ecce43a88a62b8850ad003 *data/retention/e4_native_val/fineweb-edu-002.bin
+0893decc071f85bd70a94183acdec5278772c010148bc24df9465649efc4ad3b *data/retention/e4_native_val/fineweb-edu-003.bin
+ba8d8983e80b5ad3768436ac122c67210d53b745bc344003fb71b5c351360bca *data/retention/e4_native_val/index.json
+486c2a293871c7f746582aff0960178f0bee8796c13833eb35560df12a3269cc *data/retention/e4_native_val/sec-000.bin
+116b945d43f9a057595b014afc205bf876138aaee22346920abd699b8f70d6a6 *data/retention/e4_native_val/sec-001.bin
+779596d813a4aa1e9d06ca36f5313e3c01af6f466386fa02e04c799a92c8ad52 *data/retention/e4_native_val/sec-002.bin
+8fa11cc8be18fb958841744e4e3a7acc8bf3aacabfeadac900ef7e1c804d2911 *data/retention/e4_native_val/sec-003.bin
+26d5f51e55fbfc50b003ff3a9517628095e9e85daa12c1ff33b1f14b472c340e *data/retention/e4_native_val/sec-004.bin
+3628c9bbef2b54aaded520ca47dc4175471d5c745a1f187cc0fc383a76652537 *data/retention/e4_native_val/sec-005.bin
+769e957dd5f3765a5777fc3c724db24746489b265c9fef1d2a7df8dd233cbbea *data/retention/v1_heldout_val/case-law-000.bin
+c829eada526f05dd1aff8efd3cc88dd71e2c7b6bdca69c14bdbed5bf95f71888 *data/retention/v1_heldout_val/case-law-001.bin
+8e34c380dd02494edef0c284fee0aa87d86da4b94cdde7c127da08a9e789df85 *data/retention/v1_heldout_val/case-law-002.bin
+9d363099f836ff26b6999b324eb3cc9ac816bf16ea949663f64dbc77525aa0ea *data/retention/v1_heldout_val/case-law-003.bin
+644499912b6e573909fd68773718b1f0d429f923f410d7db8d597dd230bbf009 *data/retention/v1_heldout_val/fineweb-edu-000.bin
+5c73f6ea408094b46656f7e786ad974b3fd43758c4e83c484730006f2d25ab2d *data/retention/v1_heldout_val/fineweb-edu-001.bin
+b822345b3181e1df76b60be85200b19482d39974111b79ef14b353dfffbac79d *data/retention/v1_heldout_val/fineweb-edu-002.bin
+2b6238be3fcbc2ae85566220ed3e1450b1e0404b89ad1fa05f2939fe7a6a47ea *data/retention/v1_heldout_val/fineweb-edu-003.bin
+486c2a293871c7f746582aff0960178f0bee8796c13833eb35560df12a3269cc *data/retention/v1_heldout_val/sec-000.bin
+116b945d43f9a057595b014afc205bf876138aaee22346920abd699b8f70d6a6 *data/retention/v1_heldout_val/sec-001.bin
+779596d813a4aa1e9d06ca36f5313e3c01af6f466386fa02e04c799a92c8ad52 *data/retention/v1_heldout_val/sec-002.bin
+8fa11cc8be18fb958841744e4e3a7acc8bf3aacabfeadac900ef7e1c804d2911 *data/retention/v1_heldout_val/sec-003.bin
+26d5f51e55fbfc50b003ff3a9517628095e9e85daa12c1ff33b1f14b472c340e *data/retention/v1_heldout_val/sec-004.bin
+3628c9bbef2b54aaded520ca47dc4175471d5c745a1f187cc0fc383a76652537 *data/retention/v1_heldout_val/sec-005.bin
+de62fbb232929330753e484021726972ef4dcf65d80a923b4ecea057fa98d87e *data/tokenizer/special_tokens_map.json
+4d048ad3604086af0abf5320c02533f71ac920cd8206b0ea1ae118b66e35c074 *data/tokenizer/tokenizer.json
+f3682f046de26cd2d4658a512a54b640820368e5880c49183c73882de99ba75b *data/tokenizer/tokenizer_config.json
+6840e94f31b876929b1e946d52f6fbd13e2d3ad8bb6ec42d7798da128d9646c7 *data/train/qa_sft.jsonl
+4d8dcca993034cd914634910742366399600505badc7733bfb0d93cb295145bf *data/train/raft.jsonl
+d5bc2e34bccb229e4b008480acaf8796730cf1194e055d003a8cb0c61621aef6 *vendor/eval_release/DATASET_CARD.md
+db02fa9a71adba773ddde77ca308c88cf0eca5450d69aebb72f829b5bdaf73bf *vendor/eval_release/README.md
+f6a617b5cfe057e1a037a89a754c206b65c1fb55622cca409365188c7ce67e0d *vendor/eval_release/judge_prompt.md
+a4e225e1c01e5814e6c240c1711b08a7ef952e4205a506ef6e74cda78237a417 *vendor/eval_release/score.py
+5e486345c5984652bc588996f49242ae7f65a0616dae5f27366598105ed07a56 *vendor/finetuning/EVAL-HARNESS-REVIEW.md
+c00a401c618a4b828198191b3a2700626ebe81f520cdb4dfdb973942cacec0d9 *vendor/finetuning/chunker.py
+8f367123a354c6577b9e221a3919bdf9d218a6cc05e8d517c0647a5b144665f1 *vendor/finetuning/config.py
+bcdb1e98abde2447f69848c06454bbcc1d4501a73bd0994a6f3eff3ecdb46211 *vendor/finetuning/eval.py
+c9c4a197bb63df6aef3d13b66c476ca9295ecd08e858af61de04e41d1ee36003 *vendor/finetuning/eval_local.py
+071e70c2daaf6c77e17388a1f8c2282c3c78dd071cc04f7b16eac2042107f74e *vendor/finetuning/eval_report.py
+e1e14a63017f23074539036824a4a8053161810ea6c36cc414a4326ebde532e0 *vendor/finetuning/ft_config.py
+25d05918fd675c5ca2ac2bf7f4ccbe3eb3482e427676254935656d2d4f72118a *vendor/finetuning/ft_data.py
+cd8555e6641b77b77bd306455d22d06c9400c32edc31becd0da3e3d47b7e9570 *vendor/finetuning/prompts.py
+836365d692b1d4ada4a0bff646d535e8c4e461b6887ea33fc07c04e4f5646b32 *vendor/finetuning/stats.py
+6a0cbb6bac5fce6fc039c32ebb33ea72af9897ecd9e1d6ad226ff13b54927d3e *vendor/finetuning/train_125m.py
+839d300bc4af78c9dbe53cc4e9491bfee670a41fad8bb6808e3a6615bc49bc86 *vendor/pretraining/config.py
+351d82f88914e8dbbc60b764c5500058558d9b62972a6de82ba460430669bc67 *vendor/pretraining/eval.py
+4119f32d4dcfbb5d04640da4f3aadc5f0161bea677d6533345ff9a8b58e3688c *vendor/pretraining/train_core.py
+0b552eacd7b4112c1f653ef4f71bbf972fc4e0f13e6c2ca6ad09d7e6c0655ec6 *vendor/qa_probe/PHASE0_REPORT.md
+039fdc3ac9ff2708fdcec7da826d15a0f3c5193d59f5be7b4597fdada41d62ae *vendor/qa_probe/SFT_PLAN.md
+d7b100946354a952d0199d564a01e3f6d16040e60e9d1ff0236000cd16066a71 *vendor/qa_probe/modal_phase0_probe.py
+fee2e465b7fa869d1cf77cdee9ae1db835d7e66ed190db5e147f03d57642f142 *vendor/qa_probe/phase0_results.json
+```

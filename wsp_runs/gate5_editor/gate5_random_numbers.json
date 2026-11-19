@@ -1,0 +1,1025 @@
+{
+ "R1": {
+  "n_steps": 18,
+  "final": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.7542924807578448,
+    "ci": [
+     0.7400828892835998,
+     0.7682060390763765
+    ],
+    "significant": true
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.04833128293664291,
+    "ci": [
+     0.035275868931998154,
+     0.061513209230911206
+    ],
+    "significant": true
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.07548845470692718,
+    "ci": [
+     0.06690349319123742,
+     0.08466548253404381
+    ],
+    "significant": true
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.0452930728241563,
+    "ci": [
+     -0.05950266429840142,
+     -0.03108348134991119
+    ],
+    "significant": true
+   },
+   "discrimination": {
+    "1": 0.7424511545293073,
+    "2": 0.7184724689165187,
+    "3": 0.5746003552397868,
+    "min": 0.5746003552397868
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.8259325044404974,
+    "abs2": 0.8028419182948491,
+    "abs3": 0.6341030195381883,
+    "ans1": 0.08348134991119005,
+    "ans2": 0.08436944937833037,
+    "ans3": 0.05950266429840142
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.002668074498424433,
+    "e4_native/case-law": 0.003143117220161473,
+    "e4_native/fineweb-edu": 0.004010158637848038,
+    "v1_heldout/case-law": 0.0031032472032117564,
+    "v1_heldout/fineweb-edu": 0.0039536189724622695
+   },
+   "copy": {
+    "rate": 0.96,
+    "ci95": [
+     0.93,
+     0.985
+    ],
+    "n": 200
+   }
+  },
+  "trajectory": [
+   {
+    "step": 1,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.7,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "up_proj",
+       "down_proj",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.001,
+    "guard": false,
+    "ret": {
+     "sec": 1.425,
+     "case-law": 1.173,
+     "fineweb-edu": 1.345
+    },
+    "ovm_D": [
+     -0.003,
+     -0.009,
+     0.0
+    ]
+   },
+   {
+    "step": 2,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.03,
+      "layers": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ],
+      "modules": [
+       "k_proj",
+       "v_proj",
+       "o_proj",
+       "up_proj"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 0.69
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.314,
+    "guard": false,
+    "ret": {
+     "sec": 0.004,
+     "case-law": 0.003,
+     "fineweb-edu": 0.004
+    },
+    "ovm_D": [
+     0.031,
+     0.006,
+     0.056
+    ]
+   },
+   {
+    "step": 3,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 0.73
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.345,
+    "guard": false,
+    "ret": {
+     "sec": 0.001,
+     "case-law": 0.0,
+     "fineweb-edu": 0.0
+    },
+    "ovm_D": [
+     0.031,
+     0.005,
+     0.057
+    ]
+   },
+   {
+    "step": 4,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.59,
+      "layers": [
+       4,
+       5,
+       6,
+       7,
+       8,
+       9
+      ],
+      "modules": [
+       "q_proj",
+       "v_proj",
+       "o_proj",
+       "up_proj",
+       "embed",
+       "norm"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.25,
+      "tau": 0,
+      "gain": 1.96
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.01,
+      "layers": [
+       8,
+       9
+      ],
+      "modules": [
+       "v_proj",
+       "o_proj",
+       "up_proj"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.677,
+    "guard": false,
+    "ret": {
+     "sec": 0.41,
+     "case-law": 0.48,
+     "fineweb-edu": 0.676
+    },
+    "ovm_D": [
+     0.19,
+     0.127,
+     0.254
+    ]
+   },
+   {
+    "step": 5,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.41,
+      "layers": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "v_proj",
+       "o_proj",
+       "down_proj",
+       "norm"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1.61
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.45,
+      "layers": [
+       8,
+       9,
+       10
+      ],
+      "modules": [
+       "up_proj",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.753,
+    "guard": true,
+    "ret": {
+     "sec": 0.315,
+     "case-law": 0.249,
+     "fineweb-edu": 0.294
+    },
+    "ovm_D": [
+     0.153,
+     0.099,
+     0.21
+    ]
+   },
+   {
+    "step": 6,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.88,
+      "layers": [
+       7,
+       8,
+       9,
+       10
+      ],
+      "modules": [
+       "q_proj",
+       "v_proj",
+       "down_proj",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.0,
+    "guard": true,
+    "ret": {
+     "sec": 0.103,
+     "case-law": 0.132,
+     "fineweb-edu": 0.166
+    },
+    "ovm_D": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "step": 7,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 1.49
+     },
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.25,
+      "tau": 0,
+      "gain": 1.12
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": true,
+    "abst_gain": null,
+    "guard": null,
+    "ret": null,
+    "ovm_D": null
+   },
+   {
+    "step": 8,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.57,
+      "layers": [
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "modules": [
+       "v_proj",
+       "embed",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.001,
+    "guard": true,
+    "ret": {
+     "sec": 0.274,
+     "case-law": 0.24,
+     "fineweb-edu": 0.307
+    },
+    "ovm_D": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "step": 9,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.81,
+      "layers": [
+       7
+      ],
+      "modules": [
+       "q_proj",
+       "v_proj",
+       "o_proj",
+       "gate_proj",
+       "embed",
+       "norm"
+      ]
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.23,
+      "layers": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "up_proj",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.001,
+    "guard": true,
+    "ret": {
+     "sec": 0.185,
+     "case-law": 0.202,
+     "fineweb-edu": 0.214
+    },
+    "ovm_D": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "step": 10,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.55,
+      "layers": [
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "up_proj",
+       "norm"
+      ]
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.09,
+      "layers": [
+       3,
+       4
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "o_proj",
+       "up_proj",
+       "down_proj",
+       "embed"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.25,
+      "tau": 0,
+      "gain": 1.57
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.742,
+    "guard": true,
+    "ret": {
+     "sec": 0.274,
+     "case-law": 0.31,
+     "fineweb-edu": 0.398
+    },
+    "ovm_D": [
+     0.207,
+     0.138,
+     0.275
+    ]
+   },
+   {
+    "step": 11,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 0.22
+     },
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 1,
+      "gain": 0.52
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.027,
+    "guard": true,
+    "ret": {
+     "sec": 0.007,
+     "case-law": 0.001,
+     "fineweb-edu": 0.004
+    },
+    "ovm_D": [
+     0.003,
+     0.0,
+     0.009
+    ]
+   },
+   {
+    "step": 12,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.73,
+      "layers": [
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "gate_proj",
+       "up_proj",
+       "embed",
+       "norm"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 0.99
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.11,
+      "layers": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ],
+      "modules": [
+       "q_proj",
+       "v_proj",
+       "up_proj",
+       "down_proj",
+       "embed"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": true,
+    "abst_gain": null,
+    "guard": null,
+    "ret": null,
+    "ovm_D": null
+   },
+   {
+    "step": 13,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.99,
+      "layers": [
+       11
+      ],
+      "modules": [
+       "q_proj",
+       "v_proj",
+       "gate_proj",
+       "up_proj"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 0.1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.17,
+      "layers": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "embed",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.001,
+    "guard": true,
+    "ret": {
+     "sec": 0.131,
+     "case-law": 0.173,
+     "fineweb-edu": 0.2
+    },
+    "ovm_D": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "step": 14,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 0.12
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 1,
+      "tau": 0,
+      "gain": 0.28
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.181,
+    "guard": true,
+    "ret": {
+     "sec": 0.006,
+     "case-law": 0.002,
+     "fineweb-edu": 0.002
+    },
+    "ovm_D": [
+     0.02,
+     0.006,
+     0.035
+    ]
+   },
+   {
+    "step": 15,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.05,
+      "layers": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9
+      ],
+      "modules": [
+       "q_proj",
+       "gate_proj"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.25,
+      "tau": 0,
+      "gain": 0.62
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.43,
+      "layers": [
+       8,
+       9,
+       10
+      ],
+      "modules": [
+       "q_proj",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.006,
+    "guard": true,
+    "ret": {
+     "sec": 0.021,
+     "case-law": 0.027,
+     "fineweb-edu": 0.027
+    },
+    "ovm_D": [
+     0.003,
+     0.0,
+     0.009
+    ]
+   },
+   {
+    "step": 16,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.63,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "o_proj",
+       "norm"
+      ]
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.25,
+      "tau": 0,
+      "gain": 0.89
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.41,
+      "layers": [
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10
+      ],
+      "modules": [
+       "v_proj",
+       "gate_proj",
+       "down_proj",
+       "embed",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.866,
+    "guard": false,
+    "ret": {
+     "sec": 0.788,
+     "case-law": 0.786,
+     "fineweb-edu": 0.914
+    },
+    "ovm_D": [
+     0.239,
+     0.17,
+     0.307
+    ]
+   },
+   {
+    "step": 17,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.17,
+      "layers": [
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "v_proj",
+       "o_proj",
+       "gate_proj",
+       "up_proj"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.001,
+    "guard": true,
+    "ret": {
+     "sec": 0.085,
+     "case-law": 0.091,
+     "fineweb-edu": 0.121
+    },
+    "ovm_D": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "step": 18,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 0.77,
+      "layers": [
+       3,
+       4
+      ],
+      "modules": [
+       "q_proj",
+       "o_proj",
+       "down_proj",
+       "embed",
+       "norm"
+      ]
+     }
+    ],
+    "note": "random search R1, seed 1",
+    "veto": false,
+    "abst_gain": 0.001,
+    "guard": true,
+    "ret": {
+     "sec": 0.085,
+     "case-law": 0.072,
+     "fineweb-edu": 0.087
+    },
+    "ovm_D": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "random_s0": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0002960331557134399,
+    "ci": [
+     0.0,
+     0.0008880994671403197
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.007987897255333488,
+    "ci": [
+     -0.001130544994205739,
+     0.01696525255476219
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": -0.0002960331557134399,
+    "ci": [
+     -0.0008880994671403197,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.011545293072824156,
+    "ci": [
+     -0.021314387211367674,
+     -0.0017761989342806395
+    ],
+    "significant": true
+   },
+   "discrimination": {
+    "1": 0.0008880994671403197,
+    "2": 0.0,
+    "3": 0.0,
+    "min": 0.0
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.0008880994671403197,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0,
+    "ans2": 0.0,
+    "ans3": 0.0
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.004558628466275083,
+    "e4_native/case-law": 0.0026783228935667314,
+    "e4_native/fineweb-edu": 0.0018293566122240534,
+    "v1_heldout/case-law": 0.002880157050640486,
+    "v1_heldout/fineweb-edu": 0.0018885560193731
+   },
+   "copy": {
+    "rate": 0.96,
+    "ci95": [
+     0.93,
+     0.985
+    ],
+    "n": 200
+   }
+  },
+  "ovm": {
+   "D_matched": [
+    0.17247542448614833,
+    0.13587223268760398,
+    0.20675156788710386
+   ],
+   "D_v2_k12": [
+    0.730461811722913,
+    0.7073712255772646,
+    0.7508880994671403
+   ],
+   "D_del_only": [
+    0.11087229497857325,
+    0.07550437783629424,
+    0.144499517442874
+   ],
+   "abstain_rate": {
+    "ans1": 0.12839059674502712,
+    "ans2": 0.11484098939929328,
+    "abs1": 0.6262626262626263,
+    "abs2": 0.5975609756097561,
+    "del1": 0.2026431718061674,
+    "del2": 0.2603305785123967
+   },
+   "f1_delta_vs_qa": {
+    "n": 1119,
+    "delta": 0.02290995967865298,
+    "ci": [
+     0.011895893014358937,
+     0.03421986987444376
+    ],
+    "significant": true
+   },
+   "verdict": "PARTIAL"
+  },
+  "all_guardrails_heldout": true,
+  "outcome": "BEATS DETERMINISTIC"
+ },
+ "arm_verdict": "MENU SUFFICES (R1 beats; sequential stop, R2-R3 not run)"
+}

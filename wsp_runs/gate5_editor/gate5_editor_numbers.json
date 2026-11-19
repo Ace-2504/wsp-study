@@ -1,0 +1,2396 @@
+{
+ "A": {
+  "n_steps": 18,
+  "final": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.9307282415630551,
+    "ci": [
+     0.9218472468916519,
+     0.9393132030787448
+    ],
+    "significant": true
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.02938802500262993,
+    "ci": [
+     0.014730214226640248,
+     0.04496191198007404
+    ],
+    "significant": true
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.08229721728833629,
+    "ci": [
+     0.07312018946121966,
+     0.09147424511545293
+    ],
+    "significant": true
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.02930728241563055,
+    "ci": [
+     -0.04440497335701599,
+     -0.015097690941385435
+    ],
+    "significant": true
+   },
+   "discrimination": {
+    "1": 0.8605683836589698,
+    "2": 0.8570159857904086,
+    "3": 0.8268206039076377,
+    "min": 0.8268206039076377
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.9502664298401421,
+    "abs2": 0.9369449378330373,
+    "abs3": 0.9049733570159858,
+    "ans1": 0.08969804618117229,
+    "ans2": 0.07992895204262877,
+    "ans3": 0.07815275310834814
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.0034633121928964172,
+    "e4_native/case-law": 0.0033442455964300954,
+    "e4_native/fineweb-edu": 0.0033784399801808362,
+    "v1_heldout/case-law": 0.003405663764828981,
+    "v1_heldout/fineweb-edu": 0.0034819590057399985
+   },
+   "copy": {
+    "rate": 0.955,
+    "ci95": [
+     0.925,
+     0.98
+    ],
+    "n": 200
+   }
+  },
+  "trajectory": [
+   {
+    "step": 1,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     }
+    ],
+    "note": "Baseline probe: single AND-gate at layer 6, mid rho, no threshold, unit gain, to see how much abstention and matched-pool discrimination the probe direction gives.",
+    "veto": false,
+    "abst_gain": 0.524,
+    "guard": true,
+    "ret": {
+     "sec": 0.006,
+     "case-law": -0.0,
+     "fineweb-edu": 0.001
+    },
+    "ovm_D": [
+     0.091,
+     0.053,
+     0.136
+    ]
+   },
+   {
+    "step": 2,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.25
+     }
+    ],
+    "note": "Test whether a downscaled gradient-trained full-FT delta carries matched-pool (deleted-answer) signal beyond the overlap-like probe, and measure its retention cost at 0.25 scale.",
+    "veto": false,
+    "abst_gain": 0.005,
+    "guard": false,
+    "ret": {
+     "sec": 0.452,
+     "case-law": 0.469,
+     "fineweb-edu": 0.6
+    },
+    "ovm_D": [
+     0.0,
+     -0.008,
+     0.008
+    ]
+   },
+   {
+    "step": 3,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     }
+    ],
+    "note": "Same gate as step 1 but at layer 5, to compare whether the layer-5 absence probe separates deleted-answer docs (D_matched) better than layer 6.",
+    "veto": false,
+    "abst_gain": 0.5,
+    "guard": false,
+    "ret": {
+     "sec": 0.021,
+     "case-law": 0.002,
+     "fineweb-edu": 0.002
+    },
+    "ovm_D": [
+     0.108,
+     0.064,
+     0.158
+    ]
+   },
+   {
+    "step": 4,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 1
+     }
+    ],
+    "note": "Raise the gate firing threshold (tau=1) at layer 6 to see if a stricter gate improves selectivity (fewer false abstains, better del-vs-ans separation) or just reduces overall abstention.",
+    "veto": false,
+    "abst_gain": 0.468,
+    "guard": true,
+    "ret": {
+     "sec": 0.005,
+     "case-law": 0.001,
+     "fineweb-edu": 0.002
+    },
+    "ovm_D": [
+     0.054,
+     0.018,
+     0.093
+    ]
+   },
+   {
+    "step": 5,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1
+     }
+    ],
+    "note": "tau=1 lowered D_matched, so firing breadth matters; test a larger write budget (rho=1) at layer 6 to push borderline del items (partial gate activation) over the abstain threshold.",
+    "veto": false,
+    "abst_gain": 0.716,
+    "guard": true,
+    "ret": {
+     "sec": 0.014,
+     "case-law": 0.002,
+     "fineweb-edu": 0.003
+    },
+    "ovm_D": [
+     0.139,
+     0.09,
+     0.192
+    ]
+   },
+   {
+    "step": 6,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.5
+     }
+    ],
+    "note": "rho 0.5->1 raised D_matched 0.09->0.14 at little cost; check whether more write amplitude (gain 1.5) keeps converting partially-firing del items into abstentions, and where false abstain / clean F1 start to bite.",
+    "veto": true,
+    "abst_gain": null,
+    "guard": null,
+    "ret": null,
+    "ovm_D": null
+   },
+   {
+    "step": 7,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     }
+    ],
+    "note": "Veto at gain 1.5 showed max tensor rel scales linearly with gain (0.213*1.5=0.319); gain 1.15 should sit at ~0.245, the largest safe write at layer 6, to test if extra amplitude still raises D_matched.",
+    "veto": false,
+    "abst_gain": 0.76,
+    "guard": true,
+    "ret": {
+     "sec": 0.017,
+     "case-law": 0.002,
+     "fineweb-edu": 0.005
+    },
+    "ovm_D": [
+     0.148,
+     0.097,
+     0.203
+    ]
+   },
+   {
+    "step": 8,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 1,
+      "tau": 0,
+      "gain": 0.6
+     }
+    ],
+    "note": "Layer 6 is at its per-tensor cap; add a second gate at layer 5 (separate tensors, gain 0.6 to stay under 0.25) since the layer-5 probe alone had slightly higher D_matched, hoping the two probes add complementary deleted-answer signal.",
+    "veto": true,
+    "abst_gain": null,
+    "guard": null,
+    "ret": null,
+    "ovm_D": null
+   },
+   {
+    "step": 9,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.0
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 0.7
+     }
+    ],
+    "note": "Step 8 vetoed on norms; this pair is sized to be safe (global <= ~0.048, layer-5 tensor <= 0.242) and tests whether a second, differently-placed probe adds deleted-answer discrimination beyond layer 6 alone.",
+    "veto": false,
+    "abst_gain": 0.401,
+    "guard": false,
+    "ret": {
+     "sec": 0.02,
+     "case-law": 0.003,
+     "fineweb-edu": 0.004
+    },
+    "ovm_D": [
+     0.077,
+     0.037,
+     0.118
+    ]
+   },
+   {
+    "step": 10,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.2
+     }
+    ],
+    "note": "Stacking gates interfered (step 9). Instead add a small gradient-trained LoRA delta under the best gate: sub-threshold on its own, but it may nudge gate-adjacent deleted-answer items over the abstain line; retention looks ~quadratic in scale so 0.2 should stay within budget.",
+    "veto": false,
+    "abst_gain": 0.866,
+    "guard": false,
+    "ret": {
+     "sec": 0.672,
+     "case-law": 0.647,
+     "fineweb-edu": 0.738
+    },
+    "ovm_D": [
+     0.216,
+     0.158,
+     0.276
+    ]
+   },
+   {
+    "step": 11,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.15
+     }
+    ],
+    "note": "Gate+LoRA0.2 gave D_matched 0.216 but retention +0.74%; retention looks quadratic in scale, so 0.15 should land ~+0.42% while keeping most of the synergy.",
+    "veto": false,
+    "abst_gain": 0.859,
+    "guard": false,
+    "ret": {
+     "sec": 0.462,
+     "case-law": 0.449,
+     "fineweb-edu": 0.516
+    },
+    "ovm_D": [
+     0.207,
+     0.146,
+     0.27
+    ]
+   },
+   {
+    "step": 12,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.1
+     }
+    ],
+    "note": "Retention is ~linear in LoRA scale (~3.5%/unit) while the gate+LoRA synergy barely dropped 0.2->0.15; scale 0.1 should give ~+0.35% retention with margin, testing how much D_matched survives.",
+    "veto": false,
+    "abst_gain": 0.84,
+    "guard": true,
+    "ret": {
+     "sec": 0.276,
+     "case-law": 0.268,
+     "fineweb-edu": 0.315
+    },
+    "ovm_D": [
+     0.182,
+     0.123,
+     0.244
+    ]
+   },
+   {
+    "step": 13,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.2,
+      "layers": [
+       6,
+       7,
+       8,
+       9,
+       10,
+       11
+      ]
+     }
+    ],
+    "note": "Localise the LoRA synergy: keep only layers 6-11 (downstream of the gate) at scale 0.2; if D_matched stays near 0.21 with roughly half the retention cost, late layers carry the useful part and allow a larger scale.",
+    "veto": false,
+    "abst_gain": 0.791,
+    "guard": true,
+    "ret": {
+     "sec": 0.189,
+     "case-law": 0.25,
+     "fineweb-edu": 0.278
+    },
+    "ovm_D": [
+     0.162,
+     0.106,
+     0.219
+    ]
+   },
+   {
+    "step": 14,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.17,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    "note": "Late-layer LoRA was less efficient than full-depth; test the complementary hypothesis that early layers (feeding the layer-6 probe) carry the synergy, at 0.17 so projected retention is ~0.39%.",
+    "veto": false,
+    "abst_gain": 0.85,
+    "guard": true,
+    "ret": {
+     "sec": 0.381,
+     "case-law": 0.293,
+     "fineweb-edu": 0.345
+    },
+    "ovm_D": [
+     0.199,
+     0.138,
+     0.263
+    ]
+   },
+   {
+    "step": 15,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.25,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj"
+      ]
+     }
+    ],
+    "note": "Early layers carry the synergy; test whether attention (reading the question against docs, plausibly where answer-presence is computed) is the efficient part, at a higher scale since MLP retention cost is removed.",
+    "veto": false,
+    "abst_gain": 0.864,
+    "guard": true,
+    "ret": {
+     "sec": 0.291,
+     "case-law": 0.218,
+     "fineweb-edu": 0.245
+    },
+    "ovm_D": [
+     0.202,
+     0.14,
+     0.267
+    ]
+   },
+   {
+    "step": 16,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.33,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj"
+      ]
+     }
+    ],
+    "note": "Early-attention LoRA is the most retention-efficient synergy source (0.25 -> D 0.202 at +0.29%); push to 0.33 (projected ~+0.38% sec) to see if D_matched keeps rising or saturates.",
+    "veto": false,
+    "abst_gain": 0.878,
+    "guard": true,
+    "ret": {
+     "sec": 0.411,
+     "case-law": 0.299,
+     "fineweb-edu": 0.339
+    },
+    "ovm_D": [
+     0.23,
+     0.167,
+     0.297
+    ]
+   },
+   {
+    "step": 17,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.5,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "Hypothesis: the useful early-attention change is in q/k (where the question attends into the docs to find the answer span), while v/o mostly cost LM loss; test q/k only at higher scale 0.5.",
+    "veto": false,
+    "abst_gain": 0.903,
+    "guard": true,
+    "ret": {
+     "sec": 0.219,
+     "case-law": 0.221,
+     "fineweb-edu": 0.238
+    },
+    "ovm_D": [
+     0.25,
+     0.186,
+     0.32
+    ]
+   },
+   {
+    "step": 18,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.15
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.7,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "q/k-only early LoRA is the most efficient matched-pool lever (0.5 -> D 0.25 at +0.24% retention); final push to 0.7 to see if D keeps rising before clean-F1 CI or retention bind.",
+    "veto": false,
+    "abst_gain": 0.913,
+    "guard": true,
+    "ret": {
+     "sec": 0.346,
+     "case-law": 0.331,
+     "fineweb-edu": 0.34
+    },
+    "ovm_D": [
+     0.253,
+     0.184,
+     0.325
+    ]
+   }
+  ],
+  "random_s0": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.006495576195151411,
+    "ci": [
+     -0.015220700966699701,
+     0.0021157189281907026
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.0053285968028419185,
+    "ci": [
+     -0.015097690941385435,
+     0.004440497335701598
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": -0.0008880994671403197,
+    "2": 0.0,
+    "3": 0.0,
+    "min": -0.0008880994671403197
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.0,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0008880994671403197,
+    "ans2": 0.0,
+    "ans3": 0.0
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.006543039397354677,
+    "e4_native/case-law": 0.0038674454729614727,
+    "e4_native/fineweb-edu": 0.0026935948734714277,
+    "v1_heldout/case-law": 0.0041094894123114845,
+    "v1_heldout/fineweb-edu": 0.002782440902447947
+   },
+   "copy": {
+    "rate": 0.96,
+    "ci95": [
+     0.93,
+     0.985
+    ],
+    "n": 200
+   }
+  },
+  "ovm": {
+   "D_matched": [
+    0.22877569258266311,
+    0.19208797715228246,
+    0.26424896093447225
+   ],
+   "D_v2_k12": [
+    0.8587921847246892,
+    0.8401420959147424,
+    0.8765652753108347
+   ],
+   "D_del_only": [
+    0.14790372153022707,
+    0.11037684816399278,
+    0.18413020766657473
+   ],
+   "abstain_rate": {
+    "ans1": 0.11573236889692586,
+    "ans2": 0.10247349823321555,
+    "abs1": 0.7777777777777778,
+    "abs2": 0.7317073170731707,
+    "del1": 0.23348017621145375,
+    "del2": 0.27892561983471076
+   },
+   "f1_delta_vs_qa": {
+    "n": 1119,
+    "delta": 0.0058539071088107965,
+    "ci": [
+     -0.006844634314839274,
+     0.018233588435541175
+    ],
+    "significant": false
+   },
+   "verdict": "PARTIAL"
+  },
+  "all_guardrails_heldout": true,
+  "outcome": "BEATS DETERMINISTIC"
+ },
+ "B": {
+  "n_steps": 17,
+  "final": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.8975725281231498,
+    "ci": [
+     0.8872113676731794,
+     0.9076376554174067
+    ],
+    "significant": true
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.0708360761500217,
+    "ci": [
+     0.05538880585410231,
+     0.08673647420885544
+    ],
+    "significant": true
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.07075192421551214,
+    "ci": [
+     0.061870929544108944,
+     0.07904085257548846
+    ],
+    "significant": true
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.03108348134991119,
+    "ci": [
+     -0.047957371225577264,
+     -0.014209591474245116
+    ],
+    "significant": true
+   },
+   "discrimination": {
+    "1": 0.8436944937833037,
+    "2": 0.8383658969804618,
+    "3": 0.7975133214920072,
+    "min": 0.7975133214920072
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.8845470692717584,
+    "abs2": 0.9049733570159858,
+    "abs3": 0.9031971580817052,
+    "ans1": 0.04085257548845471,
+    "ans2": 0.06660746003552398,
+    "ans3": 0.10568383658969804
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.0032461235717335946,
+    "e4_native/case-law": 0.002900383729322442,
+    "e4_native/fineweb-edu": 0.003289402137601094,
+    "v1_heldout/case-law": 0.0028830268281678784,
+    "v1_heldout/fineweb-edu": 0.0032818268037548837
+   },
+   "copy": {
+    "rate": 0.96,
+    "ci95": [
+     0.93,
+     0.985
+    ],
+    "n": 200
+   }
+  },
+  "trajectory": [
+   {
+    "step": 1,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 1
+     }
+    ],
+    "note": "Baseline probe: single AND-gate at layer 6, moderate write norm, raised threshold, unit gain.",
+    "veto": false,
+    "abst_gain": 0.468,
+    "guard": true,
+    "ret": {
+     "sec": 0.005,
+     "case-law": 0.001,
+     "fineweb-edu": 0.002
+    },
+    "ovm_D": [
+     0.054,
+     0.018,
+     0.093
+    ]
+   },
+   {
+    "step": 2,
+    "components": [
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.25
+     }
+    ],
+    "note": "Probe whether the gradient-trained full FT delta carries real answer-presence signal (matched-pool D) at a scale small enough to plausibly fit retention budget.",
+    "veto": false,
+    "abst_gain": 0.005,
+    "guard": false,
+    "ret": {
+     "sec": 0.452,
+     "case-law": 0.469,
+     "fineweb-edu": 0.6
+    },
+    "ovm_D": [
+     0.0,
+     -0.008,
+     0.008
+    ]
+   },
+   {
+    "step": 3,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 1
+     }
+    ],
+    "note": "Same gate config as step 1 but at layer 5, to compare whether the layer-5 probe carries more matched-pool (content) signal than layer 6.",
+    "veto": true,
+    "abst_gain": null,
+    "guard": null,
+    "ret": null,
+    "ovm_D": null
+   },
+   {
+    "step": 4,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.25,
+      "tau": 1,
+      "gain": 1
+     }
+    ],
+    "note": "Layer-5 gate vetoed at rho 0.5 (tensor 0.33); halve rho to fit the 0.25 per-tensor cap and test the layer-5 probe on the matched pool.",
+    "veto": false,
+    "abst_gain": 0.053,
+    "guard": true,
+    "ret": {
+     "sec": 0.003,
+     "case-law": -0.002,
+     "fineweb-edu": -0.001
+    },
+    "ovm_D": [
+     0.014,
+     0.003,
+     0.027
+    ]
+   },
+   {
+    "step": 5,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     }
+    ],
+    "note": "Step 1 (L6, tau 1) gave abstain gain 0.47, D_matched 0.054. Lower the threshold (tau 0) to see whether the gate fires more on deleted-answer items relative to answerable ones.",
+    "veto": false,
+    "abst_gain": 0.524,
+    "guard": true,
+    "ret": {
+     "sec": 0.006,
+     "case-law": -0.0,
+     "fineweb-edu": 0.001
+    },
+    "ovm_D": [
+     0.091,
+     0.053,
+     0.136
+    ]
+   },
+   {
+    "step": 6,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1.5
+     }
+    ],
+    "note": "tau 0 improved D_matched to 0.091 with small false-abstain cost; raise gain to 1.5 to push more del items over the abstain threshold while monitoring clean F1 and per-tensor norm.",
+    "veto": false,
+    "abst_gain": 0.665,
+    "guard": true,
+    "ret": {
+     "sec": 0.009,
+     "case-law": 0.002,
+     "fineweb-edu": 0.004
+    },
+    "ovm_D": [
+     0.128,
+     0.079,
+     0.181
+    ]
+   },
+   {
+    "step": 7,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     }
+    ],
+    "note": "Gain 1->1.5 raised D_matched 0.091->0.128 with max tensor unchanged (gate row binds); test gain 2 to see if D_matched keeps rising before clean-F1 CI (-0.0165 now) breaks -0.02.",
+    "veto": false,
+    "abst_gain": 0.722,
+    "guard": false,
+    "ret": {
+     "sec": 0.027,
+     "case-law": 0.005,
+     "fineweb-edu": 0.008
+    },
+    "ovm_D": [
+     0.165,
+     0.112,
+     0.22
+    ]
+   },
+   {
+    "step": 8,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.1
+     }
+    ],
+    "note": "Gain 2 gave D_matched 0.165 but clean-F1 CI -0.0226 fails. fullft@0.25 lifted clean F1 +0.073 at 0.6% retention; add it at 0.1 (retention should be ~quadratic, well under 0.5%) to buy back clean F1.",
+    "veto": false,
+    "abst_gain": 0.773,
+    "guard": true,
+    "ret": {
+     "sec": 0.103,
+     "case-law": 0.091,
+     "fineweb-edu": 0.115
+    },
+    "ovm_D": [
+     0.19,
+     0.13,
+     0.25
+    ]
+   },
+   {
+    "step": 9,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.1
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.25,
+      "tau": 0,
+      "gain": 1.25
+     }
+    ],
+    "note": "Step 8 passes with D_matched 0.19. Add a second, independent layer-5 probe gate (tau 0, gain 1.25 to stay under the 0.25 tensor cap) to see if OR-ing two probes adds matched-pool signal using the clean-F1 margin fullft bought.",
+    "veto": false,
+    "abst_gain": 0.452,
+    "guard": true,
+    "ret": {
+     "sec": 0.105,
+     "case-law": 0.089,
+     "fineweb-edu": 0.116
+    },
+    "ovm_D": [
+     0.091,
+     0.035,
+     0.152
+    ]
+   },
+   {
+    "step": 10,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.1
+     }
+    ],
+    "note": "Adding an L5 gate (step 9) interfered and halved abstention, so drop it. Test whether the rho=1 write vector (optimised with a looser bound) beats rho 0.5 x gain 2 at similar down-col norm (~0.23 est.), keeping fullft@0.1 for clean F1.",
+    "veto": false,
+    "abst_gain": 0.791,
+    "guard": true,
+    "ret": {
+     "sec": 0.094,
+     "case-law": 0.088,
+     "fineweb-edu": 0.112
+    },
+    "ovm_D": [
+     0.176,
+     0.122,
+     0.235
+    ]
+   },
+   {
+    "step": 11,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.18
+     }
+    ],
+    "note": "fullft@0.1 added ~+0.025 D_matched and +0.05 abstain on top of the L6 gate at ~0.1% retention; raise it to 0.18 (est. ~0.3% retention) to see if the synergy grows.",
+    "veto": false,
+    "abst_gain": 0.847,
+    "guard": true,
+    "ret": {
+     "sec": 0.268,
+     "case-law": 0.265,
+     "fineweb-edu": 0.34
+    },
+    "ovm_D": [
+     0.222,
+     0.156,
+     0.288
+    ]
+   },
+   {
+    "step": 12,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.22,
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj",
+       "gate_proj",
+       "up_proj",
+       "down_proj"
+      ]
+     }
+    ],
+    "note": "fullft@0.18 lifted D_matched to 0.222 at 0.34% retention. Test whether dropping embed/norm from the fullft delta cuts retention cost enough to allow scale 0.22 for more synergy.",
+    "veto": false,
+    "abst_gain": 0.863,
+    "guard": true,
+    "ret": {
+     "sec": 0.375,
+     "case-law": 0.372,
+     "fineweb-edu": 0.481
+    },
+    "ovm_D": [
+     0.247,
+     0.184,
+     0.313
+    ]
+   },
+   {
+    "step": 13,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.25,
+      "layers": [
+       6,
+       7,
+       8,
+       9,
+       10,
+       11
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj",
+       "gate_proj",
+       "up_proj",
+       "down_proj"
+      ]
+     }
+    ],
+    "note": "Step 12 (proj-only fullft@0.22) gave D_matched 0.247 but retention 0.48%, too close to 0.5. Test whether confining fullft to upper layers 6-11 keeps the synergy at lower retention cost.",
+    "veto": false,
+    "abst_gain": 0.79,
+    "guard": true,
+    "ret": {
+     "sec": 0.134,
+     "case-law": 0.161,
+     "fineweb-edu": 0.241
+    },
+    "ovm_D": [
+     0.19,
+     0.13,
+     0.251
+    ]
+   },
+   {
+    "step": 14,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.25,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj",
+       "gate_proj",
+       "up_proj",
+       "down_proj"
+      ]
+     }
+    ],
+    "note": "Upper-layer fullft (step 13) lost the synergy (D 0.19, little clean-F1 gain), so the benefit lives in layers 0-5, upstream of the L6 gate. Test lower-layer-only fullft at 0.25.",
+    "veto": false,
+    "abst_gain": 0.863,
+    "guard": true,
+    "ret": {
+     "sec": 0.336,
+     "case-law": 0.285,
+     "fineweb-edu": 0.334
+    },
+    "ovm_D": [
+     0.241,
+     0.181,
+     0.308
+    ]
+   },
+   {
+    "step": 15,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.3,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj"
+      ]
+     }
+    ],
+    "note": "Lower-layer fullft@0.25 gave D 0.241 at 0.34% retention. Split by module: attention-only (reading the documents) at 0.3 to see if it carries the synergy at lower retention cost.",
+    "veto": false,
+    "abst_gain": 0.828,
+    "guard": true,
+    "ret": {
+     "sec": 0.228,
+     "case-law": 0.182,
+     "fineweb-edu": 0.207
+    },
+    "ovm_D": [
+     0.224,
+     0.163,
+     0.289
+    ]
+   },
+   {
+    "step": 16,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 2
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.35,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj"
+      ]
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.15,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "gate_proj",
+       "up_proj",
+       "down_proj"
+      ]
+     }
+    ],
+    "note": "Lower-layer attention fullft is the cheap carrier (0.3 -> D 0.224 at 0.23% ret); lower-layer MLP adds a bit of D at higher cost. Mix attention 0.35 + MLP 0.15 to beat step 14 (D 0.241, 0.34%) at similar or lower retention.",
+    "veto": false,
+    "abst_gain": 0.874,
+    "guard": true,
+    "ret": {
+     "sec": 0.366,
+     "case-law": 0.301,
+     "fineweb-edu": 0.342
+    },
+    "ovm_D": [
+     0.241,
+     0.174,
+     0.309
+    ]
+   },
+   {
+    "step": 17,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 1,
+      "tau": 0,
+      "gain": 1.1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.25,
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj",
+       "gate_proj",
+       "up_proj",
+       "down_proj"
+      ]
+     }
+    ],
+    "note": "fullft-side tuning has plateaued at D~0.24 (steps 14, 16). Swap the gate write to rho 1 x gain 1.1 (step 10 had higher abstain gain and clean F1 than rho 0.5 x gain 2) on top of the step-14 fullft mask.",
+    "veto": false,
+    "abst_gain": 0.879,
+    "guard": true,
+    "ret": {
+     "sec": 0.327,
+     "case-law": 0.283,
+     "fineweb-edu": 0.331
+    },
+    "ovm_D": [
+     0.253,
+     0.19,
+     0.318
+    ]
+   }
+  ],
+  "random_s0": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.006313498098986057,
+    "ci": [
+     -0.014834610269229581,
+     0.0022615022583507604
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.006216696269982238,
+    "ci": [
+     -0.015985790408525755,
+     0.003552397868561279
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": -0.0008880994671403197,
+    "2": 0.0,
+    "3": 0.0,
+    "min": -0.0008880994671403197
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.0,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0008880994671403197,
+    "ans2": 0.0,
+    "ans3": 0.0
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.006227736481056789,
+    "e4_native/case-law": 0.003633365817359291,
+    "e4_native/fineweb-edu": 0.0024959209998103304,
+    "v1_heldout/case-law": 0.003875483884752118,
+    "v1_heldout/fineweb-edu": 0.0025870106969860807
+   },
+   "copy": {
+    "rate": 0.96,
+    "ci95": [
+     0.93,
+     0.985
+    ],
+    "n": 200
+   }
+  },
+  "ovm": {
+   "D_matched": [
+    0.18409294012511174,
+    0.1539051822260869,
+    0.21664924586284748
+   ],
+   "D_v2_k12": [
+    0.8410301953818827,
+    0.8219360568383659,
+    0.8596802841918294
+   ],
+   "D_del_only": [
+    0.1099167128737774,
+    0.07934307152409274,
+    0.1421354956031461
+   ],
+   "abstain_rate": {
+    "ans1": 0.054249547920433995,
+    "ans2": 0.09010600706713781,
+    "abs1": 0.6161616161616161,
+    "abs2": 0.6707317073170732,
+    "del1": 0.14537444933920704,
+    "del2": 0.21694214876033058
+   },
+   "f1_delta_vs_qa": {
+    "n": 1119,
+    "delta": 0.04467552351703907,
+    "ci": [
+     0.031126963029286393,
+     0.05844412618802186
+    ],
+    "significant": true
+   },
+   "verdict": "PARTIAL"
+  },
+  "all_guardrails_heldout": true,
+  "outcome": "BEATS DETERMINISTIC"
+ },
+ "C": {
+  "n_steps": 17,
+  "final": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.844582593250444,
+    "ci": [
+     0.8324452338661931,
+     0.8570159857904085
+    ],
+    "significant": true
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.013066188473401978,
+    "ci": [
+     -0.000687293313179214,
+     0.02663272963492625
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.08436944937833037,
+    "ci": [
+     0.07519242155121374,
+     0.09384251036116045
+    ],
+    "significant": true
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.03108348134991119,
+    "ci": [
+     -0.046181172291296625,
+     -0.015985790408525755
+    ],
+    "significant": true
+   },
+   "discrimination": {
+    "1": 0.8392539964476021,
+    "2": 0.8090586145648312,
+    "3": 0.6314387211367674,
+    "min": 0.6314387211367674
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.9280639431616341,
+    "abs2": 0.8907637655417406,
+    "abs3": 0.7149200710479574,
+    "ans1": 0.08880994671403197,
+    "ans2": 0.08170515097690942,
+    "ans3": 0.08348134991119005
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.0034520518044840465,
+    "e4_native/case-law": 0.004265683203369175,
+    "e4_native/fineweb-edu": 0.004158609767682231,
+    "v1_heldout/case-law": 0.004262615530890468,
+    "v1_heldout/fineweb-edu": 0.004146210465156841
+   },
+   "copy": {
+    "rate": 0.955,
+    "ci95": [
+     0.925,
+     0.98
+    ],
+    "n": 200
+   }
+  },
+  "trajectory": [
+   {
+    "step": 1,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     }
+    ],
+    "note": "Baseline probe-driven AND-gate at layer 6, moderate write norm, to see how much matched-pool discrimination the absence probe carries.",
+    "veto": false,
+    "abst_gain": 0.524,
+    "guard": true,
+    "ret": {
+     "sec": 0.006,
+     "case-law": -0.0,
+     "fineweb-edu": 0.001
+    },
+    "ovm_D": [
+     0.091,
+     0.053,
+     0.136
+    ]
+   },
+   {
+    "step": 2,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.3
+     }
+    ],
+    "note": "Step1 gate gave abs gain 0.52 but D_matched only 0.09 (probe mostly overlap). Add a downscaled gradient-trained LoRA delta to test whether it contributes real answer-presence signal on the matched pool, and at what retention cost.",
+    "veto": false,
+    "abst_gain": 0.78,
+    "guard": false,
+    "ret": {
+     "sec": 1.173,
+     "case-law": 1.124,
+     "fineweb-edu": 1.26
+    },
+    "ovm_D": [
+     0.142,
+     0.092,
+     0.195
+    ]
+   },
+   {
+    "step": 3,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.3,
+      "modules": [
+       "q_proj",
+       "k_proj",
+       "v_proj",
+       "o_proj"
+      ]
+     }
+    ],
+    "note": "Full LoRA x0.3 raised D_matched to 0.14 but cost +1.2% retention. Hypothesis: question-doc matching lives in attention, retention cost mostly in MLP; keep only attention modules.",
+    "veto": false,
+    "abst_gain": 0.747,
+    "guard": false,
+    "ret": {
+     "sec": 0.506,
+     "case-law": 0.458,
+     "fineweb-edu": 0.479
+    },
+    "ovm_D": [
+     0.153,
+     0.099,
+     0.209
+    ]
+   },
+   {
+    "step": 4,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.5,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "Attention-only LoRA x0.3 gave best D_matched (0.153) at +0.51% retention. Test if the matching signal lives in attention patterns (q,k) alone, which should be cheaper on retention, at a higher scale.",
+    "veto": false,
+    "abst_gain": 0.768,
+    "guard": true,
+    "ret": {
+     "sec": 0.355,
+     "case-law": 0.393,
+     "fineweb-edu": 0.384
+    },
+    "ovm_D": [
+     0.196,
+     0.136,
+     0.256
+    ]
+   },
+   {
+    "step": 5,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.7,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "qk-only LoRA x0.5 passes (ret ~0.39%) with D_matched 0.196. Push the qk scale to 0.7 to map the retention-vs-D_matched curve.",
+    "veto": false,
+    "abst_gain": 0.787,
+    "guard": false,
+    "ret": {
+     "sec": 0.569,
+     "case-law": 0.599,
+     "fineweb-edu": 0.569
+    },
+    "ovm_D": [
+     0.207,
+     0.149,
+     0.27
+    ]
+   },
+   {
+    "step": 6,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.8,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ],
+      "layers": [
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11
+      ]
+     }
+    ],
+    "note": "qk x0.7 all layers: D 0.207 but ret 0.6% (fail). Test whether dropping early layers (0-3) cuts retention cost while keeping matched-pool signal, allowing a higher scale.",
+    "veto": false,
+    "abst_gain": 0.751,
+    "guard": true,
+    "ret": {
+     "sec": 0.427,
+     "case-law": 0.448,
+     "fineweb-edu": 0.429
+    },
+    "ovm_D": [
+     0.185,
+     0.128,
+     0.246
+    ]
+   },
+   {
+    "step": 7,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.8,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    "note": "Dropping layers 0-3 lowered D_matched (0.185 at x0.8) without saving retention, so early-layer qk seems efficient. Test early layers 0-5 alone at x0.8.",
+    "veto": false,
+    "abst_gain": 0.802,
+    "guard": true,
+    "ret": {
+     "sec": 0.397,
+     "case-law": 0.385,
+     "fineweb-edu": 0.389
+    },
+    "ovm_D": [
+     0.196,
+     0.135,
+     0.261
+    ]
+   },
+   {
+    "step": 8,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "fullft_lr1e-05",
+      "scale": 0.5,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "LoRA qk saturates near D_matched ~0.20 at ~0.4% retention regardless of layer split. Test whether the full-FT delta restricted to q,k carries more matched-pool signal per unit retention.",
+    "veto": false,
+    "abst_gain": 0.552,
+    "guard": false,
+    "ret": {
+     "sec": 0.159,
+     "case-law": 0.164,
+     "fineweb-edu": 0.186
+    },
+    "ovm_D": [
+     0.114,
+     0.069,
+     0.161
+    ]
+   },
+   {
+    "step": 9,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0001",
+      "scale": 1.0,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "Full-FT qk was weak (D 0.11) and raised fabrication. Check whether the lower-lr LoRA qk at full scale gives a better D_matched/retention tradeoff than lora_lr0.0003 qk x0.5 (D 0.196, ret 0.38%).",
+    "veto": false,
+    "abst_gain": 0.748,
+    "guard": true,
+    "ret": {
+     "sec": 0.33,
+     "case-law": 0.365,
+     "fineweb-edu": 0.368
+    },
+    "ovm_D": [
+     0.176,
+     0.121,
+     0.235
+    ]
+   },
+   {
+    "step": 10,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "and_gate",
+      "layer": 5,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.5,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ]
+     }
+    ],
+    "note": "qk-LoRA side is saturating (~0.20 D at ~0.4% ret; other sources worse). Gates cost ~0 retention, so test whether a second gate at layer 5 adds matched-pool discrimination or just more overlap-driven abstention.",
+    "veto": false,
+    "abst_gain": 0.324,
+    "guard": true,
+    "ret": {
+     "sec": 0.376,
+     "case-law": 0.398,
+     "fineweb-edu": 0.387
+    },
+    "ovm_D": [
+     0.17,
+     0.106,
+     0.24
+    ]
+   },
+   {
+    "step": 11,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.8,
+      "modules": [
+       "q_proj",
+       "k_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    "note": "Stacking a layer-5 gate hurt badly (abs gain 0.32). Go back to the step-7 base and raise the L6 gate threshold (tau=1) to see if a more selective gate cuts false abstains on answerable/matched items and improves D_matched.",
+    "veto": false,
+    "abst_gain": 0.774,
+    "guard": true,
+    "ret": {
+     "sec": 0.399,
+     "case-law": 0.384,
+     "fineweb-edu": 0.391
+    },
+    "ovm_D": [
+     0.193,
+     0.136,
+     0.253
+    ]
+   },
+   {
+    "step": 12,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.9,
+      "modules": [
+       "q_proj"
+      ]
+     }
+    ],
+    "note": "Gate tau barely matters; qk LoRA tradeoff is ~0.2 D at ~0.4% ret. Test whether q_proj alone carries most of the matched-pool signal at lower retention cost, allowing a larger scale.",
+    "veto": false,
+    "abst_gain": 0.799,
+    "guard": true,
+    "ret": {
+     "sec": 0.315,
+     "case-law": 0.403,
+     "fineweb-edu": 0.412
+    },
+    "ovm_D": [
+     0.21,
+     0.15,
+     0.277
+    ]
+   },
+   {
+    "step": 13,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 1.0,
+      "modules": [
+       "q_proj"
+      ]
+     }
+    ],
+    "note": "q_proj-only x0.9 is the best so far (D_matched 0.21, ret <=0.41%). Push q-only to full scale to see if D keeps rising within the retention budget.",
+    "veto": false,
+    "abst_gain": 0.806,
+    "guard": true,
+    "ret": {
+     "sec": 0.366,
+     "case-law": 0.457,
+     "fineweb-edu": 0.461
+    },
+    "ovm_D": [
+     0.224,
+     0.164,
+     0.291
+    ]
+   },
+   {
+    "step": 14,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 1.0,
+      "modules": [
+       "q_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     }
+    ],
+    "note": "q-only x1.0 gives D 0.224 but ret 0.46% (thin margin). Earlier, late-layer qk was the least efficient; drop q in layers 9-11 to recover retention margin while hopefully keeping D.",
+    "veto": false,
+    "abst_gain": 0.802,
+    "guard": true,
+    "ret": {
+     "sec": 0.332,
+     "case-law": 0.413,
+     "fineweb-edu": 0.415
+    },
+    "ovm_D": [
+     0.222,
+     0.162,
+     0.288
+    ]
+   },
+   {
+    "step": 15,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 1.0,
+      "modules": [
+       "q_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 0.5,
+      "modules": [
+       "k_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    "note": "Dropping q in layers 9-11 kept D (0.222) and cut ret to 0.415%. Spend part of the freed budget on early-layer k_proj (x0.5), where qk deltas were most efficient, to see if D rises further.",
+    "veto": false,
+    "abst_gain": 0.802,
+    "guard": false,
+    "ret": {
+     "sec": 0.482,
+     "case-law": 0.527,
+     "fineweb-edu": 0.51
+    },
+    "ovm_D": [
+     0.205,
+     0.142,
+     0.274
+    ]
+   },
+   {
+    "step": 16,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 0,
+      "gain": 1.5
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 1.0,
+      "modules": [
+       "q_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     }
+    ],
+    "note": "Early k_proj hurt D and broke retention, so q-only (layers 0-8) is the best LoRA slice. Gates cost ~0 retention; test whether a stronger L6 gate write (gain 1.5) converts more of the q-shifted signal into abstention on del items.",
+    "veto": false,
+    "abst_gain": 0.804,
+    "guard": true,
+    "ret": {
+     "sec": 0.34,
+     "case-law": 0.414,
+     "fineweb-edu": 0.417
+    },
+    "ovm_D": [
+     0.239,
+     0.171,
+     0.309
+    ]
+   },
+   {
+    "step": 17,
+    "components": [
+     {
+      "type": "and_gate",
+      "layer": 6,
+      "rho": 0.5,
+      "tau": 1,
+      "gain": 2.0
+     },
+     {
+      "type": "scaled_delta",
+      "source": "lora_lr0.0003",
+      "scale": 1.0,
+      "modules": [
+       "q_proj"
+      ],
+      "layers": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ]
+     }
+    ],
+    "note": "Gate gain 1.5 raised D_matched to 0.239 but doubled false abstains (clean-F1 lower CI -0.007). Push gain to 2 with the higher threshold (tau=1) to try to hold false abstains down.",
+    "veto": true,
+    "abst_gain": null,
+    "guard": null,
+    "ret": null,
+    "ovm_D": null
+   }
+  ],
+  "random_s0": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0002960331557134399,
+    "ci": [
+     0.0,
+     0.0008880994671403197
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.002377967726304506,
+    "ci": [
+     -0.010855897760704293,
+     0.006392382262620276
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.0026642984014209592,
+    "ci": [
+     -0.012433392539964476,
+     0.007104795737122558
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "min": 0.0
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "abstain_rate": {
+    "abs1": 0.0008880994671403197,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0008880994671403197,
+    "ans2": 0.0,
+    "ans3": 0.0
+   },
+   "retention_rel": {
+    "e4_native/sec": 0.004478362646001877,
+    "e4_native/case-law": 0.002475880051343804,
+    "e4_native/fineweb-edu": 0.0017047334949233939,
+    "v1_heldout/case-law": 0.0026705161084308315,
+    "v1_heldout/fineweb-edu": 0.0017542179669094438
+   },
+   "copy": {
+    "rate": 0.96,
+    "ci95": [
+     0.93,
+     0.985
+    ],
+    "n": 200
+   }
+  },
+  "ovm": {
+   "D_matched": [
+    0.23324396782841827,
+    0.19630145093697957,
+    0.26937644140828226
+   ],
+   "D_v2_k12": [
+    0.8241563055062168,
+    0.8032859680284192,
+    0.8436944937833037
+   ],
+   "D_del_only": [
+    0.15536640809739127,
+    0.1187441297492951,
+    0.19127910139108675
+   ],
+   "abstain_rate": {
+    "ans1": 0.11211573236889692,
+    "ans2": 0.10600706713780919,
+    "abs1": 0.7676767676767676,
+    "abs2": 0.7195121951219512,
+    "del1": 0.24669603524229075,
+    "del2": 0.2809917355371901
+   },
+   "f1_delta_vs_qa": {
+    "n": 1119,
+    "delta": -0.0026925557034825124,
+    "ci": [
+     -0.014287142462412684,
+     0.00895065491354189
+    ],
+    "significant": false
+   },
+   "verdict": "PARTIAL"
+  },
+  "all_guardrails_heldout": true,
+  "outcome": "BEATS DETERMINISTIC"
+ },
+ "arm_verdict": "EDITOR BEATS DETERMINISTIC"
+}

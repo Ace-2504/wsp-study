@@ -1,0 +1,811 @@
+{
+ "n_items": {
+  "ans1": 1126,
+  "ans2": 1126,
+  "ans3": 1126,
+  "abs1": 1126,
+  "abs2": 1126,
+  "abs3": 1126
+ },
+ "heldout": {
+  "selected": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.7371225577264654,
+    "ci": [
+     0.7226169330965068,
+     0.7516281823564239
+    ],
+    "significant": true
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.004568391111326662,
+    "ci": [
+     -0.01260460985230233,
+     0.0032876306922181545
+    ],
+    "significant": false
+   },
+   "ans_all.token_f1": {
+    "n": 3378,
+    "delta": -0.0065797134682891835,
+    "ci": [
+     -0.010917364001777322,
+     -0.002245593431500871
+    ],
+    "significant": true
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.03522794552989935,
+    "ci": [
+     0.02901124925991711,
+     0.04144464179988159
+    ],
+    "significant": true
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.007104795737122558,
+    "ci": [
+     -0.015985790408525755,
+     0.0008880994671403197
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": 0.7309058614564832,
+    "2": 0.7087033747779751,
+    "3": 0.6651865008880995,
+    "min": 0.6651865008880995
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "validity": true,
+   "abstain_rate": {
+    "abs1": 0.7557726465364121,
+    "abs2": 0.7451154529307282,
+    "abs3": 0.7104795737122558,
+    "ans1": 0.02486678507992895,
+    "ans2": 0.03641207815275311,
+    "ans3": 0.0452930728241563
+   }
+  },
+  "ctrl_shuffled_read": "missing (safety veto)",
+  "ctrl_write_only": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.9739490822972173,
+    "ci": [
+     0.9686204854943754,
+     0.9792776791000593
+    ],
+    "significant": true
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.17446272251853914,
+    "ci": [
+     -0.1913254228481334,
+     -0.1573264940610262
+    ],
+    "significant": true
+   },
+   "ans_all.token_f1": {
+    "n": 3378,
+    "delta": -0.15134714355910922,
+    "ci": [
+     -0.16059940267831552,
+     -0.14243817765380481
+    ],
+    "significant": true
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.9701006512729425,
+    "ci": [
+     0.9644760213143873,
+     0.9757252812314979
+    ],
+    "significant": true
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.07371225577264653,
+    "ci": [
+     -0.08880994671403197,
+     -0.0586145648312611
+    ],
+    "significant": true
+   },
+   "discrimination": {
+    "1": 0.0,
+    "2": 0.001776198934280604,
+    "3": 0.00888099467140313,
+    "min": 0.0
+   },
+   "guardrails": {
+    "clean_f1": false,
+    "fabrication": true
+   },
+   "guardrails_pass": false,
+   "validity": false,
+   "abstain_rate": {
+    "abs1": 0.9795737122557726,
+    "abs2": 0.9786856127886323,
+    "abs3": 0.9635879218472468,
+    "ans1": 0.9795737122557726,
+    "ans2": 0.9769094138543517,
+    "ans3": 0.9547069271758437
+   }
+  },
+  "ctrl_ablation": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.0019761021365809184,
+    "ci": [
+     -0.0011846822715507771,
+     0.005438364382387672
+    ],
+    "significant": false
+   },
+   "ans_all.token_f1": {
+    "n": 3378,
+    "delta": 0.0004073570490828642,
+    "ci": [
+     -0.0011274658981857246,
+     0.001987199040262317
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": 0.0,
+    "ci": [
+     -0.0026642984014209592,
+     0.0026642984014209592
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": -0.0008880994671403197,
+    "2": 0.0,
+    "3": 0.0,
+    "min": -0.0008880994671403197
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "validity": false,
+   "abstain_rate": {
+    "abs1": 0.0,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0008880994671403197,
+    "ans2": 0.0,
+    "ans3": 0.0
+   }
+  },
+  "random_s0": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.004655079543305589,
+    "ci": [
+     -0.012926465702000851,
+     0.0035357619335359834
+    ],
+    "significant": false
+   },
+   "ans_all.token_f1": {
+    "n": 3378,
+    "delta": -0.0027359972016781984,
+    "ci": [
+     -0.007252713952830783,
+     0.0017687174393820639
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.0026642984014209592,
+    "ci": [
+     -0.012455595026642976,
+     0.007104795737122558
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": -0.0008880994671403197,
+    "2": 0.0,
+    "3": 0.0,
+    "min": -0.0008880994671403197
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "validity": false,
+   "abstain_rate": {
+    "abs1": 0.0,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0008880994671403197,
+    "ans2": 0.0,
+    "ans3": 0.0
+   }
+  },
+  "random_s1": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": -0.0013609298873230823,
+    "ci": [
+     -0.009082830250660884,
+     0.006566645062487078
+    ],
+    "significant": false
+   },
+   "ans_all.token_f1": {
+    "n": 3378,
+    "delta": -0.0014632585320391146,
+    "ci": [
+     -0.005819795242721346,
+     0.002852692149370099
+    ],
+    "significant": false
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     -0.0008880994671403197,
+     0.0008880994671403197
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": -0.004440497335701598,
+    "ci": [
+     -0.013321492007104795,
+     0.0053285968028419185
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": 0.0,
+    "2": -0.0008880994671403197,
+    "3": 0.0,
+    "min": -0.0008880994671403197
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "validity": false,
+   "abstain_rate": {
+    "abs1": 0.0,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0,
+    "ans2": 0.0008880994671403197,
+    "ans3": 0.0
+   }
+  },
+  "random_s2": {
+   "target_abstain": {
+    "n": 3378,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.token_f1": {
+    "n": 1126,
+    "delta": 0.009880889989260299,
+    "ci": [
+     0.002503589782132594,
+     0.01735697354739578
+    ],
+    "significant": true
+   },
+   "ans_all.token_f1": {
+    "n": 3378,
+    "delta": 0.004515927664600803,
+    "ci": [
+     0.00014883668683711657,
+     0.008717387290652478
+    ],
+    "significant": true
+   },
+   "ans_all.false_abstain": {
+    "n": 3378,
+    "delta": -0.0002960331557134399,
+    "ci": [
+     -0.0008880994671403197,
+     0.0
+    ],
+    "significant": false
+   },
+   "ans1.fabrication": {
+    "n": 1126,
+    "delta": 0.003552397868561279,
+    "ci": [
+     -0.0053285968028419185,
+     0.013321492007104795
+    ],
+    "significant": false
+   },
+   "discrimination": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "min": 0.0
+   },
+   "guardrails": {
+    "clean_f1": true,
+    "fabrication": true
+   },
+   "guardrails_pass": true,
+   "validity": true,
+   "abstain_rate": {
+    "abs1": 0.0,
+    "abs2": 0.0,
+    "abs3": 0.0,
+    "ans1": 0.0,
+    "ans2": 0.0,
+    "ans3": 0.0
+   }
+  },
+  "qa_abstain_rate": {
+   "abs1": 0.0,
+   "abs2": 0.0,
+   "abs3": 0.0,
+   "ans1": 0.0008880994671403197,
+   "ans2": 0.0,
+   "ans3": 0.0
+  }
+ },
+ "selected_minus_control": {
+  "ctrl_write_only": {
+   "abstain_abs": {
+    "n": 3378,
+    "delta": -0.23682652457075193,
+    "ci": [
+     -0.2516281823564239,
+     -0.2217288336293665
+    ],
+    "significant": true
+   },
+   "false_abstain_ans": {
+    "n": 3378,
+    "delta": -0.9348727057430433,
+    "ci": [
+     -0.9431616341030196,
+     -0.9262877442273535
+    ],
+    "significant": true
+   },
+   "discrimination_min": 0.6651865008880995
+  },
+  "ctrl_ablation": {
+   "abstain_abs": {
+    "n": 3378,
+    "delta": 0.7371225577264654,
+    "ci": [
+     0.7226169330965068,
+     0.7516281823564239
+    ],
+    "significant": true
+   },
+   "false_abstain_ans": {
+    "n": 3378,
+    "delta": 0.03522794552989935,
+    "ci": [
+     0.02901124925991711,
+     0.04144464179988159
+    ],
+    "significant": true
+   },
+   "discrimination_min": 0.6660746003552398
+  },
+  "random_s0": {
+   "abstain_abs": {
+    "n": 3378,
+    "delta": 0.7371225577264654,
+    "ci": [
+     0.7226169330965068,
+     0.7516281823564239
+    ],
+    "significant": true
+   },
+   "false_abstain_ans": {
+    "n": 3378,
+    "delta": 0.03522794552989935,
+    "ci": [
+     0.02901124925991711,
+     0.04144464179988159
+    ],
+    "significant": true
+   },
+   "discrimination_min": 0.6660746003552398
+  },
+  "random_s1": {
+   "abstain_abs": {
+    "n": 3378,
+    "delta": 0.7371225577264654,
+    "ci": [
+     0.7226169330965068,
+     0.7516281823564239
+    ],
+    "significant": true
+   },
+   "false_abstain_ans": {
+    "n": 3378,
+    "delta": 0.03522794552989935,
+    "ci": [
+     0.02901124925991711,
+     0.04145204262877432
+    ],
+    "significant": true
+   },
+   "discrimination_min": 0.6660746003552398
+  },
+  "random_s2": {
+   "abstain_abs": {
+    "n": 3378,
+    "delta": 0.7371225577264654,
+    "ci": [
+     0.7226169330965068,
+     0.7516281823564239
+    ],
+    "significant": true
+   },
+   "false_abstain_ans": {
+    "n": 3378,
+    "delta": 0.035523978685612786,
+    "ci": [
+     0.02930728241563055,
+     0.041740674955595025
+    ],
+    "significant": true
+   },
+   "discrimination_min": 0.6651865008880995
+  }
+ },
+ "milestone": {
+  "selected": {
+   "e4_native/sec": {
+    "rel": 0.00010587448255083842,
+    "delta": {
+     "n": 8485,
+     "delta": 0.0001850578791264864,
+     "ci": [
+      0.00016178625032665735,
+      0.0002084852225143346
+     ],
+     "significant": true
+    }
+   },
+   "e4_native/case-law": {
+    "rel": 6.23287547374396e-05,
+    "delta": {
+     "n": 8354,
+     "delta": 0.00014383070258281434,
+     "ci": [
+      0.00012285644543036793,
+      0.0001652218394297174
+     ],
+     "significant": true
+    }
+   },
+   "e4_native/fineweb-edu": {
+    "rel": 2.4343276555649496e-05,
+    "delta": {
+     "n": 7581,
+     "delta": 7.846368489770521e-05,
+     "ci": [
+      5.732991912877272e-05,
+      0.00010039468873633726
+     ],
+     "significant": true
+    }
+   },
+   "v1_heldout/case-law": {
+    "rel": 7.870812177723785e-05,
+    "delta": {
+     "n": 7053,
+     "delta": 0.00017967743686322842,
+     "ci": [
+      0.00015662473413972304,
+      0.00020343597165476456
+     ],
+     "significant": true
+    }
+   },
+   "v1_heldout/fineweb-edu": {
+    "rel": 2.8718171175778906e-05,
+    "delta": {
+     "n": 3820,
+     "delta": 9.123224238450614e-05,
+     "ci": [
+      6.480441667646639e-05,
+      0.00011833671811987592
+     ],
+     "significant": true
+    }
+   },
+   "retention_pass": true,
+   "probes": {
+    "A_induction_random": {
+     "acc_first_copy": 0.0,
+     "acc_second_copy": 0.82080078125,
+     "gain": 0.82080078125,
+     "n": 64
+    },
+    "B_induction_natural": {
+     "acc_first_copy": 0.4503968358039856,
+     "acc_second_copy": 0.858154296875,
+     "gain": 0.4077574610710144,
+     "n": 64
+    },
+    "C_needle_verbatim": {
+     "rate": 0.955,
+     "n": 200
+    },
+    "C_control_no_needle": {
+     "rate": 0.0,
+     "n": 200
+    },
+    "C2_needle_question": {
+     "rate": 0.045,
+     "n": 200
+    },
+    "C2_control_no_needle": {
+     "rate": 0.0,
+     "n": 200
+    }
+   }
+  },
+  "random_s0": {
+   "e4_native/sec": {
+    "rel": 0.005683925389292188,
+    "delta": {
+     "n": 8485,
+     "delta": 0.009934926266591551,
+     "ci": [
+      0.009773309680693065,
+      0.01009801908194773
+     ],
+     "significant": true
+    }
+   },
+   "e4_native/case-law": {
+    "rel": 0.0032684074208246816,
+    "delta": {
+     "n": 8354,
+     "delta": 0.007542222488545789,
+     "ci": [
+      0.007448331804788652,
+      0.007637736262824509
+     ],
+     "significant": true
+    }
+   },
+   "e4_native/fineweb-edu": {
+    "rel": 0.0022529620400550954,
+    "delta": {
+     "n": 7581,
+     "delta": 0.007261787590227629,
+     "ci": [
+      0.007150842727425701,
+      0.007373884940010594
+     ],
+     "significant": true
+    }
+   },
+   "v1_heldout/case-law": {
+    "rel": 0.0034889787368388436,
+    "delta": {
+     "n": 7053,
+     "delta": 0.007964753097259423,
+     "ci": [
+      0.007858618225769744,
+      0.008069407308623924
+     ],
+     "significant": true
+    }
+   },
+   "v1_heldout/fineweb-edu": {
+    "rel": 0.002343999599110802,
+    "delta": {
+     "n": 3820,
+     "delta": 0.007446446999205345,
+     "ci": [
+      0.007298767136029548,
+      0.007598558387363144
+     ],
+     "significant": true
+    }
+   },
+   "retention_pass": false,
+   "probes": {
+    "A_induction_random": {
+     "acc_first_copy": 0.0,
+     "acc_second_copy": 0.819091796875,
+     "gain": 0.819091796875,
+     "n": 64
+    },
+    "B_induction_natural": {
+     "acc_first_copy": 0.4508928656578064,
+     "acc_second_copy": 0.856689453125,
+     "gain": 0.4057965874671936,
+     "n": 64
+    },
+    "C_needle_verbatim": {
+     "rate": 0.96,
+     "n": 200
+    },
+    "C_control_no_needle": {
+     "rate": 0.0,
+     "n": 200
+    },
+    "C2_needle_question": {
+     "rate": 0.03,
+     "n": 200
+    },
+    "C2_control_no_needle": {
+     "rate": 0.0,
+     "n": 200
+    }
+   }
+  },
+  "ctrl_ablation": {
+   "e4_native/sec": {
+    "rel": 7.435549287393428e-09,
+    "delta": {
+     "n": 8485,
+     "delta": 1.2996587320573904e-08,
+     "ci": [
+      -1.2810138231456175e-05,
+      1.263780195571144e-05
+     ],
+     "significant": false
+    }
+   },
+   "e4_native/case-law": {
+    "rel": 1.2145988827372278e-05,
+    "delta": {
+     "n": 8354,
+     "delta": 2.8028252994098073e-05,
+     "ci": [
+      1.5283740569964706e-05,
+      4.0616740236049464e-05
+     ],
+     "significant": true
+    }
+   },
+   "e4_native/fineweb-edu": {
+    "rel": 8.8071765529385e-06,
+    "delta": {
+     "n": 7581,
+     "delta": 2.8387449171687476e-05,
+     "ci": [
+      1.4885120774900483e-05,
+      4.246371050431976e-05
+     ],
+     "significant": true
+    }
+   },
+   "v1_heldout/case-law": {
+    "rel": 1.7559767857111552e-05,
+    "delta": {
+     "n": 7053,
+     "delta": 4.008600395080402e-05,
+     "ci": [
+      2.6029964659918153e-05,
+      5.4274105812731524e-05
+     ],
+     "significant": true
+    }
+   },
+   "v1_heldout/fineweb-edu": {
+    "rel": 4.205480385710558e-06,
+    "delta": {
+     "n": 3820,
+     "delta": 1.3360022250270344e-05,
+     "ci": [
+      -6.436075995729856e-06,
+      3.320882379696631e-05
+     ],
+     "significant": false
+    }
+   },
+   "retention_pass": true,
+   "probes": {
+    "A_induction_random": {
+     "acc_first_copy": 0.0,
+     "acc_second_copy": 0.821044921875,
+     "gain": 0.821044921875,
+     "n": 64
+    },
+    "B_induction_natural": {
+     "acc_first_copy": 0.4499008059501648,
+     "acc_second_copy": 0.858154296875,
+     "gain": 0.4082534909248352,
+     "n": 64
+    },
+    "C_needle_verbatim": {
+     "rate": 0.96,
+     "n": 200
+    },
+    "C_control_no_needle": {
+     "rate": 0.0,
+     "n": 200
+    },
+    "C2_needle_question": {
+     "rate": 0.045,
+     "n": 200
+    },
+    "C2_control_no_needle": {
+     "rate": 0.0,
+     "n": 200
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,21 @@
+# Large / regenerable artefacts — kept on disk, never in git
+data/
+checkpoints/
+*.safetensors
+*.pt
+*.npy
+*.npz
+# Run outputs: only the small result files are published (numbers, tables, selections)
+wsp_runs/**
+!wsp_runs/**/
+!wsp_runs/**/*_numbers.json
+!wsp_runs/**/*TABLES.md
+!wsp_runs/**/chain.json
+!wsp_runs/**/final.json
+!wsp_runs/**/selection.json
+!wsp_runs/**/drawn_actions.json
+# env
+.venv/
+__pycache__/
+*.pyc
+.env

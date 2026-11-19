@@ -1,0 +1,53 @@
+{
+ "rules": "(pre-registered at Gate 2, before any arm runs):\n  1. Document pool = every distinct document text inside RAFT prompts. A document is TAINTED if\n     >=50% of its 13-grams occur in any eval document (any condition); tainted documents are\n     never used. (A single shared 13-gram is usually boilerplate, so it is not the criterion.)\n  2. Seeds = RAFT answerable rows whose golden passage is locatable (contains the quoted span)\n     and untainted. Rows are grouped by chunk_id and whole groups are assigned by hash:\n     60% edit_dev, 40% iter_val in 4 rotation folds (fold 0 = Gate 2 development fold).\n  3. Each document inherits a HOME split if it is some seed's golden passage. Distractors for an\n     item may only come from documents whose home is the item's own split, or that are no seed's\n     golden, so a passage that answers an iter_val question never appears in an edit_dev item.\n  4. Distractors = the top-scoring clean, allowed documents by IDF-weighted overlap with the\n     question (hard negatives, like the eval's similarity-picked distractors), excluding any\n     document that contains the quoted span or the normalised short answer.\n  5. DOCUMENT COUNT IS DECORRELATED FROM ANSWERABILITY (v2, after Gate 2a showed a LoRA learning\n     \"2 documents -> abstain\": in the eval and in raft.jsonl the absent condition is always 2 docs).\n     Each seed yields six items in the eval's exact format, three distractors D1..D3 per seed:\n       ans1 [golden]                ans2 golden+D1 (shuffled)    ans3 golden+D1+D2 (shuffled) -> short answer\n       abs1 [D1]                    abs2 D1+D2                   abs3 D1+D2+D3                -> \"not stated in the context\"\n     so every document count is equally often answerable and absent.\n     short answer = the text after RAFT's ##end_quote## (matches \u03b8_qa's style and the eval gold).\n  6. The final-test instrument (data/eval) is never touched.",
+ "raft_sha256": "4d8dcca993034cd914634910742366399600505badc7733bfb0d93cb295145bf",
+ "eval_sha256": "16e12b23bab88f42ac35234e31dbcdd63f9e1037df5c3f0e3d462d9808896d48",
+ "pool_sha256": "4efe1484765935b02b0bb22cec2ee5c9346a25fe23243bc8b2652fbffa82ed56",
+ "documents": {
+  "distinct": 1585,
+  "tainted": 650,
+  "clean": 935
+ },
+ "seed_drops": {
+  "golden_tainted": 3580,
+  "golden_not_locatable": 18
+ },
+ "home_conflicts_dropped": 3,
+ "item_drops": {
+  "not_enough_distractors": 19
+ },
+ "n_seeds_used": 3580,
+ "n_items": 21480,
+ "table": {
+  "edit_dev|abs1": 2122,
+  "edit_dev|abs2": 2122,
+  "edit_dev|abs3": 2122,
+  "edit_dev|ans1": 2122,
+  "edit_dev|ans2": 2122,
+  "edit_dev|ans3": 2122,
+  "iter_val_0|abs1": 332,
+  "iter_val_0|abs2": 332,
+  "iter_val_0|abs3": 332,
+  "iter_val_0|ans1": 332,
+  "iter_val_0|ans2": 332,
+  "iter_val_0|ans3": 332,
+  "iter_val_1|abs1": 380,
+  "iter_val_1|abs2": 380,
+  "iter_val_1|abs3": 380,
+  "iter_val_1|ans1": 380,
+  "iter_val_1|ans2": 380,
+  "iter_val_1|ans3": 380,
+  "iter_val_2|abs1": 335,
+  "iter_val_2|abs2": 335,
+  "iter_val_2|abs3": 335,
+  "iter_val_2|ans1": 335,
+  "iter_val_2|ans2": 335,
+  "iter_val_2|ans3": 335,
+  "iter_val_3|abs1": 411,
+  "iter_val_3|abs2": 411,
+  "iter_val_3|abs3": 411,
+  "iter_val_3|ans1": 411,
+  "iter_val_3|ans2": 411,
+  "iter_val_3|ans3": 411
+ }
+}

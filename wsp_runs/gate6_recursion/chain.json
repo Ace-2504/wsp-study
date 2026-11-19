@@ -1,0 +1,10 @@
+{
+ "models": [
+  "theta1",
+  "theta2"
+ ],
+ "stop": "it2: theta2 fails a held-out guardrail (pooled) -> degradation",
+ "selected": {
+  "theta2": "it2_L7_rho0.5"
+ }
+}

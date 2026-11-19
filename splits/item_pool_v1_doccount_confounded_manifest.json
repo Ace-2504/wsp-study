@@ -1,0 +1,38 @@
+{
+ "rules": "(pre-registered at Gate 2, before any arm runs):\n  1. Document pool = every distinct document text inside RAFT prompts. A document is TAINTED if\n     >=50% of its 13-grams occur in any eval document (any condition); tainted documents are\n     never used. (A single shared 13-gram is usually boilerplate, so it is not the criterion.)\n  2. Seeds = RAFT answerable rows whose golden passage is locatable (contains the quoted span)\n     and untainted. Rows are grouped by chunk_id and whole groups are assigned by hash:\n     60% edit_dev, 40% iter_val in 4 rotation folds (fold 0 = Gate 2 development fold).\n  3. Each document inherits a HOME split if it is some seed's golden passage. Distractors for an\n     item may only come from documents whose home is the item's own split, or that are no seed's\n     golden, so a passage that answers an iter_val question never appears in an edit_dev item.\n  4. Distractors = the top-scoring clean, allowed documents by IDF-weighted overlap with the\n     question (hard negatives, like the eval's similarity-picked distractors), excluding any\n     document that contains the quoted span or the normalised short answer.\n  5. Each seed yields three items mirroring the eval's conditions, with the eval's exact format:\n       clean_like      [golden]                       -> short answer\n       realistic_like  golden + 2 distractors, shuffled -> short answer\n       rf_like         the same 2 distractors           -> \"not stated in the context\"\n     short answer = the text after RAFT's ##end_quote## (matches \u03b8_qa's style and the eval gold).\n  6. The final-test instrument (data/eval) is never touched.",
+ "raft_sha256": "4d8dcca993034cd914634910742366399600505badc7733bfb0d93cb295145bf",
+ "eval_sha256": "16e12b23bab88f42ac35234e31dbcdd63f9e1037df5c3f0e3d462d9808896d48",
+ "pool_sha256": "f708595cd9d1be0c45b414c2ea1c758d5d3cc3aeec220706438d9ec22a908afa",
+ "documents": {
+  "distinct": 1585,
+  "tainted": 650,
+  "clean": 935
+ },
+ "seed_drops": {
+  "golden_tainted": 3580,
+  "golden_not_locatable": 18
+ },
+ "home_conflicts_dropped": 3,
+ "item_drops": {
+  "not_enough_distractors": 9
+ },
+ "n_seeds_used": 3590,
+ "n_items": 10770,
+ "table": {
+  "edit_dev|clean_like": 2127,
+  "edit_dev|realistic_like": 2127,
+  "edit_dev|rf_like": 2127,
+  "iter_val_0|clean_like": 333,
+  "iter_val_0|realistic_like": 333,
+  "iter_val_0|rf_like": 333,
+  "iter_val_1|clean_like": 380,
+  "iter_val_1|realistic_like": 380,
+  "iter_val_1|rf_like": 380,
+  "iter_val_2|clean_like": 337,
+  "iter_val_2|realistic_like": 337,
+  "iter_val_2|rf_like": 337,
+  "iter_val_3|clean_like": 413,
+  "iter_val_3|realistic_like": 413,
+  "iter_val_3|rf_like": 413
+ }
+}

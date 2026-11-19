@@ -1,0 +1,2534 @@
+{
+ "source": "data/train/qa_sft.jsonl",
+ "source_sha256": "6840e94f31b876929b1e946d52f6fbd13e2d3ad8bb6ec42d7798da128d9646c7",
+ "ngram": 13,
+ "eval_sha256": "16e12b23bab88f42ac35234e31dbcdd63f9e1037df5c3f0e3d462d9808896d48",
+ "n": 505,
+ "rows": [
+  {
+   "idx": 18,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 27,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0377
+  },
+  {
+   "idx": 63,
+   "chunk_id": "71675bbad3a641c8",
+   "frac_own_grams_shared": 0.0455
+  },
+  {
+   "idx": 98,
+   "chunk_id": "4918e6a1eb607a6e",
+   "frac_own_grams_shared": 0.0237
+  },
+  {
+   "idx": 231,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.0128
+  },
+  {
+   "idx": 233,
+   "chunk_id": "bfffdf6f4d015764",
+   "frac_own_grams_shared": 0.04
+  },
+  {
+   "idx": 274,
+   "chunk_id": "342c254017eec468",
+   "frac_own_grams_shared": 0.3073
+  },
+  {
+   "idx": 277,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.0088
+  },
+  {
+   "idx": 338,
+   "chunk_id": "04fae5f547fd579b",
+   "frac_own_grams_shared": 0.0242
+  },
+  {
+   "idx": 342,
+   "chunk_id": "d803229e10c3f5dc",
+   "frac_own_grams_shared": 0.8143
+  },
+  {
+   "idx": 394,
+   "chunk_id": "7296400412c15d23",
+   "frac_own_grams_shared": 0.0189
+  },
+  {
+   "idx": 437,
+   "chunk_id": "69232faba64f103b",
+   "frac_own_grams_shared": 0.0188
+  },
+  {
+   "idx": 441,
+   "chunk_id": "1cdf807008b5cd14",
+   "frac_own_grams_shared": 0.0625
+  },
+  {
+   "idx": 470,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0652
+  },
+  {
+   "idx": 483,
+   "chunk_id": "a695391e64355aa8",
+   "frac_own_grams_shared": 0.0428
+  },
+  {
+   "idx": 495,
+   "chunk_id": "c1dbd72682de3ba5",
+   "frac_own_grams_shared": 0.1775
+  },
+  {
+   "idx": 510,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.0127
+  },
+  {
+   "idx": 515,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0761
+  },
+  {
+   "idx": 545,
+   "chunk_id": "46f2201a60e17e54",
+   "frac_own_grams_shared": 0.0183
+  },
+  {
+   "idx": 591,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0323
+  },
+  {
+   "idx": 643,
+   "chunk_id": "81ca64b9603da086",
+   "frac_own_grams_shared": 0.005
+  },
+  {
+   "idx": 663,
+   "chunk_id": "9dc227df9002609d",
+   "frac_own_grams_shared": 0.0564
+  },
+  {
+   "idx": 688,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.1354
+  },
+  {
+   "idx": 689,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.02
+  },
+  {
+   "idx": 697,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.09
+  },
+  {
+   "idx": 727,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.11
+  },
+  {
+   "idx": 749,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0043
+  },
+  {
+   "idx": 770,
+   "chunk_id": "e6b055078eb97712",
+   "frac_own_grams_shared": 0.0263
+  },
+  {
+   "idx": 783,
+   "chunk_id": "2ce4d515c62161ab",
+   "frac_own_grams_shared": 0.0114
+  },
+  {
+   "idx": 821,
+   "chunk_id": "92b3af2ebdfbf54b",
+   "frac_own_grams_shared": 0.014
+  },
+  {
+   "idx": 824,
+   "chunk_id": "bbebf423a3bdb76a",
+   "frac_own_grams_shared": 0.7667
+  },
+  {
+   "idx": 873,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0142
+  },
+  {
+   "idx": 880,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.0091
+  },
+  {
+   "idx": 916,
+   "chunk_id": "df1980aa9c0a15cc",
+   "frac_own_grams_shared": 0.0097
+  },
+  {
+   "idx": 918,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0374
+  },
+  {
+   "idx": 957,
+   "chunk_id": "c1dbd72682de3ba5",
+   "frac_own_grams_shared": 0.1775
+  },
+  {
+   "idx": 958,
+   "chunk_id": "fe2d6b1751d83297",
+   "frac_own_grams_shared": 0.0045
+  },
+  {
+   "idx": 982,
+   "chunk_id": "04fae5f547fd579b",
+   "frac_own_grams_shared": 0.024
+  },
+  {
+   "idx": 988,
+   "chunk_id": "e72776e5fcb9ad4a",
+   "frac_own_grams_shared": 0.0177
+  },
+  {
+   "idx": 1036,
+   "chunk_id": "9f5872ba96d4c80d",
+   "frac_own_grams_shared": 0.1918
+  },
+  {
+   "idx": 1075,
+   "chunk_id": "21d4b7a65116d4f7",
+   "frac_own_grams_shared": 0.0464
+  },
+  {
+   "idx": 1111,
+   "chunk_id": "2f8041c4ac99d3cf",
+   "frac_own_grams_shared": 0.3276
+  },
+  {
+   "idx": 1203,
+   "chunk_id": "69232faba64f103b",
+   "frac_own_grams_shared": 0.0188
+  },
+  {
+   "idx": 1204,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0046
+  },
+  {
+   "idx": 1228,
+   "chunk_id": "242341baace2207c",
+   "frac_own_grams_shared": 0.0058
+  },
+  {
+   "idx": 1241,
+   "chunk_id": "3ef972721bdee128",
+   "frac_own_grams_shared": 0.1863
+  },
+  {
+   "idx": 1270,
+   "chunk_id": "ecea43a52c8343a4",
+   "frac_own_grams_shared": 0.1706
+  },
+  {
+   "idx": 1310,
+   "chunk_id": "ab4a7d47f0c935d8",
+   "frac_own_grams_shared": 0.1878
+  },
+  {
+   "idx": 1350,
+   "chunk_id": "d803229e10c3f5dc",
+   "frac_own_grams_shared": 0.7917
+  },
+  {
+   "idx": 1359,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0415
+  },
+  {
+   "idx": 1396,
+   "chunk_id": "d8cdd1ff294620e1",
+   "frac_own_grams_shared": 0.7403
+  },
+  {
+   "idx": 1435,
+   "chunk_id": "043b25c3df0903cb",
+   "frac_own_grams_shared": 0.005
+  },
+  {
+   "idx": 1521,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.0206
+  },
+  {
+   "idx": 1557,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1625
+  },
+  {
+   "idx": 1558,
+   "chunk_id": "9dcf4c2bf81ea24e",
+   "frac_own_grams_shared": 0.0284
+  },
+  {
+   "idx": 1596,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.159
+  },
+  {
+   "idx": 1623,
+   "chunk_id": "db3fc3169d86d166",
+   "frac_own_grams_shared": 0.1146
+  },
+  {
+   "idx": 1647,
+   "chunk_id": "82de7dbddd7dba71",
+   "frac_own_grams_shared": 0.0342
+  },
+  {
+   "idx": 1671,
+   "chunk_id": "d8cdd1ff294620e1",
+   "frac_own_grams_shared": 0.8201
+  },
+  {
+   "idx": 1678,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.0126
+  },
+  {
+   "idx": 1697,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0105
+  },
+  {
+   "idx": 1738,
+   "chunk_id": "043b25c3df0903cb",
+   "frac_own_grams_shared": 0.0052
+  },
+  {
+   "idx": 1744,
+   "chunk_id": "92b3af2ebdfbf54b",
+   "frac_own_grams_shared": 0.0135
+  },
+  {
+   "idx": 1748,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1413
+  },
+  {
+   "idx": 1778,
+   "chunk_id": "92b3af2ebdfbf54b",
+   "frac_own_grams_shared": 0.0133
+  },
+  {
+   "idx": 1798,
+   "chunk_id": "7296400412c15d23",
+   "frac_own_grams_shared": 0.0196
+  },
+  {
+   "idx": 1973,
+   "chunk_id": "fe2d6b1751d83297",
+   "frac_own_grams_shared": 0.0047
+  },
+  {
+   "idx": 1985,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.0852
+  },
+  {
+   "idx": 1988,
+   "chunk_id": "fd8026ff298c7e2e",
+   "frac_own_grams_shared": 0.0042
+  },
+  {
+   "idx": 2081,
+   "chunk_id": "dc5c9a32d0ecd7c5",
+   "frac_own_grams_shared": 0.1714
+  },
+  {
+   "idx": 2176,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0449
+  },
+  {
+   "idx": 2273,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0449
+  },
+  {
+   "idx": 2285,
+   "chunk_id": "92b3af2ebdfbf54b",
+   "frac_own_grams_shared": 0.0135
+  },
+  {
+   "idx": 2318,
+   "chunk_id": "cdd7818a1ae5bfab",
+   "frac_own_grams_shared": 0.0667
+  },
+  {
+   "idx": 2390,
+   "chunk_id": "9f5872ba96d4c80d",
+   "frac_own_grams_shared": 0.2017
+  },
+  {
+   "idx": 2406,
+   "chunk_id": "69232faba64f103b",
+   "frac_own_grams_shared": 0.019
+  },
+  {
+   "idx": 2409,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0655
+  },
+  {
+   "idx": 2413,
+   "chunk_id": "bbebf423a3bdb76a",
+   "frac_own_grams_shared": 0.8042
+  },
+  {
+   "idx": 2448,
+   "chunk_id": "7463a9d8fa072f39",
+   "frac_own_grams_shared": 0.0469
+  },
+  {
+   "idx": 2470,
+   "chunk_id": "db3fc3169d86d166",
+   "frac_own_grams_shared": 0.1272
+  },
+  {
+   "idx": 2526,
+   "chunk_id": "746e85f2b9636f3e",
+   "frac_own_grams_shared": 0.0208
+  },
+  {
+   "idx": 2528,
+   "chunk_id": "9dcf4c2bf81ea24e",
+   "frac_own_grams_shared": 0.0284
+  },
+  {
+   "idx": 2549,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.1444
+  },
+  {
+   "idx": 2564,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.0062
+  },
+  {
+   "idx": 2576,
+   "chunk_id": "34d1e7072a4f5f18",
+   "frac_own_grams_shared": 0.05
+  },
+  {
+   "idx": 2580,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0042
+  },
+  {
+   "idx": 2584,
+   "chunk_id": "7dc001ac869216f4",
+   "frac_own_grams_shared": 0.0595
+  },
+  {
+   "idx": 2608,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1477
+  },
+  {
+   "idx": 2636,
+   "chunk_id": "d44e99db6f961cea",
+   "frac_own_grams_shared": 0.0051
+  },
+  {
+   "idx": 2642,
+   "chunk_id": "34d1e7072a4f5f18",
+   "frac_own_grams_shared": 0.0519
+  },
+  {
+   "idx": 2661,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1538
+  },
+  {
+   "idx": 2669,
+   "chunk_id": "996266e16557bf64",
+   "frac_own_grams_shared": 0.0173
+  },
+  {
+   "idx": 2671,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 2676,
+   "chunk_id": "a9124bacddf19959",
+   "frac_own_grams_shared": 0.0276
+  },
+  {
+   "idx": 2710,
+   "chunk_id": "669a05eb9523cc4f",
+   "frac_own_grams_shared": 0.0365
+  },
+  {
+   "idx": 2713,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.4868
+  },
+  {
+   "idx": 2720,
+   "chunk_id": "2601303c02093f25",
+   "frac_own_grams_shared": 0.0201
+  },
+  {
+   "idx": 2724,
+   "chunk_id": "27ba871a746f966a",
+   "frac_own_grams_shared": 0.037
+  },
+  {
+   "idx": 2777,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1532
+  },
+  {
+   "idx": 2778,
+   "chunk_id": "fe2d6b1751d83297",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 2819,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.044
+  },
+  {
+   "idx": 2830,
+   "chunk_id": "67932303c920610a",
+   "frac_own_grams_shared": 0.2555
+  },
+  {
+   "idx": 2866,
+   "chunk_id": "35b8b689f1d3fbf8",
+   "frac_own_grams_shared": 0.0142
+  },
+  {
+   "idx": 2895,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.0888
+  },
+  {
+   "idx": 2904,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0769
+  },
+  {
+   "idx": 2945,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.5333
+  },
+  {
+   "idx": 2979,
+   "chunk_id": "df1980aa9c0a15cc",
+   "frac_own_grams_shared": 0.0097
+  },
+  {
+   "idx": 3014,
+   "chunk_id": "aefca14732e3eea8",
+   "frac_own_grams_shared": 0.142
+  },
+  {
+   "idx": 3016,
+   "chunk_id": "b38cf235cc952775",
+   "frac_own_grams_shared": 0.0046
+  },
+  {
+   "idx": 3040,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1429
+  },
+  {
+   "idx": 3064,
+   "chunk_id": "46f2201a60e17e54",
+   "frac_own_grams_shared": 0.0183
+  },
+  {
+   "idx": 3065,
+   "chunk_id": "ab4a7d47f0c935d8",
+   "frac_own_grams_shared": 0.1838
+  },
+  {
+   "idx": 3076,
+   "chunk_id": "69232faba64f103b",
+   "frac_own_grams_shared": 0.0187
+  },
+  {
+   "idx": 3097,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1287
+  },
+  {
+   "idx": 3102,
+   "chunk_id": "e6b055078eb97712",
+   "frac_own_grams_shared": 0.0258
+  },
+  {
+   "idx": 3119,
+   "chunk_id": "6ee109920b1e8117",
+   "frac_own_grams_shared": 0.0521
+  },
+  {
+   "idx": 3123,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0041
+  },
+  {
+   "idx": 3139,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.0308
+  },
+  {
+   "idx": 3212,
+   "chunk_id": "2ce4d515c62161ab",
+   "frac_own_grams_shared": 0.0115
+  },
+  {
+   "idx": 3213,
+   "chunk_id": "2ce4d515c62161ab",
+   "frac_own_grams_shared": 0.0106
+  },
+  {
+   "idx": 3214,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0288
+  },
+  {
+   "idx": 3223,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0148
+  },
+  {
+   "idx": 3243,
+   "chunk_id": "a9124bacddf19959",
+   "frac_own_grams_shared": 0.0265
+  },
+  {
+   "idx": 3246,
+   "chunk_id": "a19cd95aa27cee40",
+   "frac_own_grams_shared": 0.039
+  },
+  {
+   "idx": 3273,
+   "chunk_id": "043b25c3df0903cb",
+   "frac_own_grams_shared": 0.0048
+  },
+  {
+   "idx": 3297,
+   "chunk_id": "9dcf4c2bf81ea24e",
+   "frac_own_grams_shared": 0.0275
+  },
+  {
+   "idx": 3430,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.1127
+  },
+  {
+   "idx": 3528,
+   "chunk_id": "d58d34c3ad068416",
+   "frac_own_grams_shared": 0.0055
+  },
+  {
+   "idx": 3547,
+   "chunk_id": "34d1e7072a4f5f18",
+   "frac_own_grams_shared": 0.0509
+  },
+  {
+   "idx": 3637,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.0888
+  },
+  {
+   "idx": 3708,
+   "chunk_id": "9e964826e087a9ca",
+   "frac_own_grams_shared": 0.0144
+  },
+  {
+   "idx": 3767,
+   "chunk_id": "81ca64b9603da086",
+   "frac_own_grams_shared": 0.0046
+  },
+  {
+   "idx": 3791,
+   "chunk_id": "54151f86bda54e27",
+   "frac_own_grams_shared": 0.0872
+  },
+  {
+   "idx": 3797,
+   "chunk_id": "7ddd124133bd7a8d",
+   "frac_own_grams_shared": 0.0294
+  },
+  {
+   "idx": 3828,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.0936
+  },
+  {
+   "idx": 3862,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.1307
+  },
+  {
+   "idx": 3882,
+   "chunk_id": "9dc227df9002609d",
+   "frac_own_grams_shared": 0.0553
+  },
+  {
+   "idx": 3903,
+   "chunk_id": "669a05eb9523cc4f",
+   "frac_own_grams_shared": 0.0377
+  },
+  {
+   "idx": 3911,
+   "chunk_id": "417c93b9c2973f02",
+   "frac_own_grams_shared": 0.0134
+  },
+  {
+   "idx": 3918,
+   "chunk_id": "996266e16557bf64",
+   "frac_own_grams_shared": 0.0162
+  },
+  {
+   "idx": 3931,
+   "chunk_id": "043b25c3df0903cb",
+   "frac_own_grams_shared": 0.005
+  },
+  {
+   "idx": 3948,
+   "chunk_id": "2601303c02093f25",
+   "frac_own_grams_shared": 0.0221
+  },
+  {
+   "idx": 3961,
+   "chunk_id": "27ba871a746f966a",
+   "frac_own_grams_shared": 0.0374
+  },
+  {
+   "idx": 4000,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.0197
+  },
+  {
+   "idx": 4017,
+   "chunk_id": "d803229e10c3f5dc",
+   "frac_own_grams_shared": 0.7451
+  },
+  {
+   "idx": 4061,
+   "chunk_id": "d8cdd1ff294620e1",
+   "frac_own_grams_shared": 0.7703
+  },
+  {
+   "idx": 4131,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0365
+  },
+  {
+   "idx": 4146,
+   "chunk_id": "92b3af2ebdfbf54b",
+   "frac_own_grams_shared": 0.0116
+  },
+  {
+   "idx": 4182,
+   "chunk_id": "81ca64b9603da086",
+   "frac_own_grams_shared": 0.0047
+  },
+  {
+   "idx": 4185,
+   "chunk_id": "df1980aa9c0a15cc",
+   "frac_own_grams_shared": 0.0099
+  },
+  {
+   "idx": 4347,
+   "chunk_id": "82de7dbddd7dba71",
+   "frac_own_grams_shared": 0.0342
+  },
+  {
+   "idx": 4391,
+   "chunk_id": "df1980aa9c0a15cc",
+   "frac_own_grams_shared": 0.0099
+  },
+  {
+   "idx": 4420,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0135
+  },
+  {
+   "idx": 4517,
+   "chunk_id": "fa0f6df3eb1b8b8c",
+   "frac_own_grams_shared": 0.8028
+  },
+  {
+   "idx": 4530,
+   "chunk_id": "b38cf235cc952775",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 4559,
+   "chunk_id": "a19cd95aa27cee40",
+   "frac_own_grams_shared": 0.0419
+  },
+  {
+   "idx": 4580,
+   "chunk_id": "27ba871a746f966a",
+   "frac_own_grams_shared": 0.0392
+  },
+  {
+   "idx": 4589,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.1156
+  },
+  {
+   "idx": 4646,
+   "chunk_id": "7296400412c15d23",
+   "frac_own_grams_shared": 0.0178
+  },
+  {
+   "idx": 4738,
+   "chunk_id": "7a0e24a08046ba20",
+   "frac_own_grams_shared": 0.4793
+  },
+  {
+   "idx": 4798,
+   "chunk_id": "d803229e10c3f5dc",
+   "frac_own_grams_shared": 0.7451
+  },
+  {
+   "idx": 4803,
+   "chunk_id": "1cdf807008b5cd14",
+   "frac_own_grams_shared": 0.0667
+  },
+  {
+   "idx": 4809,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 4819,
+   "chunk_id": "aefca14732e3eea8",
+   "frac_own_grams_shared": 0.15
+  },
+  {
+   "idx": 4820,
+   "chunk_id": "b38cf235cc952775",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 4844,
+   "chunk_id": "34d1e7072a4f5f18",
+   "frac_own_grams_shared": 0.0485
+  },
+  {
+   "idx": 4923,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.006
+  },
+  {
+   "idx": 4933,
+   "chunk_id": "9dcf4c2bf81ea24e",
+   "frac_own_grams_shared": 0.03
+  },
+  {
+   "idx": 4965,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0711
+  },
+  {
+   "idx": 4987,
+   "chunk_id": "c1dbd72682de3ba5",
+   "frac_own_grams_shared": 0.1818
+  },
+  {
+   "idx": 5007,
+   "chunk_id": "9f5872ba96d4c80d",
+   "frac_own_grams_shared": 0.1992
+  },
+  {
+   "idx": 5055,
+   "chunk_id": "54151f86bda54e27",
+   "frac_own_grams_shared": 0.0821
+  },
+  {
+   "idx": 5081,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0109
+  },
+  {
+   "idx": 5101,
+   "chunk_id": "7296400412c15d23",
+   "frac_own_grams_shared": 0.0189
+  },
+  {
+   "idx": 5254,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.0303
+  },
+  {
+   "idx": 5319,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.557
+  },
+  {
+   "idx": 5333,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1496
+  },
+  {
+   "idx": 5410,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0365
+  },
+  {
+   "idx": 5487,
+   "chunk_id": "ec026b989008fc3d",
+   "frac_own_grams_shared": 0.0085
+  },
+  {
+   "idx": 5494,
+   "chunk_id": "9a82c4d8a37d5d96",
+   "frac_own_grams_shared": 0.1167
+  },
+  {
+   "idx": 5506,
+   "chunk_id": "3ef972721bdee128",
+   "frac_own_grams_shared": 0.1836
+  },
+  {
+   "idx": 5509,
+   "chunk_id": "463d47702821bf90",
+   "frac_own_grams_shared": 0.0056
+  },
+  {
+   "idx": 5536,
+   "chunk_id": "f9271728b7ab094f",
+   "frac_own_grams_shared": 0.0309
+  },
+  {
+   "idx": 5545,
+   "chunk_id": "d44e99db6f961cea",
+   "frac_own_grams_shared": 0.0055
+  },
+  {
+   "idx": 5579,
+   "chunk_id": "6ee109920b1e8117",
+   "frac_own_grams_shared": 0.0507
+  },
+  {
+   "idx": 5601,
+   "chunk_id": "a695391e64355aa8",
+   "frac_own_grams_shared": 0.0485
+  },
+  {
+   "idx": 5623,
+   "chunk_id": "d44e99db6f961cea",
+   "frac_own_grams_shared": 0.0049
+  },
+  {
+   "idx": 5626,
+   "chunk_id": "db3fc3169d86d166",
+   "frac_own_grams_shared": 0.1222
+  },
+  {
+   "idx": 5644,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0398
+  },
+  {
+   "idx": 5669,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.5789
+  },
+  {
+   "idx": 5679,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.0311
+  },
+  {
+   "idx": 5710,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.013
+  },
+  {
+   "idx": 5732,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.5786
+  },
+  {
+   "idx": 5800,
+   "chunk_id": "996266e16557bf64",
+   "frac_own_grams_shared": 0.0176
+  },
+  {
+   "idx": 5852,
+   "chunk_id": "d58d34c3ad068416",
+   "frac_own_grams_shared": 0.0051
+  },
+  {
+   "idx": 5855,
+   "chunk_id": "db3fc3169d86d166",
+   "frac_own_grams_shared": 0.1209
+  },
+  {
+   "idx": 5880,
+   "chunk_id": "463d47702821bf90",
+   "frac_own_grams_shared": 0.0056
+  },
+  {
+   "idx": 5916,
+   "chunk_id": "9e964826e087a9ca",
+   "frac_own_grams_shared": 0.0146
+  },
+  {
+   "idx": 5917,
+   "chunk_id": "fd8026ff298c7e2e",
+   "frac_own_grams_shared": 0.0042
+  },
+  {
+   "idx": 5943,
+   "chunk_id": "342c254017eec468",
+   "frac_own_grams_shared": 0.2895
+  },
+  {
+   "idx": 5953,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.0888
+  },
+  {
+   "idx": 6017,
+   "chunk_id": "482cb8cde3e455a1",
+   "frac_own_grams_shared": 0.7917
+  },
+  {
+   "idx": 6025,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.013
+  },
+  {
+   "idx": 6061,
+   "chunk_id": "9f5872ba96d4c80d",
+   "frac_own_grams_shared": 0.1975
+  },
+  {
+   "idx": 6081,
+   "chunk_id": "342c254017eec468",
+   "frac_own_grams_shared": 0.2821
+  },
+  {
+   "idx": 6107,
+   "chunk_id": "342c254017eec468",
+   "frac_own_grams_shared": 0.2973
+  },
+  {
+   "idx": 6122,
+   "chunk_id": "46f2201a60e17e54",
+   "frac_own_grams_shared": 0.0175
+  },
+  {
+   "idx": 6123,
+   "chunk_id": "82de7dbddd7dba71",
+   "frac_own_grams_shared": 0.0333
+  },
+  {
+   "idx": 6180,
+   "chunk_id": "21d4b7a65116d4f7",
+   "frac_own_grams_shared": 0.0472
+  },
+  {
+   "idx": 6189,
+   "chunk_id": "f86e450873a2e2a1",
+   "frac_own_grams_shared": 0.7261
+  },
+  {
+   "idx": 6214,
+   "chunk_id": "b38cf235cc952775",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 6228,
+   "chunk_id": "67932303c920610a",
+   "frac_own_grams_shared": 0.2448
+  },
+  {
+   "idx": 6260,
+   "chunk_id": "54151f86bda54e27",
+   "frac_own_grams_shared": 0.0825
+  },
+  {
+   "idx": 6281,
+   "chunk_id": "ecea43a52c8343a4",
+   "frac_own_grams_shared": 0.1519
+  },
+  {
+   "idx": 6285,
+   "chunk_id": "f9271728b7ab094f",
+   "frac_own_grams_shared": 0.0312
+  },
+  {
+   "idx": 6335,
+   "chunk_id": "04fae5f547fd579b",
+   "frac_own_grams_shared": 0.0234
+  },
+  {
+   "idx": 6341,
+   "chunk_id": "4918e6a1eb607a6e",
+   "frac_own_grams_shared": 0.024
+  },
+  {
+   "idx": 6345,
+   "chunk_id": "342c254017eec468",
+   "frac_own_grams_shared": 0.3039
+  },
+  {
+   "idx": 6410,
+   "chunk_id": "e6b055078eb97712",
+   "frac_own_grams_shared": 0.0263
+  },
+  {
+   "idx": 6475,
+   "chunk_id": "1cdf807008b5cd14",
+   "frac_own_grams_shared": 0.068
+  },
+  {
+   "idx": 6492,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0312
+  },
+  {
+   "idx": 6494,
+   "chunk_id": "aefca14732e3eea8",
+   "frac_own_grams_shared": 0.1491
+  },
+  {
+   "idx": 6517,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.123
+  },
+  {
+   "idx": 6530,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.5714
+  },
+  {
+   "idx": 6549,
+   "chunk_id": "482cb8cde3e455a1",
+   "frac_own_grams_shared": 0.7808
+  },
+  {
+   "idx": 6571,
+   "chunk_id": "81ca64b9603da086",
+   "frac_own_grams_shared": 0.0047
+  },
+  {
+   "idx": 6576,
+   "chunk_id": "a19cd95aa27cee40",
+   "frac_own_grams_shared": 0.0412
+  },
+  {
+   "idx": 6614,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0109
+  },
+  {
+   "idx": 6620,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.019
+  },
+  {
+   "idx": 6628,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0369
+  },
+  {
+   "idx": 6640,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.6111
+  },
+  {
+   "idx": 6680,
+   "chunk_id": "21d4b7a65116d4f7",
+   "frac_own_grams_shared": 0.047
+  },
+  {
+   "idx": 6685,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0047
+  },
+  {
+   "idx": 6690,
+   "chunk_id": "2601303c02093f25",
+   "frac_own_grams_shared": 0.0185
+  },
+  {
+   "idx": 6720,
+   "chunk_id": "3ef972721bdee128",
+   "frac_own_grams_shared": 0.191
+  },
+  {
+   "idx": 6749,
+   "chunk_id": "f7568b5a79f35f7d",
+   "frac_own_grams_shared": 0.1429
+  },
+  {
+   "idx": 6762,
+   "chunk_id": "d58d34c3ad068416",
+   "frac_own_grams_shared": 0.0054
+  },
+  {
+   "idx": 6816,
+   "chunk_id": "113d469dc02cdb99",
+   "frac_own_grams_shared": 0.0529
+  },
+  {
+   "idx": 6819,
+   "chunk_id": "283f8c9790b9d6db",
+   "frac_own_grams_shared": 0.0625
+  },
+  {
+   "idx": 6855,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0437
+  },
+  {
+   "idx": 6871,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.0125
+  },
+  {
+   "idx": 6886,
+   "chunk_id": "a9124bacddf19959",
+   "frac_own_grams_shared": 0.0275
+  },
+  {
+   "idx": 6925,
+   "chunk_id": "417c93b9c2973f02",
+   "frac_own_grams_shared": 0.0131
+  },
+  {
+   "idx": 6969,
+   "chunk_id": "ecea43a52c8343a4",
+   "frac_own_grams_shared": 0.1636
+  },
+  {
+   "idx": 6999,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0105
+  },
+  {
+   "idx": 7065,
+   "chunk_id": "113d469dc02cdb99",
+   "frac_own_grams_shared": 0.0502
+  },
+  {
+   "idx": 7079,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0404
+  },
+  {
+   "idx": 7117,
+   "chunk_id": "3ef972721bdee128",
+   "frac_own_grams_shared": 0.1784
+  },
+  {
+   "idx": 7130,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.0306
+  },
+  {
+   "idx": 7174,
+   "chunk_id": "7ddd124133bd7a8d",
+   "frac_own_grams_shared": 0.0287
+  },
+  {
+   "idx": 7176,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0372
+  },
+  {
+   "idx": 7201,
+   "chunk_id": "417c93b9c2973f02",
+   "frac_own_grams_shared": 0.0139
+  },
+  {
+   "idx": 7206,
+   "chunk_id": "bb7118ab7f44eff0",
+   "frac_own_grams_shared": 0.1739
+  },
+  {
+   "idx": 7241,
+   "chunk_id": "3ef972721bdee128",
+   "frac_own_grams_shared": 0.1704
+  },
+  {
+   "idx": 7274,
+   "chunk_id": "463d47702821bf90",
+   "frac_own_grams_shared": 0.0057
+  },
+  {
+   "idx": 7281,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0427
+  },
+  {
+   "idx": 7296,
+   "chunk_id": "2601303c02093f25",
+   "frac_own_grams_shared": 0.0227
+  },
+  {
+   "idx": 7319,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0473
+  },
+  {
+   "idx": 7343,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.1237
+  },
+  {
+   "idx": 7356,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.0196
+  },
+  {
+   "idx": 7370,
+   "chunk_id": "5cff72f9a748e7c2",
+   "frac_own_grams_shared": 0.1683
+  },
+  {
+   "idx": 7386,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0373
+  },
+  {
+   "idx": 7392,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.5576
+  },
+  {
+   "idx": 7399,
+   "chunk_id": "2ce4d515c62161ab",
+   "frac_own_grams_shared": 0.0114
+  },
+  {
+   "idx": 7409,
+   "chunk_id": "e72776e5fcb9ad4a",
+   "frac_own_grams_shared": 0.0177
+  },
+  {
+   "idx": 7420,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.009
+  },
+  {
+   "idx": 7430,
+   "chunk_id": "67932303c920610a",
+   "frac_own_grams_shared": 0.2288
+  },
+  {
+   "idx": 7444,
+   "chunk_id": "e72776e5fcb9ad4a",
+   "frac_own_grams_shared": 0.0169
+  },
+  {
+   "idx": 7457,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0369
+  },
+  {
+   "idx": 7460,
+   "chunk_id": "a19cd95aa27cee40",
+   "frac_own_grams_shared": 0.0404
+  },
+  {
+   "idx": 7536,
+   "chunk_id": "2f8041c4ac99d3cf",
+   "frac_own_grams_shared": 0.3439
+  },
+  {
+   "idx": 7600,
+   "chunk_id": "113d469dc02cdb99",
+   "frac_own_grams_shared": 0.0537
+  },
+  {
+   "idx": 7676,
+   "chunk_id": "6ee109920b1e8117",
+   "frac_own_grams_shared": 0.0526
+  },
+  {
+   "idx": 7693,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0043
+  },
+  {
+   "idx": 7721,
+   "chunk_id": "cbd10f4275619a76",
+   "frac_own_grams_shared": 0.299
+  },
+  {
+   "idx": 7737,
+   "chunk_id": "bb7118ab7f44eff0",
+   "frac_own_grams_shared": 0.1718
+  },
+  {
+   "idx": 7814,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.0053
+  },
+  {
+   "idx": 7858,
+   "chunk_id": "3d715126908d4866",
+   "frac_own_grams_shared": 0.0365
+  },
+  {
+   "idx": 7865,
+   "chunk_id": "df1980aa9c0a15cc",
+   "frac_own_grams_shared": 0.0097
+  },
+  {
+   "idx": 7936,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0743
+  },
+  {
+   "idx": 8008,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0332
+  },
+  {
+   "idx": 8042,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0043
+  },
+  {
+   "idx": 8111,
+   "chunk_id": "63cc1221fabb0f23",
+   "frac_own_grams_shared": 0.0095
+  },
+  {
+   "idx": 8190,
+   "chunk_id": "63cc1221fabb0f23",
+   "frac_own_grams_shared": 0.0099
+  },
+  {
+   "idx": 8202,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.0129
+  },
+  {
+   "idx": 8209,
+   "chunk_id": "3f25d8f0dd224f31",
+   "frac_own_grams_shared": 0.0444
+  },
+  {
+   "idx": 8211,
+   "chunk_id": "fe2d6b1751d83297",
+   "frac_own_grams_shared": 0.0046
+  },
+  {
+   "idx": 8227,
+   "chunk_id": "c28e2091407b23da",
+   "frac_own_grams_shared": 0.0051
+  },
+  {
+   "idx": 8289,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0142
+  },
+  {
+   "idx": 8327,
+   "chunk_id": "fa0f6df3eb1b8b8c",
+   "frac_own_grams_shared": 0.8085
+  },
+  {
+   "idx": 8393,
+   "chunk_id": "bb7118ab7f44eff0",
+   "frac_own_grams_shared": 0.1818
+  },
+  {
+   "idx": 8435,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0622
+  },
+  {
+   "idx": 8487,
+   "chunk_id": "417c93b9c2973f02",
+   "frac_own_grams_shared": 0.0133
+  },
+  {
+   "idx": 8517,
+   "chunk_id": "35b8b689f1d3fbf8",
+   "frac_own_grams_shared": 0.0152
+  },
+  {
+   "idx": 8535,
+   "chunk_id": "2f8041c4ac99d3cf",
+   "frac_own_grams_shared": 0.3393
+  },
+  {
+   "idx": 8550,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.149
+  },
+  {
+   "idx": 8558,
+   "chunk_id": "7a0e24a08046ba20",
+   "frac_own_grams_shared": 0.4793
+  },
+  {
+   "idx": 8584,
+   "chunk_id": "cbd10f4275619a76",
+   "frac_own_grams_shared": 0.3065
+  },
+  {
+   "idx": 8607,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0407
+  },
+  {
+   "idx": 8658,
+   "chunk_id": "043b25c3df0903cb",
+   "frac_own_grams_shared": 0.0051
+  },
+  {
+   "idx": 8680,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0105
+  },
+  {
+   "idx": 8687,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0758
+  },
+  {
+   "idx": 8728,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1545
+  },
+  {
+   "idx": 8768,
+   "chunk_id": "81ca64b9603da086",
+   "frac_own_grams_shared": 0.0048
+  },
+  {
+   "idx": 8812,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.0052
+  },
+  {
+   "idx": 8826,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.0197
+  },
+  {
+   "idx": 8860,
+   "chunk_id": "9e964826e087a9ca",
+   "frac_own_grams_shared": 0.0145
+  },
+  {
+   "idx": 8970,
+   "chunk_id": "f86e450873a2e2a1",
+   "frac_own_grams_shared": 0.8143
+  },
+  {
+   "idx": 8973,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.5752
+  },
+  {
+   "idx": 8993,
+   "chunk_id": "34d1e7072a4f5f18",
+   "frac_own_grams_shared": 0.0491
+  },
+  {
+   "idx": 9068,
+   "chunk_id": "67932303c920610a",
+   "frac_own_grams_shared": 0.2465
+  },
+  {
+   "idx": 9071,
+   "chunk_id": "7ddd124133bd7a8d",
+   "frac_own_grams_shared": 0.0296
+  },
+  {
+   "idx": 9111,
+   "chunk_id": "46f2201a60e17e54",
+   "frac_own_grams_shared": 0.0172
+  },
+  {
+   "idx": 9128,
+   "chunk_id": "7296400412c15d23",
+   "frac_own_grams_shared": 0.0196
+  },
+  {
+   "idx": 9146,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.0128
+  },
+  {
+   "idx": 9168,
+   "chunk_id": "463d47702821bf90",
+   "frac_own_grams_shared": 0.0058
+  },
+  {
+   "idx": 9190,
+   "chunk_id": "9ba4839c3c05e88a",
+   "frac_own_grams_shared": 0.025
+  },
+  {
+   "idx": 9238,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.0124
+  },
+  {
+   "idx": 9288,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.0293
+  },
+  {
+   "idx": 9323,
+   "chunk_id": "7a0e24a08046ba20",
+   "frac_own_grams_shared": 0.4915
+  },
+  {
+   "idx": 9329,
+   "chunk_id": "669a05eb9523cc4f",
+   "frac_own_grams_shared": 0.0386
+  },
+  {
+   "idx": 9384,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0378
+  },
+  {
+   "idx": 9411,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0667
+  },
+  {
+   "idx": 9420,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.0184
+  },
+  {
+   "idx": 9423,
+   "chunk_id": "d803229e10c3f5dc",
+   "frac_own_grams_shared": 0.8143
+  },
+  {
+   "idx": 9433,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0732
+  },
+  {
+   "idx": 9436,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0429
+  },
+  {
+   "idx": 9478,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0363
+  },
+  {
+   "idx": 9497,
+   "chunk_id": "7dc001ac869216f4",
+   "frac_own_grams_shared": 0.064
+  },
+  {
+   "idx": 9564,
+   "chunk_id": "34d1e7072a4f5f18",
+   "frac_own_grams_shared": 0.0512
+  },
+  {
+   "idx": 9587,
+   "chunk_id": "fd8026ff298c7e2e",
+   "frac_own_grams_shared": 0.0042
+  },
+  {
+   "idx": 9657,
+   "chunk_id": "2f8041c4ac99d3cf",
+   "frac_own_grams_shared": 0.3636
+  },
+  {
+   "idx": 9659,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0446
+  },
+  {
+   "idx": 9661,
+   "chunk_id": "a695391e64355aa8",
+   "frac_own_grams_shared": 0.0471
+  },
+  {
+   "idx": 9718,
+   "chunk_id": "996266e16557bf64",
+   "frac_own_grams_shared": 0.017
+  },
+  {
+   "idx": 9765,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.0061
+  },
+  {
+   "idx": 9853,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0152
+  },
+  {
+   "idx": 9860,
+   "chunk_id": "af56ddef00ed760e",
+   "frac_own_grams_shared": 0.0056
+  },
+  {
+   "idx": 9879,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.5399
+  },
+  {
+   "idx": 9904,
+   "chunk_id": "5cff72f9a748e7c2",
+   "frac_own_grams_shared": 0.1643
+  },
+  {
+   "idx": 9908,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0369
+  },
+  {
+   "idx": 9939,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0704
+  },
+  {
+   "idx": 9958,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0374
+  },
+  {
+   "idx": 9975,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0296
+  },
+  {
+   "idx": 9980,
+   "chunk_id": "c1dbd72682de3ba5",
+   "frac_own_grams_shared": 0.1714
+  },
+  {
+   "idx": 10032,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.132
+  },
+  {
+   "idx": 10062,
+   "chunk_id": "d803229e10c3f5dc",
+   "frac_own_grams_shared": 0.8143
+  },
+  {
+   "idx": 10100,
+   "chunk_id": "6ee109920b1e8117",
+   "frac_own_grams_shared": 0.0514
+  },
+  {
+   "idx": 10102,
+   "chunk_id": "67932303c920610a",
+   "frac_own_grams_shared": 0.2574
+  },
+  {
+   "idx": 10105,
+   "chunk_id": "82de7dbddd7dba71",
+   "frac_own_grams_shared": 0.0301
+  },
+  {
+   "idx": 10122,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.019
+  },
+  {
+   "idx": 10123,
+   "chunk_id": "bb7118ab7f44eff0",
+   "frac_own_grams_shared": 0.183
+  },
+  {
+   "idx": 10124,
+   "chunk_id": "9dc227df9002609d",
+   "frac_own_grams_shared": 0.0553
+  },
+  {
+   "idx": 10153,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.067
+  },
+  {
+   "idx": 10175,
+   "chunk_id": "5cff72f9a748e7c2",
+   "frac_own_grams_shared": 0.1604
+  },
+  {
+   "idx": 10199,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0105
+  },
+  {
+   "idx": 10221,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 10222,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.013
+  },
+  {
+   "idx": 10255,
+   "chunk_id": "2601303c02093f25",
+   "frac_own_grams_shared": 0.0205
+  },
+  {
+   "idx": 10313,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.009
+  },
+  {
+   "idx": 10330,
+   "chunk_id": "463d47702821bf90",
+   "frac_own_grams_shared": 0.0052
+  },
+  {
+   "idx": 10411,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0365
+  },
+  {
+   "idx": 10554,
+   "chunk_id": "ec026b989008fc3d",
+   "frac_own_grams_shared": 0.0089
+  },
+  {
+   "idx": 10616,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0105
+  },
+  {
+   "idx": 10642,
+   "chunk_id": "35b8b689f1d3fbf8",
+   "frac_own_grams_shared": 0.0148
+  },
+  {
+   "idx": 10645,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0701
+  },
+  {
+   "idx": 10658,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.0126
+  },
+  {
+   "idx": 10689,
+   "chunk_id": "82de7dbddd7dba71",
+   "frac_own_grams_shared": 0.0331
+  },
+  {
+   "idx": 10708,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1583
+  },
+  {
+   "idx": 10754,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0419
+  },
+  {
+   "idx": 10769,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.0059
+  },
+  {
+   "idx": 10793,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0043
+  },
+  {
+   "idx": 10797,
+   "chunk_id": "6ee109920b1e8117",
+   "frac_own_grams_shared": 0.0526
+  },
+  {
+   "idx": 10811,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0369
+  },
+  {
+   "idx": 10830,
+   "chunk_id": "63cc1221fabb0f23",
+   "frac_own_grams_shared": 0.0085
+  },
+  {
+   "idx": 10844,
+   "chunk_id": "b38cf235cc952775",
+   "frac_own_grams_shared": 0.0044
+  },
+  {
+   "idx": 10853,
+   "chunk_id": "9dc227df9002609d",
+   "frac_own_grams_shared": 0.0556
+  },
+  {
+   "idx": 10882,
+   "chunk_id": "21d4b7a65116d4f7",
+   "frac_own_grams_shared": 0.0466
+  },
+  {
+   "idx": 11020,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0282
+  },
+  {
+   "idx": 11078,
+   "chunk_id": "92b3af2ebdfbf54b",
+   "frac_own_grams_shared": 0.0135
+  },
+  {
+   "idx": 11094,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0667
+  },
+  {
+   "idx": 11095,
+   "chunk_id": "3ef972721bdee128",
+   "frac_own_grams_shared": 0.191
+  },
+  {
+   "idx": 11136,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0725
+  },
+  {
+   "idx": 11283,
+   "chunk_id": "7dc001ac869216f4",
+   "frac_own_grams_shared": 0.0588
+  },
+  {
+   "idx": 11452,
+   "chunk_id": "e6b055078eb97712",
+   "frac_own_grams_shared": 0.0263
+  },
+  {
+   "idx": 11486,
+   "chunk_id": "69232faba64f103b",
+   "frac_own_grams_shared": 0.0179
+  },
+  {
+   "idx": 11505,
+   "chunk_id": "113d469dc02cdb99",
+   "frac_own_grams_shared": 0.0539
+  },
+  {
+   "idx": 11523,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1461
+  },
+  {
+   "idx": 11531,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0355
+  },
+  {
+   "idx": 11671,
+   "chunk_id": "ec026b989008fc3d",
+   "frac_own_grams_shared": 0.009
+  },
+  {
+   "idx": 11714,
+   "chunk_id": "fd8026ff298c7e2e",
+   "frac_own_grams_shared": 0.0039
+  },
+  {
+   "idx": 11742,
+   "chunk_id": "669a05eb9523cc4f",
+   "frac_own_grams_shared": 0.0394
+  },
+  {
+   "idx": 11782,
+   "chunk_id": "2ce4d515c62161ab",
+   "frac_own_grams_shared": 0.0115
+  },
+  {
+   "idx": 11783,
+   "chunk_id": "f9271728b7ab094f",
+   "frac_own_grams_shared": 0.0318
+  },
+  {
+   "idx": 11800,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0317
+  },
+  {
+   "idx": 11830,
+   "chunk_id": "9dc227df9002609d",
+   "frac_own_grams_shared": 0.0564
+  },
+  {
+   "idx": 11850,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.086
+  },
+  {
+   "idx": 11877,
+   "chunk_id": "246b81ab79260c76",
+   "frac_own_grams_shared": 0.0922
+  },
+  {
+   "idx": 11891,
+   "chunk_id": "fdd5bdbdfed55c16",
+   "frac_own_grams_shared": 0.0256
+  },
+  {
+   "idx": 11934,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.1217
+  },
+  {
+   "idx": 11970,
+   "chunk_id": "482cb8cde3e455a1",
+   "frac_own_grams_shared": 0.755
+  },
+  {
+   "idx": 11992,
+   "chunk_id": "e6b055078eb97712",
+   "frac_own_grams_shared": 0.0263
+  },
+  {
+   "idx": 12005,
+   "chunk_id": "67932303c920610a",
+   "frac_own_grams_shared": 0.2258
+  },
+  {
+   "idx": 12014,
+   "chunk_id": "a9124bacddf19959",
+   "frac_own_grams_shared": 0.0275
+  },
+  {
+   "idx": 12044,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.0087
+  },
+  {
+   "idx": 12047,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.0319
+  },
+  {
+   "idx": 12075,
+   "chunk_id": "482cb8cde3e455a1",
+   "frac_own_grams_shared": 0.7451
+  },
+  {
+   "idx": 12109,
+   "chunk_id": "e1227199905fb245",
+   "frac_own_grams_shared": 0.1143
+  },
+  {
+   "idx": 12146,
+   "chunk_id": "c1dbd72682de3ba5",
+   "frac_own_grams_shared": 0.184
+  },
+  {
+   "idx": 12156,
+   "chunk_id": "7638da7f8ce5b807",
+   "frac_own_grams_shared": 0.0061
+  },
+  {
+   "idx": 12178,
+   "chunk_id": "a3880811140f5b4c",
+   "frac_own_grams_shared": 0.1489
+  },
+  {
+   "idx": 12180,
+   "chunk_id": "2ce4d515c62161ab",
+   "frac_own_grams_shared": 0.0107
+  },
+  {
+   "idx": 12200,
+   "chunk_id": "417c93b9c2973f02",
+   "frac_own_grams_shared": 0.0131
+  },
+  {
+   "idx": 12216,
+   "chunk_id": "996266e16557bf64",
+   "frac_own_grams_shared": 0.0174
+  },
+  {
+   "idx": 12286,
+   "chunk_id": "09c15abdcf21fcd7",
+   "frac_own_grams_shared": 0.5677
+  },
+  {
+   "idx": 12320,
+   "chunk_id": "cb1972d43d6ed0db",
+   "frac_own_grams_shared": 0.0045
+  },
+  {
+   "idx": 12369,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.039
+  },
+  {
+   "idx": 12416,
+   "chunk_id": "aefca14732e3eea8",
+   "frac_own_grams_shared": 0.1509
+  },
+  {
+   "idx": 12420,
+   "chunk_id": "e6b055078eb97712",
+   "frac_own_grams_shared": 0.026
+  },
+  {
+   "idx": 12455,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0145
+  },
+  {
+   "idx": 12480,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0411
+  },
+  {
+   "idx": 12491,
+   "chunk_id": "577d7e8dad1fa90a",
+   "frac_own_grams_shared": 0.0046
+  },
+  {
+   "idx": 12503,
+   "chunk_id": "f5bcb008f1560d2d",
+   "frac_own_grams_shared": 0.0411
+  },
+  {
+   "idx": 12513,
+   "chunk_id": "7ddd124133bd7a8d",
+   "frac_own_grams_shared": 0.0282
+  },
+  {
+   "idx": 12535,
+   "chunk_id": "342c254017eec468",
+   "frac_own_grams_shared": 0.285
+  },
+  {
+   "idx": 12552,
+   "chunk_id": "099ac75d37f72e2f",
+   "frac_own_grams_shared": 0.03
+  },
+  {
+   "idx": 12614,
+   "chunk_id": "e72776e5fcb9ad4a",
+   "frac_own_grams_shared": 0.0173
+  },
+  {
+   "idx": 12651,
+   "chunk_id": "746e85f2b9636f3e",
+   "frac_own_grams_shared": 0.0213
+  },
+  {
+   "idx": 12680,
+   "chunk_id": "21d4b7a65116d4f7",
+   "frac_own_grams_shared": 0.0464
+  },
+  {
+   "idx": 12739,
+   "chunk_id": "9e964826e087a9ca",
+   "frac_own_grams_shared": 0.0142
+  },
+  {
+   "idx": 12742,
+   "chunk_id": "113d469dc02cdb99",
+   "frac_own_grams_shared": 0.0521
+  },
+  {
+   "idx": 12782,
+   "chunk_id": "b38cf235cc952775",
+   "frac_own_grams_shared": 0.0043
+  },
+  {
+   "idx": 12862,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0138
+  },
+  {
+   "idx": 12912,
+   "chunk_id": "9f5872ba96d4c80d",
+   "frac_own_grams_shared": 0.1895
+  },
+  {
+   "idx": 12957,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.013
+  },
+  {
+   "idx": 13040,
+   "chunk_id": "113d469dc02cdb99",
+   "frac_own_grams_shared": 0.0524
+  },
+  {
+   "idx": 13054,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.1405
+  },
+  {
+   "idx": 13078,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.0087
+  },
+  {
+   "idx": 13100,
+   "chunk_id": "1cdf807008b5cd14",
+   "frac_own_grams_shared": 0.0645
+  },
+  {
+   "idx": 13128,
+   "chunk_id": "7296400412c15d23",
+   "frac_own_grams_shared": 0.0184
+  },
+  {
+   "idx": 13354,
+   "chunk_id": "746e85f2b9636f3e",
+   "frac_own_grams_shared": 0.0217
+  },
+  {
+   "idx": 13420,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1557
+  },
+  {
+   "idx": 13453,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1413
+  },
+  {
+   "idx": 13496,
+   "chunk_id": "2f8041c4ac99d3cf",
+   "frac_own_grams_shared": 0.3363
+  },
+  {
+   "idx": 13531,
+   "chunk_id": "1cdf807008b5cd14",
+   "frac_own_grams_shared": 0.0648
+  },
+  {
+   "idx": 13562,
+   "chunk_id": "35b8b689f1d3fbf8",
+   "frac_own_grams_shared": 0.0151
+  },
+  {
+   "idx": 13593,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0766
+  },
+  {
+   "idx": 13598,
+   "chunk_id": "d8cdd1ff294620e1",
+   "frac_own_grams_shared": 0.7972
+  },
+  {
+   "idx": 13607,
+   "chunk_id": "6e9e43a998071f37",
+   "frac_own_grams_shared": 0.0131
+  },
+  {
+   "idx": 13671,
+   "chunk_id": "ab4a7d47f0c935d8",
+   "frac_own_grams_shared": 0.1845
+  },
+  {
+   "idx": 13673,
+   "chunk_id": "8144c6af9daae7c6",
+   "frac_own_grams_shared": 0.0202
+  },
+  {
+   "idx": 13685,
+   "chunk_id": "4918e6a1eb607a6e",
+   "frac_own_grams_shared": 0.0227
+  },
+  {
+   "idx": 13706,
+   "chunk_id": "9e964826e087a9ca",
+   "frac_own_grams_shared": 0.0144
+  },
+  {
+   "idx": 13710,
+   "chunk_id": "f05cb73460b1fab1",
+   "frac_own_grams_shared": 0.049
+  },
+  {
+   "idx": 13712,
+   "chunk_id": "c46fec86aece039f",
+   "frac_own_grams_shared": 0.0743
+  },
+  {
+   "idx": 13719,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.134
+  },
+  {
+   "idx": 13721,
+   "chunk_id": "84231aa971255cfb",
+   "frac_own_grams_shared": 0.1617
+  },
+  {
+   "idx": 13733,
+   "chunk_id": "66757e726c5d14be",
+   "frac_own_grams_shared": 0.1398
+  },
+  {
+   "idx": 13771,
+   "chunk_id": "54151f86bda54e27",
+   "frac_own_grams_shared": 0.0769
+  },
+  {
+   "idx": 13789,
+   "chunk_id": "0816f2cb3a087f87",
+   "frac_own_grams_shared": 0.0103
+  },
+  {
+   "idx": 13800,
+   "chunk_id": "ec026b989008fc3d",
+   "frac_own_grams_shared": 0.0088
+  },
+  {
+   "idx": 13818,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.5542
+  },
+  {
+   "idx": 13821,
+   "chunk_id": "ecea43a52c8343a4",
+   "frac_own_grams_shared": 0.169
+  },
+  {
+   "idx": 13843,
+   "chunk_id": "a19cd95aa27cee40",
+   "frac_own_grams_shared": 0.041
+  },
+  {
+   "idx": 13873,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0373
+  },
+  {
+   "idx": 13891,
+   "chunk_id": "afb513d61190cbc8",
+   "frac_own_grams_shared": 0.0694
+  },
+  {
+   "idx": 13907,
+   "chunk_id": "669a05eb9523cc4f",
+   "frac_own_grams_shared": 0.0385
+  },
+  {
+   "idx": 13910,
+   "chunk_id": "a7edb135978d8dae",
+   "frac_own_grams_shared": 0.0088
+  },
+  {
+   "idx": 13912,
+   "chunk_id": "ec026b989008fc3d",
+   "frac_own_grams_shared": 0.0087
+  },
+  {
+   "idx": 13964,
+   "chunk_id": "89d8ccf9397512f8",
+   "frac_own_grams_shared": 0.0149
+  },
+  {
+   "idx": 14024,
+   "chunk_id": "f7d8c5c0b7f5d791",
+   "frac_own_grams_shared": 0.0236
+  },
+  {
+   "idx": 14044,
+   "chunk_id": "482cb8cde3e455a1",
+   "frac_own_grams_shared": 0.8201
+  },
+  {
+   "idx": 14059,
+   "chunk_id": "5cff72f9a748e7c2",
+   "frac_own_grams_shared": 0.1635
+  },
+  {
+   "idx": 14068,
+   "chunk_id": "5cff72f9a748e7c2",
+   "frac_own_grams_shared": 0.1659
+  },
+  {
+   "idx": 14092,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0361
+  },
+  {
+   "idx": 14122,
+   "chunk_id": "54151f86bda54e27",
+   "frac_own_grams_shared": 0.0837
+  },
+  {
+   "idx": 14137,
+   "chunk_id": "21d4b7a65116d4f7",
+   "frac_own_grams_shared": 0.0474
+  },
+  {
+   "idx": 14214,
+   "chunk_id": "4918e6a1eb607a6e",
+   "frac_own_grams_shared": 0.0234
+  },
+  {
+   "idx": 14219,
+   "chunk_id": "283f8c9790b9d6db",
+   "frac_own_grams_shared": 0.0508
+  },
+  {
+   "idx": 14272,
+   "chunk_id": "6909eb792283661f",
+   "frac_own_grams_shared": 0.0455
+  },
+  {
+   "idx": 14298,
+   "chunk_id": "bf5161fcc37831a8",
+   "frac_own_grams_shared": 0.0378
+  },
+  {
+   "idx": 14332,
+   "chunk_id": "3db0d5debe8d6b63",
+   "frac_own_grams_shared": 0.0333
+  },
+  {
+   "idx": 14350,
+   "chunk_id": "9d3df091bf8b1c6b",
+   "frac_own_grams_shared": 0.011
+  },
+  {
+   "idx": 14412,
+   "chunk_id": "54151f86bda54e27",
+   "frac_own_grams_shared": 0.0881
+  },
+  {
+   "idx": 14448,
+   "chunk_id": "cd2d04b3afeb0679",
+   "frac_own_grams_shared": 0.0135
+  },
+  {
+   "idx": 14451,
+   "chunk_id": "db3fc3169d86d166",
+   "frac_own_grams_shared": 0.1215
+  },
+  {
+   "idx": 14475,
+   "chunk_id": "f7568b5a79f35f7d",
+   "frac_own_grams_shared": 0.0667
+  },
+  {
+   "idx": 14513,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.5476
+  },
+  {
+   "idx": 14546,
+   "chunk_id": "69232faba64f103b",
+   "frac_own_grams_shared": 0.0183
+  },
+  {
+   "idx": 14569,
+   "chunk_id": "9c6ac1e11da0f82b",
+   "frac_own_grams_shared": 0.037
+  },
+  {
+   "idx": 14593,
+   "chunk_id": "987867f99f894266",
+   "frac_own_grams_shared": 0.0294
+  },
+  {
+   "idx": 14607,
+   "chunk_id": "5e9b29ce57e71701",
+   "frac_own_grams_shared": 0.1238
+  },
+  {
+   "idx": 14761,
+   "chunk_id": "afd43fbf3cf51509",
+   "frac_own_grams_shared": 0.5444
+  },
+  {
+   "idx": 14794,
+   "chunk_id": "c1dbd72682de3ba5",
+   "frac_own_grams_shared": 0.1775
+  },
+  {
+   "idx": 14838,
+   "chunk_id": "d58d34c3ad068416",
+   "frac_own_grams_shared": 0.0053
+  },
+  {
+   "idx": 14851,
+   "chunk_id": "a044ec71d49c75d6",
+   "frac_own_grams_shared": 0.0113
+  },
+  {
+   "idx": 14853,
+   "chunk_id": "7a0e24a08046ba20",
+   "frac_own_grams_shared": 0.4173
+  },
+  {
+   "idx": 14857,
+   "chunk_id": "f9271728b7ab094f",
+   "frac_own_grams_shared": 0.0289
+  },
+  {
+   "idx": 14859,
+   "chunk_id": "417c93b9c2973f02",
+   "frac_own_grams_shared": 0.0135
+  },
+  {
+   "idx": 14864,
+   "chunk_id": "e025c1add60c64ba",
+   "frac_own_grams_shared": 0.2564
+  },
+  {
+   "idx": 14915,
+   "chunk_id": "24da4a04aa7cf1e0",
+   "frac_own_grams_shared": 0.1223
+  },
+  {
+   "idx": 14919,
+   "chunk_id": "2601303c02093f25",
+   "frac_own_grams_shared": 0.0197
+  },
+  {
+   "idx": 14921,
+   "chunk_id": "db3fc3169d86d166",
+   "frac_own_grams_shared": 0.1243
+  },
+  {
+   "idx": 14952,
+   "chunk_id": "9f5872ba96d4c80d",
+   "frac_own_grams_shared": 0.1992
+  },
+  {
+   "idx": 14955,
+   "chunk_id": "463d47702821bf90",
+   "frac_own_grams_shared": 0.0053
+  }
+ ]
+}
