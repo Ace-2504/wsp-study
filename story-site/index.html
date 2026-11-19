@@ -1,0 +1,1576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weight-Space Programming Study</title>
+<meta name="description" content="I taught my own 125M legal language model to say “not stated in the context” by writing three vectors into one neuron, then tested it against fine-tuning on a frozen 2,000-question exam. All results, including the misses.">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDFCFA; --surface:#FFFFFF; --sunk:#F6F4F0; --ink:#3B4758; --head:#273142; --muted:#667183; --faint:#98A1AD;
+  --line:#E8E4DE; --line2:#D9D4CC;
+  --teal:#5A9A89; --teal-soft:#A9D6C9; --teal-wash:#E8F3EF; --teal-ink:#2F6B5C;
+  --peach:#E09A7B; --peach-soft:#F7D9CB; --peach-wash:#FCF0E9; --peach-ink:#9A4F30;
+  --blue:#6E92C0; --blue-soft:#CFE3F3; --violet:#8E82C9; --violet-soft:#E2DDF6; --rose-soft:#F6D4D8; --rose-ink:#A94657;
+  --navy:#2B3A55; --coral:#E08A6B; --hl:rgba(122,190,171,.42);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(39,49,66,.04),0 10px 30px -18px rgba(39,49,66,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151A; --surface:#171C22; --sunk:#1C2229; --ink:#C5CED8; --head:#EDF1F5; --muted:#99A4B0; --faint:#717C88;
+    --line:#29313A; --line2:#36404B;
+    --teal:#7CC3B0; --teal-soft:#2F5A50; --teal-wash:#1A2A26; --teal-ink:#9AD8C6;
+    --peach:#E9A486; --peach-soft:#55362A; --peach-wash:#2A1E19; --peach-ink:#F0B79C;
+    --blue:#8FB3E0; --blue-soft:#24364A; --violet:#AFA4E6; --violet-soft:#2E2A47; --rose-soft:#4A2A31; --rose-ink:#F0A3B0;
+    --navy:#8FB3E0; --coral:#E9A486; --hl:rgba(124,195,176,.32);
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151A; --surface:#171C22; --sunk:#1C2229; --ink:#C5CED8; --head:#EDF1F5; --muted:#99A4B0; --faint:#717C88;
+  --line:#29313A; --line2:#36404B;
+  --teal:#7CC3B0; --teal-soft:#2F5A50; --teal-wash:#1A2A26; --teal-ink:#9AD8C6;
+  --peach:#E9A486; --peach-soft:#55362A; --peach-wash:#2A1E19; --peach-ink:#F0B79C;
+  --blue:#8FB3E0; --blue-soft:#24364A; --violet:#AFA4E6; --violet-soft:#2E2A47; --rose-soft:#4A2A31; --rose-ink:#F0A3B0;
+  --navy:#8FB3E0; --coral:#E9A486; --hl:rgba(124,195,176,.32);
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--teal-ink);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:4px}
+button{font:inherit;cursor:pointer;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+.mono{font-family:var(--mono)}
+.hl{background:linear-gradient(transparent 58%,var(--hl) 58%,var(--hl) 92%,transparent 92%);padding:0 .06em}
+
+/* top bar */
+.topbar{border-bottom:1px solid var(--line);position:relative}
+.topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--navy),var(--blue) 40%,var(--coral))}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;min-height:58px;gap:16px}
+.brand{font-weight:800;color:var(--head);text-decoration:none;font-size:15.5px;letter-spacing:-.01em}
+.toplinks{display:flex;gap:22px;font-size:15px}
+.toplinks a{color:var(--muted);text-decoration:none;font-weight:500}
+.toplinks a:hover{color:var(--head)}
+
+/* hero */
+.hero{text-align:center;padding:42px 0 10px}
+h1{font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-.03em;color:var(--head);font-weight:800;margin:0 auto 18px;max-width:20ch;text-wrap:balance}
+.byline{font-size:17px;color:var(--ink);margin:0 0 10px}
+.byline b{color:var(--head);font-weight:600;border-bottom:1.5px solid var(--line2)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-size:14px;color:var(--muted);margin:0 0 22px;padding:0;list-style:none}
+.chips li{display:flex;gap:6px;align-items:baseline}
+.chips sup{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.btns{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:10px 26px;border-radius:999px;border:1px solid var(--line2);background:var(--surface);color:var(--head);text-decoration:none;font-weight:600;font-size:15px}
+.pill:hover{border-color:var(--head)}
+.pill.dark{background:var(--head);color:var(--bg);border-color:var(--head)}
+.pill svg{width:14px;height:14px}
+
+.stage{position:relative;margin:34px auto 0;max-width:820px}
+.sheets{position:relative;height:200px;display:flex;justify-content:center;align-items:center;perspective:900px}
+.sheet{width:40px;height:150px;margin-left:-6px;border:1px solid color-mix(in srgb,var(--teal) 55%,transparent);background:
+  radial-gradient(circle,color-mix(in srgb,var(--teal) 70%,transparent) 1.2px,transparent 1.6px) 0 0/9px 11px,
+  color-mix(in srgb,var(--teal-soft) 75%,var(--bg));transform:rotateY(-38deg) skewY(-6deg);opacity:.9;position:relative;transition:transform .5s,background .5s}
+.sheet.edit{background:radial-gradient(circle,color-mix(in srgb,var(--peach) 85%,transparent) 1.2px,transparent 1.6px) 0 0/9px 11px,var(--peach-soft);border-color:var(--peach);transform:rotateY(-38deg) skewY(-6deg) translateY(-12px)}
+.sheet.edit::after{content:"";position:absolute;left:46%;top:44%;width:9px;height:9px;border-radius:50%;background:var(--peach-ink);box-shadow:0 0 0 0 var(--peach);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--peach) 70%,transparent)}80%,100%{box-shadow:0 0 0 14px transparent}}
+.shadow{height:24px;margin:-8px auto 0;width:72%;background:radial-gradient(ellipse at center,rgba(39,49,66,.12),transparent 70%)}
+.stage-cap{font-size:13.5px;color:var(--head);font-weight:600;margin-top:4px}
+.stage-cap small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.tag7{position:absolute;top:-6px;left:50%;transform:translateX(-4px);z-index:3;font-size:12px;font-family:var(--mono);color:var(--peach-ink);white-space:nowrap}
+.dotsrow{display:flex;align-items:center;justify-content:center;gap:22px;margin:20px auto 0;flex-wrap:wrap}
+.dots{display:grid;grid-template-columns:repeat(25,9px);gap:3px}
+.dots i{width:9px;height:9px;border-radius:50%;border:1.3px solid var(--peach);background:transparent;transition:background .35s,border-color .35s}
+.dots i.ok{border-color:var(--teal);background:var(--teal-soft)}
+.dotlegend{text-align:left;font-size:13.5px;color:var(--muted);max-width:230px;line-height:1.5}
+.dotlegend b{color:var(--head);font-weight:600}
+.dotlegend .k{display:flex;gap:7px;align-items:center;margin-top:5px}
+.dotlegend .k i{width:9px;height:9px;border-radius:50%;border:1.3px solid var(--peach);display:inline-block}
+.dotlegend .k i.ok{border-color:var(--teal);background:var(--teal-soft)}
+.count{font-family:var(--mono);font-size:22px;color:var(--head);font-weight:600}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);margin:30px auto 0;max-width:820px;border-top:1px solid var(--line);list-style:none;padding:0}
+.steps4 li{padding:12px 8px 4px;border-top:2px solid transparent;margin-top:-1px;font-size:13.5px;color:var(--faint);transition:color .3s,border-color .3s}
+.steps4 li b{display:block;font-weight:600;font-size:14.5px;color:var(--muted)}
+.steps4 li.on{border-top-color:var(--coral);color:var(--ink)}
+.steps4 li.on b{color:var(--head)}
+@media (max-width:640px){.steps4{grid-template-columns:repeat(2,1fr)} .sheet{width:24px;height:110px;margin-left:-4px} .sheets{height:150px} .dots{grid-template-columns:repeat(25,7px);gap:2.5px} .dots i{width:7px;height:7px}}
+
+/* section nav */
+.snav{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-top:46px}
+.snav .prog{position:absolute;left:0;top:0;height:2px;width:0;background:linear-gradient(90deg,var(--navy),var(--blue) 50%,var(--coral))}
+.snav .wrap{display:flex;align-items:center;gap:22px;min-height:46px;overflow-x:auto;scrollbar-width:none}
+.snav .wrap::-webkit-scrollbar{display:none}
+.snav a{font-size:14px;color:var(--muted);text-decoration:none;white-space:nowrap;padding:12px 0;border-bottom:2px solid transparent;margin-bottom:-1px}
+.snav a.on{color:var(--head);border-bottom-color:var(--teal)}
+.snav .nums{display:flex;gap:9px}
+.snav .nums a{font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.snav .nums a.on{color:var(--head)}
+.snav .gh{margin-left:auto;color:var(--navy);font-weight:600}
+
+/* sections */
+section{padding:96px 0 10px;scroll-margin-top:40px}
+.kick{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;color:var(--teal-ink);margin:0 0 14px}
+.kick::before{content:"";width:22px;height:1px;background:var(--teal)}
+.kick span{color:var(--muted);font-weight:500;padding-left:12px;border-left:1px solid var(--line2)}
+h2{font-size:clamp(28px,3.6vw,38px);line-height:1.15;letter-spacing:-.025em;color:var(--head);font-weight:700;margin:0 0 16px;max-width:24ch;text-wrap:balance}
+h3{color:var(--head);font-size:18.5px;letter-spacing:-.01em;margin:0 0 6px;font-weight:700}
+.lead{font-size:18px;max-width:58ch;margin:0 0 30px;color:var(--ink)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.cap{font-size:14px;color:var(--muted);margin:14px 0 0}
+.pull{border-left:2px solid var(--teal);padding:4px 0 4px 20px;margin:34px 0 0;font-size:18px;font-weight:500;color:var(--head);max-width:46ch}
+
+/* at a glance */
+.findings{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.finding{display:flex;flex-direction:column;text-decoration:none;color:inherit;overflow:hidden;transition:transform .2s,border-color .2s}
+.finding:hover{transform:translateY(-2px);border-color:var(--line2)}
+.finding .art{height:112px;border-bottom:1px solid var(--line);display:grid;place-items:center;background:var(--surface)}
+.finding .art svg{width:170px;height:72px}
+.finding .txt{padding:18px 18px 20px;position:relative}
+.finding .num{font-size:13.5px;font-weight:600;color:var(--head);margin-bottom:8px;display:block}
+.finding .arrow{position:absolute;right:16px;top:16px;width:24px;height:24px;border:1px solid var(--line2);border-radius:50%;display:grid;place-items:center;color:var(--muted);font-size:12px}
+.finding h3{font-size:18px}
+.finding p{font-size:14.5px;color:var(--muted);margin:0}
+@media (max-width:960px){.findings{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.findings{grid-template-columns:1fr}}
+.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
+.traits div{border-top:1px solid var(--line2);padding-top:18px}
+.traits b{display:block;font-size:19px;color:var(--head);margin-bottom:4px}
+.traits span{font-size:14.5px;color:var(--muted)}
+@media (max-width:640px){.traits{grid-template-columns:1fr;gap:6px}}
+
+/* timeline */
+.tl{position:relative;margin-top:10px}
+.tl-track{display:grid;grid-template-columns:repeat(13,1fr);position:relative;margin:0 0 6px}
+.tl-track::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:var(--line2)}
+.tl-fill{position:absolute;left:0;top:9px;height:2px;background:var(--teal);transition:width .5s}
+.tl-stop{position:relative;display:flex;justify-content:center;background:none;border:0;padding:0 0 26px}
+.tl-stop i{width:14px;height:14px;margin-top:3px;border-radius:50%;background:var(--bg);border:2px solid var(--line2);position:relative;z-index:1;transition:all .25s}
+.tl-stop.pass i{border-color:var(--teal)} .tl-stop.fail i{border-color:var(--peach)} .tl-stop.mixed i{border-color:var(--blue)}
+.tl-stop.on i{transform:scale(1.35);background:currentColor}
+.tl-stop.pass{color:var(--teal)} .tl-stop.fail{color:var(--peach)} .tl-stop.mixed{color:var(--blue)}
+.tl-stop span{position:absolute;top:24px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.tl-stop.on span{color:var(--head)}
+.tl-panel{display:grid;grid-template-columns:200px 1fr;gap:26px;padding:24px 26px;align-items:start;min-height:150px}
+.tl-panel .when{font-size:28px;font-weight:700;color:var(--head);letter-spacing:-.02em;line-height:1.1}
+.tl-panel .when small{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-top:6px;letter-spacing:0}
+.tl-panel p{margin:0 0 8px;font-size:17px}
+.verdict{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-top:4px}
+.verdict.pass{background:var(--teal-wash);color:var(--teal-ink);border:1px solid var(--teal-soft)}
+.verdict.fail{background:var(--peach-wash);color:var(--peach-ink);border:1px solid var(--peach-soft)}
+.verdict.mixed{background:color-mix(in srgb,var(--blue-soft) 50%,transparent);color:var(--blue);border:1px solid var(--blue-soft)}
+.tl-nav{display:flex;gap:8px;margin-top:14px}
+.tl-nav button{border:1px solid var(--line2);background:var(--surface);border-radius:999px;padding:6px 16px;font-size:14px;font-weight:500}
+.tl-nav button:hover{border-color:var(--head)}
+@media (max-width:700px){.tl-panel{grid-template-columns:1fr;gap:10px} .tl-stop span{display:none}}
+
+/* three ways */
+.ways{display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden}
+.way{padding:24px 24px 22px;border-left:1px solid var(--line);position:relative}
+.way:first-child{border-left:0}
+.way.me{background:linear-gradient(180deg,var(--teal-wash),transparent 70%)}
+.way .sub{font-size:14px;color:var(--muted);margin:0 0 18px}
+.way .viz{height:120px;display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:6px}
+.way .viz b{width:14px;height:86px;border:1px solid color-mix(in srgb,var(--blue) 60%,transparent);background:var(--blue-soft);transform:skewY(-10deg);display:block}
+.way .viz b.hot{background:var(--peach-soft);border-color:var(--peach)}
+.way .viz b.one{position:relative}
+.way .viz b.one::after{content:"";position:absolute;left:3px;top:38px;width:7px;height:7px;border-radius:50%;background:var(--peach-ink)}
+.way .vizcap{text-align:center;font-size:12.5px;color:var(--muted);margin-bottom:16px;font-family:var(--mono)}
+.way .big{font-size:14px;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.way .big b{font-family:var(--mono);font-size:20px;color:var(--head);font-weight:600;margin-right:4px}
+.checks{list-style:none;padding:14px 0 0;margin:0;border-top:1px solid var(--line);display:grid;gap:9px;font-size:14.5px}
+.checks li{display:grid;grid-template-columns:17px 1fr;gap:10px;align-items:start}
+.checks li::before{content:"";flex:none;width:17px;height:17px;border-radius:50%;margin-top:2px;border:1.4px solid var(--line2);background:center/10px no-repeat}
+.checks li.y::before{border-color:var(--teal);background-color:var(--teal-wash);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2l2 2 4-4.4' fill='none' stroke='%235A9A89' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")}
+.checks li.n::before{border-color:var(--peach);background-color:var(--peach-wash);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3 3l4 4M7 3l-4 4' fill='none' stroke='%23E09A7B' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")}
+.checks li small{display:block;color:var(--muted);font-family:var(--mono);font-size:12px}
+@media (max-width:860px){.ways{grid-template-columns:1fr}.way{border-left:0;border-top:1px solid var(--line)}.way:first-child{border-top:0}}
+.needs{margin-top:22px;font-size:15px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 0;align-items:baseline}
+.needs b{color:var(--head);font-weight:600;margin-right:10px}
+.needs span{padding:0 12px;border-left:1px solid var(--line2)}
+.needs span:first-of-type{border-left:0;padding-left:0}
+
+/* stepper */
+.nochips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px;padding:0;list-style:none}
+.nochips li{border:1px solid var(--line2);border-radius:999px;padding:7px 15px 7px 12px;font-size:14.5px;display:flex;gap:8px;align-items:center;background:var(--surface)}
+.nochips li::before{content:"";width:13px;height:13px;border-radius:50%;border:1.4px solid var(--peach);background:linear-gradient(135deg,transparent 45%,var(--peach) 45%,var(--peach) 58%,transparent 58%)}
+.player{overflow:hidden}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--sunk);border-radius:999px;padding:4px;gap:2px}
+.seg button{border:0;background:none;padding:7px 16px;border-radius:999px;font-size:14px;font-weight:600;color:var(--muted)}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--head);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.ph small{font-size:13.5px;color:var(--muted)}
+.turns{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:10px 12px;background:var(--sunk);border-bottom:1px solid var(--line)}
+.turn{display:flex;gap:10px;align-items:center;text-align:left;border:0;background:none;padding:9px 10px;border-radius:12px;min-width:0}
+.turn .n{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:600;border:1px solid}
+.turn b{display:block;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.turn small{display:block;font-size:12.5px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.turn[aria-selected="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.turn[aria-selected="true"] b{color:var(--head)}
+.c-peach{color:var(--peach-ink);background:var(--peach-wash);border-color:var(--peach-soft)!important}
+.c-violet{color:var(--violet);background:color-mix(in srgb,var(--violet-soft) 60%,transparent);border-color:var(--violet-soft)!important}
+.c-blue{color:var(--blue);background:color-mix(in srgb,var(--blue-soft) 55%,transparent);border-color:var(--blue-soft)!important}
+.c-teal{color:var(--teal-ink);background:var(--teal-wash);border-color:var(--teal-soft)!important}
+.c-rose{color:var(--rose-ink);background:color-mix(in srgb,var(--rose-soft) 60%,transparent);border-color:var(--rose-soft)!important}
+.c-amber{color:#9A6A00;background:#FBF1D6;border-color:#F1DDA0!important}
+:root[data-theme="dark"] .c-amber{color:#F4C870;background:#33290F;border-color:#5A4718!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c-amber{color:#F4C870;background:#33290F;border-color:#5A4718!important}}
+.scene{padding:26px 30px 22px;min-height:250px;display:flex;flex-direction:column;transition:background .4s}
+.scene .lbl{font-size:14px;display:flex;gap:8px;align-items:center;font-weight:600}
+.scene .lbl i{width:10px;height:10px;border-radius:50%;border:1.6px solid currentColor}
+.scene .lbl span{font-weight:400;color:var(--muted)}
+.scene blockquote{margin:22px 0 0;font-size:19px;line-height:1.5;color:var(--head);max-width:62ch}
+.scene .res{margin-top:16px;font-family:var(--mono);font-size:13.5px;color:var(--muted)}
+.scene .res b{color:var(--head);font-weight:600}
+.pbar{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:22px}
+.pbar button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line2);background:var(--surface);display:grid;place-items:center;flex:none}
+.pbar .tr{flex:1;height:2px;background:var(--line);position:relative}
+.pbar .tr i{position:absolute;left:0;top:0;height:2px;background:var(--coral);width:0}
+@media (max-width:860px){.turns{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.turns{grid-template-columns:repeat(2,1fr)}.scene{padding:20px}}
+
+/* evidence 01 */
+.ex-main{padding:26px}
+.ex-q{font-size:13.5px;color:var(--muted);margin:0 0 6px}
+.ex-q + p{font-size:18px;color:var(--head);margin:0 0 20px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.side{border-radius:14px;border:1px solid;padding:14px 16px 14px}
+.side.bad{background:var(--peach-wash);border-color:var(--peach-soft)}
+.side.good{background:var(--teal-wash);border-color:var(--teal-soft)}
+.side h4{margin:0 0 10px;font-size:14px;font-weight:600}
+.side.bad h4{color:var(--peach-ink)} .side.good h4{color:var(--teal-ink)}
+.side .out{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:12px 14px;font-family:var(--mono);font-size:14px;line-height:1.6;color:var(--head);min-height:52px}
+.side .out code{border:1px solid var(--teal);color:var(--teal-ink);border-radius:5px;padding:1px 6px;font-size:13px;background:var(--teal-wash)}
+.side .v{font-size:14px;margin-top:10px;color:var(--ink)}
+.side.bad .v b{color:var(--peach-ink)} .side.good .v b{color:var(--teal-ink)}
+@media (max-width:700px){.pair{grid-template-columns:1fr}}
+.ex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.ex-sm{padding:18px}
+.ex-sm > p{font-size:15.5px;color:var(--head);margin:0 0 14px;min-height:72px}
+.ex-sm .side{padding:10px 12px;margin-bottom:8px}
+.ex-sm .side h4{font-size:13px;margin-bottom:6px}
+.ex-sm .side .out{font-size:12.8px;min-height:0;padding:8px 10px}
+.ex-sm .side .v{font-size:12.8px;margin-top:6px}
+@media (max-width:860px){.ex-grid{grid-template-columns:1fr}.ex-sm > p{min-height:0}}
+.cost{margin-top:16px;padding:20px 22px;display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:start;border-style:dashed}
+.cost h3{font-size:16.5px}
+.cost p{font-size:14.5px;color:var(--muted);margin:0}
+@media (max-width:760px){.cost{grid-template-columns:1fr}}
+
+/* charts */
+.chart{padding:26px 26px 18px}
+.chart h4{margin:0 0 4px;font-size:15px;color:var(--head);font-weight:600}
+.chart .sub{font-size:13.5px;color:var(--muted);margin:0 0 14px}
+svg text{font-family:var(--sans)}
+.ax{stroke:var(--line);stroke-width:1}
+.axt{fill:var(--faint);font-size:12px}
+.lab{fill:var(--ink);font-size:13.5px}
+.labb{fill:var(--head);font-size:13.5px;font-weight:600}
+.val{fill:var(--head);font-size:12.5px;font-family:var(--mono)!important;paint-order:stroke;stroke:var(--surface);stroke-width:5px;stroke-linejoin:round}
+.budget{stroke:var(--head);stroke-width:1.2;stroke-dasharray:4 4}
+.budgett{fill:var(--head);font-size:12px;font-weight:600}
+.bar-ok{fill:var(--teal-soft);stroke:var(--teal);stroke-width:1}
+.bar-bad{fill:var(--peach-soft);stroke:var(--peach);stroke-width:1}
+.bar-mid{fill:var(--blue-soft);stroke:var(--blue);stroke-width:1}
+.bar-lora{fill:color-mix(in srgb,var(--peach) 55%,var(--peach-soft));stroke:var(--peach-ink);stroke-width:1}
+.ln{fill:none;stroke:var(--teal);stroke-width:2}
+.ln2{fill:none;stroke:var(--peach);stroke-width:2}
+.pt-ok{fill:var(--teal-soft);stroke:var(--teal);stroke-width:1.6}
+.pt-bad{fill:var(--surface);stroke:var(--peach);stroke-width:1.8}
+.pt-veto{stroke:var(--faint);stroke-width:1.6}
+.ref{stroke:var(--peach-ink);stroke-width:1.2;stroke-dasharray:3 4}
+.reft{fill:var(--peach-ink);font-size:12px}
+.band{fill:var(--teal-wash)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);margin-top:8px}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.scroll-x{overflow-x:auto}
+.scroll-x svg{min-width:640px;display:block}
+
+/* program demo */
+.demo{padding:24px}
+.demo-top{display:grid;grid-template-columns:1.15fr 1fr;gap:30px;align-items:start}
+@media (max-width:860px){.demo-top{grid-template-columns:1fr}}
+.grid-wrap{position:relative}
+#ngrid{width:100%;height:auto;display:block;border-radius:6px}
+.gcap{font-size:13px;color:var(--muted);margin-top:8px}
+.vecs{display:grid;gap:7px;margin-top:14px}
+.vec{display:grid;grid-template-columns:136px 1fr;gap:10px;align-items:center;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.vec .strip{height:12px;border-radius:3px;border:1px solid var(--line);background:var(--sunk);transition:background .5s}
+.vec.on-gate .strip{background:repeating-linear-gradient(90deg,var(--blue-soft) 0 3px,var(--blue) 3px 4px,var(--blue-soft) 4px 7px,color-mix(in srgb,var(--blue) 50%,var(--blue-soft)) 7px 9px)}
+.vec.on-up .strip{background:repeating-linear-gradient(90deg,var(--teal-soft) 0 2px,var(--teal) 2px 3px,var(--teal-soft) 3px 8px,color-mix(in srgb,var(--teal) 45%,var(--teal-soft)) 8px 10px)}
+.vec.on-down .strip{background:repeating-linear-gradient(90deg,var(--peach-soft) 0 4px,var(--peach) 4px 5px,var(--peach-soft) 5px 7px,color-mix(in srgb,var(--peach) 50%,var(--peach-soft)) 7px 11px)}
+.mets h4{margin:0 0 4px;font-size:14.5px;color:var(--head)}
+.mets .sub{font-size:13px;color:var(--muted);margin:0 0 14px}
+.met{display:grid;grid-template-columns:1fr 64px;gap:4px 12px;margin-bottom:14px;align-items:center}
+.met .nm{grid-column:1/-1;font-size:14px;color:var(--ink)}
+.met .tr{height:10px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);position:relative;overflow:hidden}
+.met .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;transition:width .7s cubic-bezier(.3,.8,.3,1);width:0}
+.met.good .tr i{background:var(--teal-soft);border-right:2px solid var(--teal)}
+.met.bad .tr i{background:var(--peach-soft);border-right:2px solid var(--peach)}
+.met .nv{font-family:var(--mono);font-size:14px;color:var(--head);text-align:right}
+.demo-bot{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;border-top:1px solid var(--line);margin-top:22px;padding-top:18px}
+.demo-bot p{margin:0;font-size:16.5px;color:var(--ink)}
+.demo-bot p b{color:var(--head)}
+.dbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.dbtns button{border-radius:999px;padding:9px 18px;font-size:14px;font-weight:600;border:1px solid var(--line2);background:var(--surface)}
+.dbtns button.go{background:var(--head);color:var(--bg);border-color:var(--head)}
+.dbtns button:disabled{opacity:.4;cursor:default}
+@media (max-width:760px){.demo-bot{grid-template-columns:1fr}.dbtns{justify-content:flex-start}}
+details.more{margin-top:16px}
+details.more summary{display:inline-flex;gap:8px;align-items:center;cursor:pointer;border:1px solid var(--line2);border-radius:999px;padding:8px 18px;font-size:14.5px;font-weight:600;color:var(--head);background:var(--surface);list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"›";font-size:18px;line-height:1;transition:transform .2s;color:var(--muted)}
+details.more[open] summary::before{transform:rotate(90deg)}
+details.more .body{margin-top:14px;padding:20px 22px;font-size:15px}
+details.more .body p{margin:0 0 10px}
+.mini-tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.mini-tbl th,.mini-tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.mini-tbl th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mini-tbl td.n{font-family:var(--mono);text-align:right}
+.mini-tbl tr:last-child td{border-bottom:0}
+
+/* editors */
+.eds{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:16px;overflow:hidden}
+.ed{padding:20px 20px 22px;border-left:1px solid var(--line)}
+.ed:first-child{border-left:0}
+.ed .who{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ed .who i{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-style:normal;font-family:var(--mono);font-size:12px;font-weight:600}
+.ed .who b{font-size:17px;color:var(--head)}
+.ed .who small{display:block;font-size:12.5px;color:var(--muted)}
+.ed .nums{font-family:var(--mono);font-size:12.5px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+.ed .nums b{color:var(--head);font-weight:600}
+.ed q{display:block;quotes:"“" "”";border-left:2px solid var(--peach);padding-left:12px;font-size:15px;color:var(--head);line-height:1.5}
+.ed.rand q{border-left-color:var(--faint);font-family:var(--mono);font-size:14px}
+@media (max-width:900px){.eds{grid-template-columns:repeat(2,1fr)}.ed:nth-child(3){border-left:0}.ed:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:540px){.eds{grid-template-columns:1fr}.ed{border-left:0;border-top:1px solid var(--line)}.ed:first-child{border-top:0}}
+
+/* recursion */
+.rec{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;padding:24px 26px}
+@media (max-width:860px){.rec{grid-template-columns:1fr}}
+.rec-steps{display:grid;gap:12px}
+.rs{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.rs .t{font-family:var(--mono);font-size:15px;color:var(--head);font-weight:600}
+.rs p{margin:0;font-size:14px;color:var(--muted)}
+.rs p b{color:var(--head);font-weight:600}
+
+/* lessons */
+.where{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.where .card{padding:22px 24px}
+.where .sub{font-size:14px;color:var(--muted);margin:0 0 14px}
+.where svg{width:100%;height:auto;display:block;margin-bottom:10px}
+@media (max-width:760px){.where{grid-template-columns:1fr}}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
+.three div{border-top:1px solid var(--line2);padding-top:18px}
+.three p{font-size:15.5px;color:var(--muted);margin:0}
+@media (max-width:760px){.three{grid-template-columns:1fr;gap:12px}}
+.limits{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.limits li{padding:16px 18px;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.limits li b{display:block;color:var(--head);margin-bottom:3px;font-size:15.5px}
+@media (max-width:760px){.limits{grid-template-columns:1fr}}
+.next{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.next .card{padding:20px;border-style:dashed}
+.next p{font-size:14.5px;color:var(--muted);margin:0}
+@media (max-width:760px){.next{grid-template-columns:1fr}}
+.horizon{font-size:clamp(24px,3vw,32px);line-height:1.3;font-weight:700;color:var(--head);letter-spacing:-.02em;max-width:30ch;margin:46px 0 10px;text-wrap:balance}
+
+/* cite */
+.bib{position:relative;padding:20px 22px;font-family:var(--mono);font-size:13.5px;line-height:1.7;white-space:pre;overflow-x:auto;color:var(--head)}
+.copy{position:absolute;right:14px;top:14px;border:1px solid var(--line2);background:var(--surface);border-radius:999px;padding:6px 14px;font-family:var(--sans);font-size:13px;font-weight:600}
+footer{border-top:1px solid var(--line);margin-top:90px;padding:26px 0 48px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+footer a{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ===== depth additions ===== */
+.sheet.lit{background:radial-gradient(circle,color-mix(in srgb,var(--blue) 80%,transparent) 1.2px,transparent 1.6px) 0 0/9px 11px,color-mix(in srgb,var(--blue-soft) 85%,var(--bg));border-color:var(--blue)}
+.sheet.edit.lit{background:radial-gradient(circle,color-mix(in srgb,var(--peach) 85%,transparent) 1.2px,transparent 1.6px) 0 0/9px 11px,var(--peach-soft);border-color:var(--peach)}
+.hvecs{position:absolute;left:calc(50% + 250px);top:34px;display:grid;gap:10px;width:200px;text-align:left}
+.hv{opacity:0;transform:translateX(-10px);transition:opacity .5s,transform .5s}
+.hv.on{opacity:1;transform:none}
+.hv span{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+.hv span b{color:var(--head);font-weight:600}
+.hv i{display:block;height:9px;border-radius:3px}
+.hv.g i{background:repeating-linear-gradient(90deg,var(--blue-soft) 0 3px,var(--blue) 3px 4px,var(--blue-soft) 4px 7px)}
+.hv.u i{background:repeating-linear-gradient(90deg,var(--teal-soft) 0 2px,var(--teal) 2px 3px,var(--teal-soft) 3px 8px)}
+.hv.d i{background:repeating-linear-gradient(90deg,var(--peach-soft) 0 4px,var(--peach) 4px 5px,var(--peach-soft) 5px 7px)}
+.hreads{position:absolute;right:calc(50% + 250px);top:60px;width:170px;text-align:right;font-size:12.5px;color:var(--muted);opacity:0;transition:opacity .5s}
+.hreads.on{opacity:1}
+.hreads b{display:block;color:var(--head);font-weight:600;font-size:13px}
+@media (max-width:1000px){.hvecs,.hreads{display:none}}
+.steps4 li{cursor:pointer}
+
+.ways.acts .way{transition:opacity .4s,filter .4s}
+.ways.acts .way:not(.act){opacity:.5;filter:saturate(.6)}
+.viz.ft b,.viz.lora b{transition:background .3s,border-color .3s}
+.way.act .viz.ft b{animation:wave 1.6s ease-in-out infinite}
+.way.act .viz.ft b:nth-child(2){animation-delay:.08s}.way.act .viz.ft b:nth-child(3){animation-delay:.16s}.way.act .viz.ft b:nth-child(4){animation-delay:.24s}.way.act .viz.ft b:nth-child(5){animation-delay:.32s}.way.act .viz.ft b:nth-child(6){animation-delay:.40s}.way.act .viz.ft b:nth-child(7){animation-delay:.48s}.way.act .viz.ft b:nth-child(8){animation-delay:.56s}.way.act .viz.ft b:nth-child(9){animation-delay:.64s}.way.act .viz.ft b:nth-child(10){animation-delay:.72s}.way.act .viz.ft b:nth-child(11){animation-delay:.80s}.way.act .viz.ft b:nth-child(12){animation-delay:.88s}
+@keyframes wave{0%,100%{transform:skewY(-10deg) translateY(0)}40%{transform:skewY(-10deg) translateY(-9px)}}
+.viz.lora b{position:relative}
+.viz.lora b::after{content:"";position:absolute;left:-3px;right:-3px;top:34px;height:14px;border-radius:3px;background:var(--peach);opacity:0;transform:scale(.4);transition:opacity .35s,transform .35s}
+.way.act .viz.lora b::after{opacity:.85;transform:none}
+.way.act .viz.lora b:nth-child(2)::after{transition-delay:.06s}.way.act .viz.lora b:nth-child(3)::after{transition-delay:.12s}.way.act .viz.lora b:nth-child(4)::after{transition-delay:.18s}.way.act .viz.lora b:nth-child(5)::after{transition-delay:.24s}.way.act .viz.lora b:nth-child(6)::after{transition-delay:.3s}.way.act .viz.lora b:nth-child(7)::after{transition-delay:.36s}.way.act .viz.lora b:nth-child(8)::after{transition-delay:.42s}.way.act .viz.lora b:nth-child(9)::after{transition-delay:.48s}.way.act .viz.lora b:nth-child(10)::after{transition-delay:.54s}.way.act .viz.lora b:nth-child(11)::after{transition-delay:.6s}.way.act .viz.lora b:nth-child(12)::after{transition-delay:.66s}
+.viz.lora b.hot{background:var(--blue-soft);border-color:color-mix(in srgb,var(--blue) 60%,transparent)}
+.way.act .viz.pg b.one::after{animation:ping 1.6s infinite}
+.meter{margin:4px 0 16px}
+.meter span{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:5px}
+.meter span b{font-family:var(--mono);color:var(--head);font-weight:600}
+.meter .tr{height:8px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);position:relative;overflow:hidden}
+.meter .tr i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;transition:width 1.2s cubic-bezier(.3,.8,.3,1)}
+.meter .tr .bud{position:absolute;top:-3px;bottom:-3px;width:0;border-left:1.5px dashed var(--head);z-index:1}
+.way.act .meter .tr i,.ways:not(.acts) .meter .tr i{width:var(--w)}
+.meter.bad .tr i{background:var(--peach)} .meter.ok .tr i{background:var(--teal)}
+.actcap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin-top:12px}
+.actcap button{border:1px solid var(--line2);background:var(--surface);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:600}
+
+.scene{display:grid;grid-template-columns:1fr 300px;gap:10px 34px;align-items:start}
+.scene .stxt{display:flex;flex-direction:column;min-height:230px}
+.scene .pbar{grid-column:1/-1}
+.sviz{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:14px;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.sviz canvas,.sviz svg{width:100%;height:auto;display:block}
+.sviz .vc{font-size:12.5px;color:var(--muted);text-align:center}
+.sviz .vc b{color:var(--head);font-family:var(--mono);font-weight:600}
+.mdots{display:grid;grid-template-columns:repeat(20,1fr);gap:4px}
+.mdots i{aspect-ratio:1;border-radius:50%;border:1.3px solid var(--peach)}
+.vbar{display:grid;grid-template-columns:96px 1fr 58px;gap:8px;align-items:center;font-size:12.5px;color:var(--ink)}
+.vbar .tr{height:9px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);position:relative;overflow:hidden}
+.vbar .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.vbar b{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--head);font-weight:600}
+@media (max-width:860px){.scene{grid-template-columns:1fr}.sviz{min-height:0}}
+
+.formula{margin-top:16px;display:grid;grid-template-columns:1fr 1.2fr;gap:0;overflow:hidden}
+.formula > div{padding:22px 24px}
+.formula > div + div{border-left:1px solid var(--line)}
+@media (max-width:860px){.formula{grid-template-columns:1fr}.formula > div + div{border-left:0;border-top:1px solid var(--line)}}
+.fl{font-family:var(--mono);font-size:15px;line-height:2.1;color:var(--head)}
+.fl .tg{color:var(--blue);font-weight:600}.fl .tu{color:var(--teal-ink);font-weight:600}.fl .td{color:var(--peach-ink);font-weight:600}
+.fl small{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.5;margin-top:6px}
+.tens td,.tens th{font-size:13.5px}
+.tens td code{font-size:12.5px}
+
+.gtabs{display:flex;gap:6px;flex-wrap:wrap;margin:26px 0 12px}
+.gtabs button{border:1px solid var(--line2);background:var(--surface);border-radius:999px;padding:7px 16px;font-size:14px;font-weight:600;color:var(--muted)}
+.gtabs button[aria-selected="true"]{background:var(--head);color:var(--bg);border-color:var(--head)}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gal .card{padding:16px}
+.gal .src{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.gal .qq{font-size:14.5px;color:var(--head);margin:0 0 12px;min-height:66px}
+.gal .side{padding:9px 11px;margin-bottom:8px}
+.gal .side h4{font-size:12.5px;margin-bottom:5px}
+.gal .side .out{font-size:12.5px;min-height:0;padding:7px 9px}
+.gal .v{font-size:12.5px;margin-top:5px}
+@media (max-width:1000px){.gal{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.gal{grid-template-columns:1fr}.gal .qq{min-height:0}}
+.split500{margin-top:18px;padding:18px 22px}
+.split500 .bar{display:flex;height:22px;border-radius:7px;overflow:hidden;border:1px solid var(--line);margin:10px 0 8px}
+.split500 .bar i{display:block;height:100%}
+.split500 .k{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13.5px;color:var(--muted)}
+.split500 .k b{color:var(--head);font-family:var(--mono)}
+.chips2{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.chips2 span{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--muted)}
+.chips2 span b{display:block;font-family:var(--mono);font-size:17px;color:var(--head);font-weight:600}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.twocol>*,.formula>*,.gal>*,.rec>*,.where>*{min-width:0}
+.tens td code{white-space:normal;word-break:break-all}
+@media (max-width:860px){.twocol{grid-template-columns:1fr}}
+.menu-code{font-family:var(--mono);font-size:12.8px;line-height:1.65;background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:14px 16px;white-space:pre;overflow-x:auto;color:var(--head);margin:10px 0 0}
+.etabs{display:inline-flex;background:var(--sunk);border-radius:999px;padding:4px;gap:2px;margin:0 0 10px}
+.etabs button{border:0;background:none;padding:6px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.etabs button[aria-selected="true"]{background:var(--surface);color:var(--head);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.clip{padding:14px}
+.clip video{width:100%;display:block;border-radius:10px;background:var(--sunk)}
+.file{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center;padding:24px}
+.file .box{border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;background:var(--surface);transition:opacity .4s,border-color .4s,transform .4s}
+.file .box b{display:block;color:var(--head);font-size:16px}
+.file .box small{display:block;font-size:12.5px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.file .op{font-size:22px;color:var(--faint);font-family:var(--mono)}
+.file .box.delta{border-style:dashed;border-color:var(--peach)}
+.file.off .box.delta{opacity:.25;transform:translateY(6px)}
+.file .res b{font-family:var(--mono);font-size:22px}
+.filebar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding:14px 24px}
+.filebar p{margin:0;font-size:15px}
+@media (max-width:760px){.file{grid-template-columns:1fr}.file .op{text-align:center}}
+
+/* ===== native playground ===== */
+.pg{overflow:hidden}
+.pg-top{display:grid;gap:14px;padding:20px 22px;border-bottom:1px solid var(--line)}
+.pg-row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.pg-row > span{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:92px}
+.qbtns{display:flex;flex-wrap:wrap;gap:8px}
+.qbtns button{border:1px solid var(--line2);background:var(--surface);border-radius:12px;padding:8px 14px;text-align:left;font-size:14px;font-weight:600;color:var(--head);line-height:1.3}
+.qbtns button small{display:block;font-size:12px;font-weight:500;color:var(--muted)}
+.qbtns button[aria-pressed="true"]{border-color:var(--head);box-shadow:inset 0 0 0 1px var(--head)}
+.pg-ask{margin-left:auto;display:flex;gap:8px}
+.pg-ask button{border-radius:999px;padding:9px 20px;font-size:14px;font-weight:600;border:1px solid var(--line2);background:var(--surface)}
+.pg-ask button.go{background:var(--head);color:var(--bg);border-color:var(--head)}
+.pg-ask button:disabled{opacity:.5;cursor:default}
+.pg-ctx{padding:18px 22px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.pg-ctx .lbl2{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.pg-ctx .ctx{font-family:var(--mono);font-size:13px;line-height:1.65;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:64px}
+.pg-ctx .ctx mark{background:color-mix(in srgb,var(--teal) 26%,transparent);color:inherit;border-radius:3px;padding:0 2px}
+.pg-ctx .ctx del{color:var(--peach-ink);text-decoration:none;font-family:var(--sans);font-size:12.5px;background:var(--peach-wash);border:1px dashed var(--peach);border-radius:6px;padding:1px 7px}
+.pg-ctx .qline{margin:12px 0 0;font-size:17px;color:var(--head);font-weight:600}
+.pg-lanes{display:grid;grid-template-columns:1fr 1fr}
+.pg-lane{padding:18px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+.pg-lane + .pg-lane{border-left:1px solid var(--line)}
+@media (max-width:760px){.pg-lanes{grid-template-columns:1fr}.pg-lane + .pg-lane{border-left:0;border-top:1px solid var(--line)}.pg-ask{margin-left:0}}
+.pg-lane h4{margin:0;font-size:14.5px;color:var(--head);display:flex;justify-content:space-between;gap:10px}
+.pg-lane h4 small{font-weight:500;color:var(--muted);font-size:12.5px}
+.pg-lane.after h4{color:var(--peach-ink)}
+.pg-stack{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:58px}
+.pg-stack i{display:block;height:100%;border-radius:4px;background:var(--sunk);border:1px solid var(--line);position:relative;transition:background .2s,border-color .2s}
+.pg-stack i.on{background:var(--blue-soft);border-color:var(--blue)}
+.pg-stack i.ed{border-color:var(--peach)}
+.pg-stack i.ed.on{background:var(--peach-soft);border-color:var(--peach-ink)}
+.pg-stack-cap{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);font-family:var(--mono);margin-top:-6px}
+.pg-reply{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px;min-height:92px;display:grid;gap:8px;align-content:start}
+.pg-reply .t{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.pg-reply .txt{font-family:var(--mono);font-size:14.5px;color:var(--head);min-height:22px;overflow-wrap:anywhere}
+.pg-reply .vd{justify-self:start;font-size:12px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;opacity:0;transition:opacity .3s}
+.pg-reply .vd.show{opacity:1}
+.vd.good{background:var(--teal-wash);color:var(--teal-ink);border:1px solid var(--teal-soft)}
+.vd.bad{background:var(--peach-wash);color:var(--peach-ink);border:1px solid var(--peach-soft)}
+.vd.mid{background:color-mix(in srgb,var(--blue-soft) 50%,transparent);color:var(--blue);border:1px solid var(--blue-soft)}
+.pg-say{padding:16px 22px;border-top:1px solid var(--line);font-size:16px;min-height:58px}
+.pg-say b{color:var(--head)}
+.whole2{padding:20px 22px;border-top:1px solid var(--line);display:grid;gap:14px}
+.whole2 h4{margin:0;font-size:15px;color:var(--head)}
+.whole2 h4 small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px}
+.wr{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:6px 20px;align-items:center}
+.wr > div:first-child{font-size:14.5px;color:var(--ink)}
+.wr > div:first-child small{display:block;color:var(--muted);font-size:12.5px}
+.wb{display:grid;grid-template-columns:48px 1fr 74px;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+.wb .tr{height:10px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);overflow:hidden}
+.wb .tr i{display:block;height:100%;border-radius:999px}
+.wb b{font-family:var(--mono);color:var(--head);font-weight:600;text-align:right;font-size:12.5px}
+@media (max-width:640px){.wr{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#">Harman Sandhu</a>
+    <nav class="toplinks" aria-label="Site">
+      <a href="#play">Playground</a>
+      <a href="https://github.com/Ace-2504/wsp-study">Code</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap hero" role="region" aria-label="Summary">
+  <h1>Teaching a Model to Say “Not Stated” <span class="hl">by Writing Its Weights</span></h1>
+  <p class="byline"><b>Harman Sandhu</b> · a learning project · November 2026</p>
+  <ul class="chips" aria-label="The setup">
+    <li><sup>1</sup>my own 125M legal model</li>
+    <li><sup>2</sup>QA fine-tuned only</li>
+    <li><sup>3</sup>1 neuron rewired</li>
+    <li><sup>4</sup>2,000-question frozen exam</li>
+    <li><sup>5</sup>every gate pre-registered</li>
+  </ul>
+  <div class="btns">
+    <a class="pill" href="#play"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2.5v9l7-4.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Demo</a>
+    <a class="pill dark" href="https://github.com/Ace-2504/wsp-study"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Code</a>
+  </div>
+
+  <div class="stage" aria-label="Animation: the model's 12 layers, with layer 7 rewired, and its answers on 500 questions whose answer was missing">
+    <div class="sheets" id="sheets"><span class="tag7">layer 7 · neuron 1880</span></div>
+    <div class="hreads" id="hreads"></div>
+    <div class="hvecs" id="hvecs">
+      <div class="hv g"><span><b>eye 1</b> · does the answer look missing?</span><i></i></div>
+      <div class="hv u"><span><b>eye 2</b> · is the reply starting?</span><i></i></div>
+      <div class="hv d"><span><b>hand</b> · push toward “not stated”</span><i></i></div>
+    </div>
+    <div class="shadow"></div>
+    <div class="stage-cap">its 12 layers<small>125.8 million numbers, 2,304 of them rewritten</small></div>
+    <div class="dotsrow">
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <div class="dotlegend">
+        <span class="count" id="dotcount">0</span> <b>/ 500</b><br>
+        final-test questions whose answer was missing from the context
+        <div class="k"><i></i> answered anyway</div>
+        <div class="k"><i class="ok"></i> said “not stated in the context”</div>
+      </div>
+    </div>
+    <ol class="steps4" id="steps4">
+      <li class="on"><b>It answers</b>every question, even with the answer missing</li>
+      <li><b>I fit two detectors</b>on the input to layer 7’s MLP</li>
+      <li><b>I write three vectors</b>2,304 numbers in one neuron</li>
+      <li><b>A frozen exam decides</b>2,000 questions it never saw</li>
+    </ol>
+  </div>
+</div>
+
+<nav class="snav" aria-label="Parts of this page">
+  <i class="prog" id="prog"></i>
+  <div class="wrap">
+    <a href="#results">At a glance</a>
+    <a href="#path">Gate by gate</a>
+    <a href="#idea">The idea</a>
+    <a href="#how">How it works</a>
+    <a href="#play">Playground</a>
+    <a href="#says">The evidence</a>
+    <span class="nums"><a href="#says">01</a><a href="#forgets">02</a><a href="#keywords">03</a><a href="#hybrids">04</a><a href="#recursion">05</a></span>
+        <a href="#learned">What I learned</a>
+    <a href="#limits">Limits</a>
+    <a class="gh" href="https://github.com/Ace-2504/wsp-study">GitHub</a>
+  </div>
+</nav>
+
+<!-- AT A GLANCE -->
+<section id="results" class="wrap">
+  <p class="kick">At a glance</p>
+  <h2>The study in four results.</h2>
+  <p class="lead">Can I give a trained model a new habit by writing a few of its numbers directly, instead of training it again? I tried it on my own 125M legal question-answering model. The habit: saying “not stated in the context” when the context in the prompt doesn’t hold the answer.</p>
+  <div class="findings">
+    <a class="card finding" href="#says">
+      <div class="art"><svg viewBox="0 0 170 72" aria-hidden="true"><line x1="30" y1="66" x2="140" y2="66" class="ax"/><rect x="62" y="63" width="20" height="3" class="bar-bad"/><rect x="92" y="18" width="20" height="48" rx="2" class="bar-ok"/></svg></div>
+      <div class="txt"><span class="num">Finding 01</span><span class="arrow">↓</span><h3>It learns to say “not stated.”</h3><p>From 0% to 72.4% on missing-answer questions in the frozen exam.</p></div>
+    </a>
+    <a class="card finding" href="#forgets">
+      <div class="art"><svg viewBox="0 0 170 72" aria-hidden="true"><line x1="20" y1="66" x2="150" y2="66" class="ax"/><rect x="34" y="64" width="18" height="2" class="bar-ok"/><rect x="58" y="62" width="18" height="4" class="bar-mid"/><rect x="94" y="30" width="18" height="36" class="bar-bad"/><rect x="118" y="14" width="18" height="52" class="bar-bad"/></svg></div>
+      <div class="txt"><span class="num">Finding 02</span><span class="arrow">↓</span><h3>It forgets almost nothing.</h3><p>+0.011% on held-out text, against +5.86% and +8.87% for fine-tuning.</p></div>
+    </a>
+    <a class="card finding" href="#keywords">
+      <div class="art"><svg viewBox="0 0 170 72" aria-hidden="true"><line x1="30" y1="66" x2="140" y2="66" class="ax"/><rect x="58" y="16" width="22" height="50" rx="2" class="bar-mid"/><rect x="92" y="58" width="22" height="8" rx="2" class="bar-bad"/><path d="M84 30 l6 0" class="ax"/></svg></div>
+      <div class="txt"><span class="num">Finding 03</span><span class="arrow">↓</span><h3>It mostly reads keywords.</h3><p>Match the word overlap and its signal drops from 0.72 to 0.12.</p></div>
+    </a>
+    <a class="card finding" href="#hybrids">
+      <div class="art"><svg viewBox="0 0 170 72" aria-hidden="true"><circle cx="40" cy="44" r="9" class="pt-bad"/><circle cx="72" cy="30" r="9" class="pt-ok"/><circle cx="100" cy="30" r="9" class="pt-ok"/><circle cx="128" cy="34" r="9" class="pt-ok"/><line x1="24" y1="62" x2="146" y2="62" class="ax"/></svg></div>
+      <div class="txt"><span class="num">Finding 04</span><span class="arrow">↓</span><h3>Hybrids pass. So does chance.</h3><p>AI editors found edits that clear every bar, and so did one random search.</p></div>
+    </a>
+  </div>
+  <div class="traits">
+    <div><b>Small.</b><span>2,304 numbers out of 125.8 million, in one neuron</span></div>
+    <div><b>Readable.</b><span>each of the three vectors has one job you can name</span></div>
+    <div><b>Honest.</b><span>every gate written down before it ran; the misses stay on the page</span></div>
+  </div>
+</section>
+
+<!-- GATE BY GATE -->
+<section id="path" class="wrap">
+  <p class="kick">Gate by gate</p>
+  <h2>Thirteen stops, from <span class="hl">“it never abstains”</span> to a frozen exam.</h2>
+  <p class="lead">Each stop had a written plan and a pass rule before I ran it. Click through them, or use the arrows.</p>
+  <div class="tl">
+    <div class="tl-track" id="tltrack" role="tablist" aria-label="Gates"><i class="tl-fill" id="tlfill"></i></div>
+    <div class="card tl-panel" id="tlpanel" aria-live="polite"></div>
+    <div class="tl-nav"><button type="button" id="tlprev">← Earlier</button><button type="button" id="tlnext">Later →</button></div>
+  </div>
+</section>
+
+<!-- THE IDEA -->
+<section id="idea" class="wrap">
+  <p class="kick">The idea <span>Three ways to add a habit</span></p>
+  <h2>Two ways train the model again. <span class="hl">The third writes the change in directly.</span></h2>
+  <p class="lead">All three were measured on the same model, the same held-out text and the same frozen exam.</p>
+  <div class="card ways" id="ways">
+    <article class="way">
+      <h3>Fine-tune every weight</h3>
+      <p class="sub">full fine-tuning · learning rate 1e-5</p>
+      <div class="viz ft" aria-hidden="true"><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b></div>
+      <div class="vizcap">all 12 layers change</div>
+      <div class="meter bad"><span>forgetting, log scale <b>+5.86%</b></span><div class="tr"><i style="--w:94.2%"></i><em class="bud" style="left:67.5%"></em></div></div>
+      <p class="big"><b>93.2%</b> abstains on the exam<br><b>+5.86%</b> worst forgetting</p>
+      <ul class="checks">
+        <li class="y"><span>Abstains on most missing-answer questions</span></li>
+        <li class="y"><span>Keeps clean answers as good<small>clean F1 +0.068</small></span></li>
+        <li class="n"><span>Stays inside the forgetting budget<small>budget ≤ +0.5%</small></span></li>
+      </ul>
+    </article>
+    <article class="way">
+      <h3>Fine-tune adapters</h3>
+      <p class="sub">LoRA · rank 16 · every layer</p>
+      <div class="viz lora" aria-hidden="true"><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b><b class="hot"></b></div>
+      <div class="vizcap">small adapters on every layer</div>
+      <div class="meter bad"><span>forgetting, log scale <b>+8.87%</b></span><div class="tr"><i style="--w:98.7%"></i><em class="bud" style="left:67.5%"></em></div></div>
+      <p class="big"><b>92.2%</b> abstains on the exam<br><b>+8.87%</b> worst forgetting</p>
+      <ul class="checks">
+        <li class="y"><span>Abstains on most missing-answer questions</span></li>
+        <li class="y"><span>Keeps clean answers as good<small>clean F1 +0.069</small></span></li>
+        <li class="n"><span>Stays inside the forgetting budget<small>budget ≤ +0.5%</small></span></li>
+      </ul>
+    </article>
+    <article class="way me">
+      <h3>Program the weights</h3>
+      <p class="sub">one neuron · three vectors</p>
+      <div class="viz pg" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b class="hot one"></b><b></b><b></b><b></b><b></b><b></b></div>
+      <div class="vizcap">one neuron in layer 7 changes</div>
+      <div class="meter ok"><span>forgetting, log scale <b>+0.011%</b></span><div class="tr"><i style="--w:26.0%"></i><em class="bud" style="left:67.5%"></em></div></div>
+      <p class="big"><b>72.4%</b> abstains on the exam<br><b>+0.011%</b> worst forgetting</p>
+      <ul class="checks">
+        <li class="y"><span>Abstains on most missing-answer questions</span></li>
+        <li class="n"><span>Keeps clean answers as good<small>clean F1 −0.018, lower bound −0.030 vs bar −0.020</small></span></li>
+        <li class="y"><span>Stays inside the forgetting budget<small>500–800× less forgetting</small></span></li>
+      </ul>
+    </article>
+  </div>
+  <div class="actcap"><span>Three ways, played in turn. The meters are measured worst forgetting on a log scale from 0.001% to 10%; the dashed tick is the +0.5% budget.</span><button type="button" id="actbtn">Pause</button></div>
+  <p class="needs"><b>The edit changed</b><span>3 vectors in layer 7’s MLP</span><span>2,304 numbers</span><span>nothing else</span></p>
+  <p class="pull">The base model was only QA fine-tuned: no RAG, no RAFT, no DPO, no RLAIF. Each question comes with its context written into the prompt. There is no retrieval step.</p>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="wrap">
+  <p class="kick">How it works</p>
+  <h2>One neuron, <span class="hl">two eyes and a hand.</span></h2>
+  <p class="lead">The neuron fires only when both eyes say yes. When it fires, the hand pushes the reply toward “not stated in the context”. Everything else in the model stays exactly as it was.</p>
+  <ul class="nochips" aria-label="What the edit does without">
+    <li>built from edit_dev only</li><li>pre-registered before building</li><li>3 random controls</li><li>3 structured controls</li><li>originals hash-locked</li>
+  </ul>
+  <div class="card player">
+    <div class="ph">
+      <div class="seg" role="tablist" aria-label="Session">
+        <button type="button" role="tab" aria-selected="true" data-tab="hand">The hand-built edit</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="editor">An AI editor’s session</button>
+      </div>
+      <small id="phnote">Six steps, from symptom to verdict</small>
+    </div>
+    <div class="turns" id="turns" role="tablist" aria-label="Steps"></div>
+    <div class="scene" id="scene" aria-live="polite">
+      <div class="stxt">
+      <div class="lbl" id="slbl"></div>
+      <blockquote id="squote"></blockquote>
+      <div class="res" id="sres"></div>
+      </div>
+      <div class="sviz" id="sviz" aria-hidden="true"></div>
+      <div class="pbar"><button type="button" id="splay" aria-label="Pause the replay"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path id="splayicon" d="M2.5 1.5v7M7.5 1.5v7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button><div class="tr"><i id="sprog"></i></div></div>
+    </div>
+  </div>
+
+  <div class="card formula">
+    <div>
+      <h3>The whole edit, in two lines</h3>
+      <div class="fl">activation = SiLU(<span class="tg">gate</span>·x) × (<span class="tu">up</span>·x)<br>output += activation × <span class="td">down</span>
+        <small>x̂ is the input to layer 7’s MLP (768 numbers). The SwiGLU block already computes this product, so no new mechanism is added; if either factor is near zero, the neuron writes almost nothing.</small></div>
+    </div>
+    <div>
+      <h3>What changed in the file</h3>
+      <table class="mini-tbl tens">
+        <thead><tr><th>Tensor slice</th><th>Job</th><th style="text-align:right">Numbers</th></tr></thead>
+        <tbody>
+          <tr><td><code>model.layers.6.mlp.gate_proj[1880, :]</code></td><td>eye 1</td><td class="n">768</td></tr>
+          <tr><td><code>model.layers.6.mlp.up_proj[1880, :]</code></td><td>eye 2</td><td class="n">768</td></tr>
+          <tr><td><code>model.layers.6.mlp.down_proj[:, 1880]</code></td><td>hand</td><td class="n">768</td></tr>
+          <tr><td colspan="2"><b>Total</b>, out of 125.8 million</td><td class="n"><b>2,304</b></td></tr>
+        </tbody>
+      </table>
+      <p class="cap" style="margin-top:8px">Block index 6 is the 7th layer. Names as in <code>src/wsp/and_gate_edit.py</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYGROUND -->
+<section id="play" class="wrap">
+  <p class="kick">Playground</p>
+  <h2>Ask both models <span class="hl">the same question.</span></h2>
+  <p class="lead">Pick a question and what its context holds, then press Ask. The two models are identical except for three vectors in layer 7. Every reply below is the model’s real output.</p>
+  <div class="card pg" role="group" aria-label="Playground: compare the original and edited model on real questions">
+    <div class="pg-top">
+      <div class="pg-row"><span>Question</span>
+        <div class="qbtns" id="qbtns">
+          <button type="button" data-q="copland" aria-pressed="true">Aaron Copland’s work<small>frozen exam · web text</small></button>
+          <button type="button" data-q="sherlock" aria-pressed="false">Statutes for Lee<small>frozen exam · case law</small></button>
+          <button type="button" data-q="stryker" aria-pressed="false">Stryker statements<small>keyword-matched pool · SEC</small></button>
+        </div>
+      </div>
+      <div class="pg-row"><span>Context</span>
+        <div class="etabs" role="group" aria-label="What the context holds" id="cbtns" style="margin:0">
+          <button type="button" data-c="in" aria-selected="true">Answer in the context</button>
+          <button type="button" data-c="out" aria-selected="false" id="cout">Answer removed</button>
+        </div>
+        <div class="pg-ask"><button type="button" class="go" id="pgask">Ask both models</button><button type="button" id="pgreset">Reset</button></div>
+      </div>
+    </div>
+    <div class="pg-ctx">
+      <p class="lbl2">Context in the prompt (excerpt)</p>
+      <div class="ctx" id="pgctx"></div>
+      <p class="qline" id="pgq"></p>
+    </div>
+    <div class="pg-lanes">
+      <div class="pg-lane before">
+        <h4>Original model <small>QA SFT only</small></h4>
+        <div class="pg-stack" id="stk-b"></div>
+        <div class="pg-stack-cap"><span>layer 1</span><span>layer 12</span></div>
+        <div class="pg-reply"><span class="t">Reply</span><span class="txt" id="rep-b"></span><span class="vd" id="vd-b"></span></div>
+      </div>
+      <div class="pg-lane after">
+        <h4>Edited model <small>layer 7 · neuron 1880 rewired</small></h4>
+        <div class="pg-stack" id="stk-a"></div>
+        <div class="pg-stack-cap"><span>layer 1</span><span>layer 12</span></div>
+        <div class="pg-reply"><span class="t">Reply</span><span class="txt" id="rep-a"></span><span class="vd" id="vd-a"></span></div>
+      </div>
+    </div>
+    <div class="pg-say" id="pgsay" aria-live="polite"></div>
+    <div class="whole2">
+      <h4>Across the whole test<small>How often each model says “not stated in the context”</small></h4>
+      <div class="wr"><div>Answer removed from the context<small>500 exam questions · should say it</small></div>
+        <div><div class="wb"><span>Original</span><span class="tr"><i style="width:0%"></i></span><b>0 · 0%</b></div><div class="wb"><span>Edited</span><span class="tr"><i style="width:72.4%;background:var(--teal)"></i></span><b>362 · 72.4%</b></div></div></div>
+      <div class="wr"><div>Answer in the context<small>1,000 exam questions (clean + realistic) · should not say it</small></div>
+        <div><div class="wb"><span>Original</span><span class="tr"><i style="width:0%"></i></span><b>0 · 0%</b></div><div class="wb"><span>Edited</span><span class="tr"><i style="width:6.2%;background:var(--peach)"></i></span><b>62 · 6.2%</b></div></div></div>
+      <div class="wr"><div>Answer sentence deleted, wording kept<small>454 keyword-matched pool items · should say it</small></div>
+        <div><div class="wb"><span>Original</span><span class="tr"><i style="width:0%"></i></span><b>0 · 0%</b></div><div class="wb"><span>Edited</span><span class="tr"><i style="width:8.8%;background:var(--teal)"></i></span><b>40 · 8.8%</b></div></div></div>
+      <p class="cap" style="margin:0">The first two rows are the frozen 2,000-question exam. The last row is the held-out keyword-matched pool.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINDING 01 -->
+<section id="says" class="wrap">
+  <p class="kick">The evidence <span>Finding 01</span></p>
+  <h2>It learns to say “not stated.”</h2>
+  <p class="lead">On the frozen exam, the answer sentence was removed from 500 questions. The original model answered every one of them. The edited model said “not stated in the context” on 362.</p>
+  <div class="card ex-main">
+    <p class="ex-q">One exam question whose answer was removed, same decoding for both models</p>
+    <p>“How many servers did The New York Times estimate were housed in Google’s facilities?”</p>
+    <div class="pair">
+      <div class="side bad"><h4>Original model</h4><div class="out">It was estimated to be over 16 million.</div><div class="v"><b>Answers anyway.</b> The answer is not in the context.</div></div>
+      <div class="side good"><h4>After the edit</h4><div class="out"><code>not stated in the context</code></div><div class="v"><b>Correct.</b></div></div>
+    </div>
+  </div>
+  <div class="ex-grid">
+    <article class="card ex-sm">
+      <p>What portion of PBI’s consolidated revenue in 1993 came from sales to PBCC for third-party leasing?</p>
+      <div class="side bad"><h4>Original model</h4><div class="out">$6,419,000</div></div>
+      <div class="side good"><h4>After the edit</h4><div class="out">not stated in the context</div><div class="v"><b>Correct</b></div></div>
+    </article>
+    <article class="card ex-sm">
+      <p>On what date was the circuit court’s final judgment filed in the case involving AIG and Allstate?</p>
+      <div class="side bad"><h4>Original model</h4><div class="out">October 7, 2003</div></div>
+      <div class="side good"><h4>After the edit</h4><div class="out">not stated in the context</div><div class="v"><b>Correct</b></div></div>
+    </article>
+    <article class="card ex-sm">
+      <p>In which regions does the Freight Group provide its less-than-truckload freight services?</p>
+      <div class="side bad"><h4>Original model</h4><div class="out">Missouri Pacific Railroad Company</div></div>
+      <div class="side good"><h4>After the edit</h4><div class="out">not stated in the context</div><div class="v"><b>Correct</b></div></div>
+    </article>
+  </div>
+  <div class="card split500">
+    <h4 style="margin:0;font-size:15px;color:var(--head)">All 500 missing-answer exam questions, after the edit</h4>
+    <div class="bar" role="img" aria-label="362 said not stated, 138 still answered"><i style="width:72.4%;background:var(--teal-soft);border-right:2px solid var(--teal)"></i><i style="width:27.6%;background:var(--peach-soft)"></i></div>
+    <div class="k"><span><b>362</b> said “not stated in the context”</span><span><b>138</b> still answered</span><span>original model: <b>0</b> said “not stated”</span><span>fabrication rate: <b>5.6% → 1.2%</b></span></div>
+  </div>
+  <div class="gtabs" role="tablist" aria-label="More exam examples">
+    <button type="button" role="tab" aria-selected="true" data-g="sec">SEC filings</button>
+    <button type="button" role="tab" aria-selected="false" data-g="law">Case law</button>
+    <button type="button" role="tab" aria-selected="false" data-g="web">Web text</button>
+    <button type="button" role="tab" aria-selected="false" data-g="miss">Where it still answers</button>
+  </div>
+  <div class="gal" id="gal" aria-live="polite"></div>
+  <p class="cap">All from the frozen exam’s missing-answer questions, in file order, short questions only so they fit the cards. Same decoding for both models.</p>
+  <div class="card cost">
+    <div><h3>And the price it pays.</h3><p>The edit also says “not stated” on 4.6% of clean exam questions, where the answer is in the context.</p></div>
+    <div class="pair">
+      <div class="side bad" style="background:var(--surface);border-color:var(--line)"><h4 style="color:var(--muted)">Original model · answer present</h4><div class="out" style="font-size:13px">Northwestern Illinois, Iowa, Minnesota, and in the transportation of natural gas within Iowa.</div><div class="v" style="font-size:13px">Token F1 0.47. Reference: Iowa, Minnesota, and Illinois.</div></div>
+      <div class="side bad"><h4>After the edit</h4><div class="out" style="font-size:13px">not stated in the context</div><div class="v" style="font-size:13px"><b>A false refusal.</b> The answer was there.</div></div>
+    </div>
+  </div>
+  <p class="pull">The habit transferred to the untouched exam almost exactly: +72.4% there against +73.7% on held-out data.</p>
+</section>
+
+<!-- FINDING 02 -->
+<section id="forgets" class="wrap">
+  <p class="kick">The evidence <span>Finding 02</span></p>
+  <h2>It forgets almost nothing.</h2>
+  <p class="lead">Forgetting here means how much worse the model gets at predicting ordinary text: SEC filings, case law and web text. Lower is better, and the approved budget was +0.5%.</p>
+  <div class="card chart">
+    <h4>Worst forgetting across held-out text sets</h4>
+    <p class="sub">Log scale. Each bar is one edited model; the dashed line is the budget.</p>
+    <div class="scroll-x"><svg id="forgetchart" viewBox="0 0 900 370" role="img" aria-label="Worst forgetting per arm on a log scale. AND-gate 0.011%, self-recursion 0.015%, editors 0.33 to 0.43%, random search 0.40%, single neuron v1 1.72%, full fine-tuning 5.86%, LoRA 8.87%. Budget 0.5%."></svg></div>
+    <div class="legend"><span><i style="background:var(--teal-soft);border:1px solid var(--teal)"></i>pure weight programming</span><span><i style="background:var(--blue-soft);border:1px solid var(--blue)"></i>hybrid: gate + slice of a fine-tune</span><span><i style="background:var(--peach-soft);border:1px solid var(--peach)"></i>over the budget</span></div>
+  </div>
+  <p class="cap">Relative increase in next-token loss, worst of five held-out text sets. “Single neuron, v1” is my first neuron edit, before it had a second eye.</p>
+  <div class="card chart" style="margin-top:16px">
+    <h4>Forgetting by kind of text</h4>
+    <p class="sub">Three text sets, three ways to add the habit. Log scale; whiskers on my edit are 95% intervals.</p>
+    <div class="scroll-x"><svg id="persetchart" viewBox="0 0 900 300" role="img" aria-label="Forgetting by text set. SEC: edit 0.0106%, full fine-tuning 5.18%, LoRA 8.78%. Case law: 0.0062%, 4.90%, 7.50%. Web text: 0.0024%, 5.82%, 7.94%."></svg></div>
+    <div class="legend"><span><i style="background:var(--teal-soft);border:1px solid var(--teal)"></i>my edit</span><span><i style="background:var(--peach-soft);border:1px solid var(--peach)"></i>full fine-tuning</span><span><i style="background:color-mix(in srgb,var(--peach) 55%,var(--peach-soft));border:1px solid var(--peach-ink)"></i>LoRA</span></div>
+  </div>
+  <div class="chips2">
+    <span><b>95.5%</b>verbatim copy kept (bar 93%)</span>
+    <span><b>3.3%</b>overall weight change (limit 5%)</span>
+    <span><b>0</b>abstention change from the ablation control (neuron zeroed, nothing written)</span>
+    <span><b>0</b>abstentions from 3 random edits of the same size</span>
+  </div>
+  <p class="cap">LoRA per-set numbers are from its full held-out run; the +8.87% above is its fast-subset worst case.</p>
+  <p class="pull">That is 500–800 times less forgetting than LoRA or full fine-tuning.</p>
+</section>
+
+<!-- FINDING 03 / DEMO -->
+<section id="keywords" class="wrap">
+  <p class="kick">The evidence <span>Finding 03</span></p>
+  <h2>It mostly reads keywords.</h2>
+  <p class="lead">The edit works. Then I checked what its first eye really looks at, and the honest answer is: mostly whether the question’s words appear in the context.</p>
+  <div class="card demo" id="program-demo" role="group" aria-label="Interactive: program neuron 1880, then hide the keyword clue">
+    <div class="demo-top">
+      <div class="grid-wrap">
+        <canvas id="ngrid" width="768" height="576" aria-label="Grid of layer 7's 3,072 neurons as a 48 by 64 grid, with neuron 1880 marked"></canvas>
+        <div class="gcap">Layer 7: 3,072 neurons, one square each. Neuron 1880 is marked.</div>
+        <div class="vecs">
+          <div class="vec" id="v-gate"><span>eye 1 · gate row</span><i class="strip"></i></div>
+          <div class="vec" id="v-up"><span>eye 2 · up row</span><i class="strip"></i></div>
+          <div class="vec" id="v-down"><span>hand · down col</span><i class="strip"></i></div>
+        </div>
+      </div>
+      <div class="mets">
+        <h4 id="mtitle">How often it says “not stated”</h4>
+        <p class="sub" id="msub">3,378 held-out questions per bar</p>
+        <div id="mrows"></div>
+      </div>
+    </div>
+    <div class="demo-bot">
+      <p id="dtext"></p>
+      <div class="dbtns">
+        <button type="button" id="dreset">Reset</button>
+        <button type="button" id="dnext" class="go">Write the hand only</button>
+      </div>
+    </div>
+  </div>
+  <details class="more">
+    <summary>How I measured the keyword effect</summary>
+    <div class="card body">
+      <p>I built a test set where “answer missing” and “answer present” contexts share the same amount of wording with the question. Before matching, word overlap alone separates them almost perfectly (AUROC 0.966). After matching it can’t (0.502, a coin flip).</p>
+      <p>D is how much more often the model abstains when the answer is missing than when it is present. A D of 0.72 that falls to 0.12 once overlap is matched means most of the signal was overlap.</p>
+      <table class="mini-tbl">
+        <thead><tr><th>Model</th><th style="text-align:right">D, normal pool</th><th style="text-align:right">D, overlap matched</th></tr></thead>
+        <tbody>
+          <tr><td>AND-gate edit</td><td class="n">0.720</td><td class="n">0.122</td></tr>
+          <tr><td>Self-recursion θ₂</td><td class="n">—</td><td class="n">0.170</td></tr>
+          <tr><td>Full fine-tuning</td><td class="n">—</td><td class="n">0.254</td></tr>
+          <tr><td>LoRA</td><td class="n">0.882</td><td class="n">0.263</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">Fine-tuning reads a little more than overlap too, but not much. The model’s own “answer present” signal beyond overlap is weak: a probe reaches AUROC 0.64.</p>
+    </div>
+  </details>
+  <div class="twocol">
+    <div class="card chart">
+      <h4>What a keyword-only reader sees</h4>
+      <p class="sub">A score built from word overlap alone, for three kinds of item. Bars span the middle 80%; the dot is the median.</p>
+      <svg id="lexchart" viewBox="0 0 440 230" role="img" aria-label="Keyword-only score. Answer present: median -2.19. Answer missing, different passage: median 2.22. Answer sentence deleted from the right passage: median 0.15, spread across both."></svg>
+      <p class="cap" style="margin-top:4px">From the pool build: middle 80% (p10–p90) and median per kind of item.</p>
+    </div>
+    <div class="card chart">
+      <h4>Overlap-matched pool, three models</h4>
+      <p class="sub">How often each model says “not stated”, by kind of item.</p>
+      <svg id="poolchart" viewBox="0 0 440 230" role="img" aria-label="Abstain rates. My edit: present 3.4, different passage 51.5, deleted 8.8 percent. LoRA: 10.7, 81.8, 27.1. Full fine-tuning: 13.9, 85.9, 29.3."></svg>
+      <div class="legend"><span><i style="background:var(--peach-soft);border:1px solid var(--peach)"></i>answer present</span><span><i style="background:var(--teal-soft);border:1px solid var(--teal)"></i>missing, other passage</span><span><i style="background:var(--blue-soft);border:1px solid var(--blue)"></i>missing, sentence deleted</span></div>
+    </div>
+  </div>
+  <div class="gal" style="margin-top:16px" id="delgal"></div>
+  <p class="cap">From the held-out overlap-matched pool. The first three are deleted-answer items where my edit still answers; the last is a different-passage item it catches.</p>
+  <p class="pull">The model’s own signal for “answer present” beyond overlap is weak: a probe reaches AUROC 0.64.</p>
+</section>
+
+<!-- FINDING 04 -->
+<section id="hybrids" class="wrap">
+  <p class="kick">The evidence <span>Finding 04</span></p>
+  <h2>Hybrids pass. <span class="hl">So does chance.</span></h2>
+  <p class="lead">I gave three AI editors (Claude agents) the same menu of edits: my gate, plus scaled slices of the fine-tuning changes. Each had 18 evaluations and saw only development scores. Then I ran the same menu with a random picker.</p>
+  <div class="card chart">
+    <div class="etabs" role="tablist" aria-label="Which search">
+      <button type="button" role="tab" aria-selected="true" data-e="A">Editor A</button>
+      <button type="button" role="tab" aria-selected="false" data-e="B">Editor B</button>
+      <button type="button" role="tab" aria-selected="false" data-e="C">Editor C</button>
+      <button type="button" role="tab" aria-selected="false" data-e="R1">Random R1</button>
+    </div>
+    <h4 id="trajtitle">Editor A, try by try</h4>
+    <p class="sub">Signal beyond keywords (D, overlap matched) after each try, and whether that try passed every guardrail. The line is the best passing try so far.</p>
+    <div class="scroll-x"><svg id="trajchart" viewBox="0 0 900 330" role="img" aria-label="Editor A's 18 tries. D rises from 0.09 at try 1 to 0.25 at try 18, above the hand-built edit's 0.12. Tries 6 and 8 were vetoed by the safety gate."></svg></div>
+    <div class="legend"><span><i style="background:var(--teal-soft);border:1.6px solid var(--teal)"></i>passes every guardrail</span><span><i style="background:var(--surface);border:1.8px solid var(--peach)"></i>fails one</span><span><b style="color:var(--faint);font-weight:600">×</b>vetoed by the safety gate, not run</span></div>
+  </div>
+  <div class="card eds">
+    <div class="ed"><div class="who"><i class="c-violet">A</i><div><b>Editor A</b><small>passes the exam</small></div></div><div class="nums">abstains <b>+0.91</b> · clean F1 <b>+0.00</b><br>forgetting <b>+0.35%</b></div><q>Late-layer LoRA was less efficient than full-depth; test the complementary hypothesis that early layers (feeding the layer-6 probe) carry the synergy…</q></div>
+    <div class="ed"><div class="who"><i class="c-blue">B</i><div><b>Editor B</b><small>passes the exam</small></div></div><div class="nums">abstains <b>+0.87</b> · clean F1 <b>+0.06</b><br>forgetting <b>+0.33%</b></div><q>Upper-layer fullft (step 13) lost the synergy… so the benefit lives in layers 0-5, upstream of the L6 gate.</q></div>
+    <div class="ed"><div class="who"><i class="c-teal">C</i><div><b>Editor C</b><small>passes the exam</small></div></div><div class="nums">abstains <b>+0.87</b> · clean F1 <b>+0.01</b><br>forgetting <b>+0.43%</b></div><q>Stacking a layer-5 gate hurt badly (abs gain 0.32). Go back to the step-7 base…</q></div>
+    <div class="ed rand"><div class="who"><i class="c-peach">R</i><div><b>Random R1</b><small>passes the exam</small></div></div><div class="nums">abstains <b>+0.80</b> · clean F1 <b>+0.02</b><br>forgetting <b>+0.40%</b></div><q>random search R1, seed 1</q></div>
+  </div>
+  <p class="cap">Quotes are the editors’ own notes, written before each try. The random picker’s whole “reasoning” is its seed. Exam numbers are changes against the original model.</p>
+  <div class="twocol">
+    <div class="card chart">
+      <h4>The menu every searcher shared</h4>
+      <p class="sub">The only two move types in all four runs. Every proposal went through the same safety gate and guardrails.</p>
+      <ul class="limits" style="grid-template-columns:1fr;gap:8px">
+        <li><b>and_gate</b>my neuron construction at a chosen layer, with write size ρ, threshold τ and gain</li>
+        <li><b>scaled_delta</b>a scaled slice of the LoRA or full fine-tune change, limited to chosen layers and modules</li>
+      </ul>
+    </div>
+    <div class="card chart">
+      <h4>One real move: random R1, try 2</h4>
+      <p class="sub">A 3% slice of the full fine-tune on layers 2–8, plus my gate at layer 6.</p>
+      <div class="menu-code">[{"type": "scaled_delta", "source": "fullft_lr1e-05",
+  "scale": 0.03, "layers": [2,3,4,5,6,7,8],
+  "modules": ["k_proj","v_proj","o_proj","up_proj"]},
+ {"type": "and_gate", "layer": 6,
+  "rho": 0.5, "tau": 0, "gain": 0.69}]</div>
+      <p class="cap">Result: abstains +0.314, forgetting +0.004%.</p>
+    </div>
+  </div>
+  <p class="pull">The bigger menu did the work, not the editor’s judgement. With one random run, whether the editors beat chance by a little is still open.</p>
+</section>
+
+<!-- FINDING 05 -->
+<section id="recursion" class="wrap">
+  <p class="kick">The evidence <span>Finding 05</span></p>
+  <h2>Doing it twice helps, <span class="hl">then the rule says stop.</span></h2>
+  <p class="lead">I ran the same recipe again on the edited model’s own remaining failures, at a fresh layer (block 7). It caught more missing-answer questions, but it also started refusing answerable ones.</p>
+  <div class="card rec">
+    <div>
+      <svg id="recchart" viewBox="0 0 520 300" role="img" aria-label="Held-out rates for the original model, θ1 and θ2. Abstains on missing answers: 0, 73.7, 86.8 percent. False refusals on answerable questions: 0, 3.5, 10.8 percent."></svg>
+      <div class="legend"><span><i style="background:var(--teal)"></i>says “not stated” when the answer is missing</span><span><i style="background:var(--peach)"></i>says it when the answer is there</span></div>
+    </div>
+    <div class="rec-steps">
+      <div class="rs"><span class="t">θ₀</span><p>The original model. Never abstains.</p><span class="verdict mixed">start</span></div>
+      <div class="rs"><span class="t">θ₁</span><p>One neuron. Clean F1 lower bound <b>−0.013</b>, inside the −0.020 bar. Signal beyond keywords D <b>0.122</b>.</p><span class="verdict pass">keeps</span></div>
+      <div class="rs"><span class="t">θ₂</span><p>Two neurons. D rises to <b>0.170</b> and forgetting stays at <b>+0.015%</b>, but the F1 lower bound hits <b>−0.022</b>: over the bar by 0.002.</p><span class="verdict fail">stops</span></div>
+    </div>
+  </div>
+  <p class="cap">Held-out set, 3,378 questions per rate. The stop rule was written before the run.</p>
+  <p class="pull">The pre-registered stop rule ended the recursion here (docs/18).</p>
+</section>
+
+<!-- WHAT I LEARNED -->
+<section id="learned" class="wrap">
+  <p class="kick">What I learned</p>
+  <h2>The change lives somewhere <span class="hl">you can point at.</span></h2>
+  <p class="lead">Full fine-tuning changes every tensor; LoRA adds adapters on every layer. My edit is a separate delta file holding three vectors, and the originals stay hash-locked.</p>
+  <div class="where">
+    <div class="card">
+      <h3>Fine-tuning</h3><p class="sub">every tensor changes (full fine-tuning)</p>
+      <svg viewBox="0 0 400 120" aria-hidden="true" id="spreadsvg"></svg>
+      <p class="cap" style="margin:0">Exam abstention 92–93%, forgetting +5.86% to +8.87%.</p>
+    </div>
+    <div class="card">
+      <h3>The programmed edit</h3><p class="sub">one neuron in layer 7, three named vectors</p>
+      <svg viewBox="0 0 440 120" aria-hidden="true" id="pointsvg"></svg>
+      <p class="cap" style="margin:0">Exam abstention 72.4%, forgetting +0.011%.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;overflow:hidden">
+    <div class="file" id="filebox">
+      <div class="box"><b>Original model</b><small>125.8M numbers · hash-locked</small></div>
+      <div class="op">+</div>
+      <div class="box delta"><b>Edit file</b><small>3 tensor slices · 2,304 numbers</small></div>
+      <div class="op">=</div>
+      <div class="box res" id="fileres"><b>72.4%</b><small>abstains on the exam</small></div>
+    </div>
+    <div class="filebar"><p id="filetext">With the edit file applied: the model says “not stated” on 72.4% of missing-answer exam questions.</p><button type="button" class="pill" id="filebtn" style="padding:7px 18px">Remove the edit</button></div>
+  </div>
+  <div class="three">
+    <div><h3>Constructed edits can be clean</h3><p>Three vectors installed 72.4% exam abstention with at most +0.011% forgetting.</p></div>
+    <div><h3>Check what the detector reads</h3><p>The overlap-matched pool turned “it detects missing answers” into “it mostly detects missing keywords”.</p></div>
+    <div><h3>The menu mattered, not the editor</h3><p>One uninformed random-search run over the same options also beat the hand-built grid.</p></div>
+  </div>
+  <p class="horizon">Every arm’s exam gain was 97–107% of its held-out gain, and the ranking of arms held (Kendall τ 0.90).</p>
+</section>
+
+<!-- LIMITS -->
+<section id="limits" class="wrap">
+  <p class="kick">Limits</p>
+  <h2>What this doesn’t prove.</h2>
+  <p class="lead">The limitations and answers below are the ones written in the final report (docs/20).</p>
+  <ul class="limits">
+    <li><b>One model, one behaviour.</b>Abstention is a fixed phrase, which makes it a favourable case for constructed edits.</li>
+    <li><b>Small samples.</b>One random-search run, three editor runs, a single recursion iteration.</li>
+    <li><b>The editors were Claude-family agents</b>working from a written brief. Results may differ for other editors or briefs.</li>
+    <li><b>The exam’s missing-answer condition always has 2 context passages.</b>No arm was selected on that shortcut, but the exam still carries it.</li>
+    <li><b>Retention and copy were measured on held-out text,</b>not on the exam. The two are separate by design.</li>
+    <li><b>Costs that were not targeted.</b>False abstention rose in every arm (+0.06 to +0.16 on the exam), and closed-book F1 fell by 0.05–0.11.</li>
+  </ul>
+  <div class="next">
+    <div class="card"><h3>Can an AI editor author useful weight edits?</h3><p>Yes in this action space: all three passed every guardrail. No as evidence that the editor matters: random search did too.</p></div>
+    <div class="card"><h3>Does it beat fine-tuning?</h3><p>Not on raw abstention (0.92–0.93 against 0.72–0.91). Yes on abstention against forgetting: no fine-tuning arm stays inside the budget.</p></div>
+    <div class="card"><h3>Does self-recursion compound?</h3><p>One step did, at a cost to F1 that just exceeded the approved budget.</p></div>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Weight-Space Programming study · Harman Sandhu · built on my own 125M model</span>
+    <span><a href="#play">Playground</a> · <a href="https://github.com/Ace-2504/wsp-study">Code</a> · <a href="https://github.com/Ace-2504">GitHub</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(id){return document.getElementById(id);}
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e;}
+
+  /* ---------- hero ---------- */
+  var sheets=$('sheets');
+  for(var i=1;i<=12;i++){var s=document.createElement('div');s.className='sheet'+(i===7?' edit':'');sheets.appendChild(s);}
+  var dots=$('dots'), N=500, OK=362, d=[];
+  for(i=0;i<N;i++){var x=document.createElement('i');dots.appendChild(x);d.push(x);}
+  // deterministic shuffle: which 362 turn teal
+  var order=[];for(i=0;i<N;i++)order.push(i);
+  var seed=1880;function rnd(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;}
+  for(i=N-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=order[i];order[i]=order[j];order[j]=t;}
+  var cnt=$('dotcount'), s4=$('steps4').children, shs=[].slice.call(sheets.querySelectorAll('.sheet'));
+  var hv=[].slice.call(document.querySelectorAll('#hvecs .hv')), hst=0, htimer=null, fillIv=null, scanT=[];
+  var HDUR=[2600,3200,3000,4600];
+  function clearHero(){scanT.forEach(clearTimeout);scanT=[];if(fillIv)clearInterval(fillIv);}
+  function heroStage(k,instant){
+    clearHero();hst=k;
+    [].forEach.call(s4,function(li,m){li.classList.toggle('on',m===k);});
+    $('hreads').classList.toggle('on',k===1);
+    hv[0].classList.toggle('on',k>=1);hv[1].classList.toggle('on',k>=1);hv[2].classList.toggle('on',k>=2);
+    if(k===0){shs.forEach(function(x){x.classList.remove('lit');});d.forEach(function(x){x.classList.remove('ok');});cnt.textContent=0;}
+    if(k===1){shs.forEach(function(x,m){x.classList.remove('lit');if(m<7){if(instant)x.classList.add('lit');else scanT.push(setTimeout(function(){x.classList.add('lit');},m*180));}});}
+    if(k===2){shs.forEach(function(x,m){x.classList.toggle('lit',m===6);});}
+    if(k===3){shs.forEach(function(x){x.classList.remove('lit');});
+      if(instant){for(var q=0;q<OK;q++)d[order[q]].classList.add('ok');cnt.textContent=OK;}
+      else{d.forEach(function(x){x.classList.remove('ok');});var q=0;fillIv=setInterval(function(){for(var m=0;m<7&&q<OK;m++,q++)d[order[q]].classList.add('ok');cnt.textContent=q;if(q>=OK)clearInterval(fillIv);},24);}
+    }
+  }
+  function heroLoop(){htimer=setTimeout(function(){heroStage((hst+1)%4);heroLoop();},HDUR[hst]);}
+  [].forEach.call(s4,function(li,m){li.onclick=function(){clearTimeout(htimer);heroStage(m,RM);if(!RM)heroLoop();};});
+  if(RM){heroStage(3,true);hv.forEach(function(x){x.classList.add('on');});}
+  else{heroStage(0);heroLoop();}
+
+  /* ---------- section nav ---------- */
+  var links=[].slice.call(document.querySelectorAll('.snav a[href^="#"]'));
+  var ids=['results','path','idea','how','play','says','forgets','keywords','hybrids','recursion','learned','limits'];
+  var ev={says:1,forgets:1,keywords:1,hybrids:1,recursion:1};
+  function spy(){
+    var y=window.scrollY+120, cur=null;
+    ids.forEach(function(id){var e=$(id);if(e&&e.offsetTop<=y)cur=id;});
+    links.forEach(function(a){
+      var h=a.getAttribute('href').slice(1);
+      var on=(h===cur)||(a.textContent==='The evidence'&&ev[cur]&&!a.parentNode.classList.contains('nums'));
+      if(a.parentNode.classList.contains('nums'))on=(h===cur);
+      a.classList.toggle('on',!!on);
+    });
+    var h=document.documentElement;$('prog').style.width=(100*window.scrollY/Math.max(1,h.scrollHeight-h.clientHeight))+'%';
+  }
+  window.addEventListener('scroll',spy,{passive:true});spy();
+
+  /* ---------- timeline ---------- */
+  var GATES=[
+    ['Gate 1','docs/06','Baseline','I reproduced the model’s published clean scores and measured the 2,000-question exam baseline. On its 500 missing-answer questions, the model said “not stated” 0 times.','pass','reproduced'],
+    ['Gate 2','docs/07','LoRA','A LoRA fine-tune installs the habit, +95.4% on held-out questions. It also makes ordinary text up to 8.87% harder to predict.','fail','over the forgetting budget'],
+    ['Gate 3a','docs/09','Read the output','Does the model already lean toward “not stated” somewhere in its output? No: teacher-forced AUROC 0.42, below chance.','fail','no signal'],
+    ['Gate 3b','docs/10','Read the inside','A linear probe on the model’s hidden states separates missing from present answers (layer-5 probe AUROC about 0.95). Verdict under the pre-registered rule: PRESENT.','pass','present'],
+    ['Rank-1','docs/11','First edit','A single read-write direction added +0.19 abstention but failed three guardrails: clean F1, fabrication and SEC forgetting.','fail','negative'],
+    ['Neuron v1','docs/12','One neuron','Neuron 1880 took the job: +0.726 abstention. But it fired in the middle of text too, and SEC text got 1.72% harder.','fail','SEC forgetting'],
+    ['AND-gate','docs/13','Second eye','A second detector, fit to read 1 at the reply start and 0 elsewhere, cuts misfires on raw text from 1.14% to 0.02%. Abstention +0.737 held out, forgetting at most +0.011%.','pass','passes held out'],
+    ['Overlap pool','docs/14','What it reads','On a pool where word overlap can’t help, its signal falls from 0.72 to 0.12. Mostly keywords.','mixed','overlap-dominated'],
+    ['Full FT','docs/15','Every weight','Full fine-tuning: +0.96 abstention, and +5.86% forgetting. Fails the same guardrail as LoRA.','fail','over the forgetting budget'],
+    ['Editors','docs/16','AI editors','Three Claude agents, 18 evaluations each, all beat my hand-built grid by mixing the gate with a slice of a fine-tune.','pass','3 of 3 beat it'],
+    ['Random','docs/17','A control','A random picker over the same menu also beat the grid on its first run. The menu was enough.','mixed','menu suffices'],
+    ['Recursion','docs/18','Do it again','A second neuron on the remaining failures: +0.868 abstention, but clean F1 missed the bar by 0.002.','fail','degrades'],
+    ['Final exam','docs/19','Frozen test','The 2,000 untouched questions. My pure edit misses clean F1 by 0.010; the hybrids pass; gains transfer at 97–107%.','mixed','hybrids pass']
+  ];
+  var track=$('tltrack'), panel=$('tlpanel'), fill=$('tlfill'), gi=12, stops=[];
+  GATES.forEach(function(g,k){
+    var b=document.createElement('button');b.type='button';b.className='tl-stop '+g[4];b.setAttribute('role','tab');b.setAttribute('aria-label',g[0]+': '+g[2]);
+    b.innerHTML='<i></i><span>'+(k+1)+'</span>';b.onclick=function(){showGate(k);};track.appendChild(b);stops.push(b);
+  });
+  function showGate(k){
+    gi=k;stops.forEach(function(b,m){b.classList.toggle('on',m===k);b.setAttribute('aria-selected',m===k);});
+    fill.style.width=(100*(k+0.5)/GATES.length)+'%';
+    var g=GATES[k];
+    panel.innerHTML='<div class="when">'+g[0]+'<small>'+g[1]+' · stop '+(k+1)+' of 13</small></div><div><h3>'+g[2]+'</h3><p>'+g[3]+'</p><span class="verdict '+g[4]+'">'+g[5]+'</span></div>';
+  }
+  $('tlprev').onclick=function(){showGate(Math.max(0,gi-1));};
+  $('tlnext').onclick=function(){showGate(Math.min(GATES.length-1,gi+1));};
+  showGate(0);
+
+  /* ---------- stepper ---------- */
+  var SESS={
+    hand:{note:'Six steps, from symptom to verdict',steps:[
+      ['Symptom','gate 1','c-peach','what goes wrong','On the 500 exam questions whose answer is not in the context, the model says “not stated” 0 times. It answers every one of them anyway.','abstains <b>0 / 500</b>'],
+      ['Pick the neuron','docs/12','c-violet','a rule written in advance','The pre-registered rule: take the neuron with the smallest mean |activation| × ‖down column‖ over generic prompt positions in edit_dev. In block 6 (layer 7) that is neuron 1880.','layer 7 · <b>neuron 1880</b> of 3,072'],
+      ['Eye 1','gate row','c-blue','does the answer look missing?','A logistic absence probe w on x̂, the input to the MLP. Positives: the last prompt token of edit_dev items whose answer is missing. Negatives: the same token on answerable items, plus generic prompt positions from 2,000 edit_dev items. Gate row = S · (w − τ·c).','768 numbers · <b>gate row</b>'],
+      ['Eye 2','up row','c-teal','is the reply starting?','In version 1 this row was a constant, and the neuron misfired inside ordinary text. Now it is a weighted ridge detector r, fit to read 1 at the reply start and 0 on prompt text, template tokens, reply tokens and raw text outside the chat template.','fires on raw text <b>1.14% → 0.02%</b>'],
+      ['The hand','down column','c-amber','what to write','With the model frozen, projected Adam (300 steps, batch 16) finds a vector δ that, added at the last prompt token, maximises log P(“not stated in the context”) on edit_dev missing-answer items. Its norm is capped at ρ × the layer’s rms residual norm. Down column = δ / m.','768 numbers · <b>down column</b>'],
+      ['The tests decide','held out','c-rose','keep or drop','A safety gate (≤25% change per tensor, ≤5% overall), then a 12-configuration grid on the dev fold, then 3,378 held-out questions against the guardrails, then the frozen exam. Selected: block 6, ρ 1, τ 0.','held out <b>+73.7%</b> · exam <b>+72.4%</b>']
+    ]},
+    editor:{note:'Editor A, a Claude agent, in its own notes',steps:[
+      ['Try 1','baseline','c-peach','its plan','“Baseline probe: single AND-gate at layer 6, mid rho, no threshold, unit gain, to see how much abstention and matched-pool discrimination the probe direction gives.”','abstains <b>+0.524</b> · D <b>0.091</b> · passes'],
+      ['Try 2','full FT slice','c-violet','its plan','“Test whether a downscaled gradient-trained full-FT delta carries matched-pool (deleted-answer) signal beyond the overlap-like probe, and measure its retention cost at 0.25 scale.”','abstains <b>+0.005</b> · D <b>0.000</b> · fails'],
+      ['Try 6','vetoed','c-blue','its plan','“…check whether more write amplitude (gain 1.5) keeps converting partially-firing del items into abstentions…”','<b>vetoed</b> by the safety gate before it ran'],
+      ['Try 10','gate + LoRA','c-teal','its plan','“Stacking gates interfered (step 9). Instead add a small gradient-trained LoRA delta under the best gate…”','abstains <b>+0.866</b> · D <b>0.216</b> · fails forgetting (+0.74%)'],
+      ['Try 12','scale down','c-amber','its plan','“…scale 0.1 should give ~+0.35% retention with margin, testing how much D_matched survives.”','abstains <b>+0.840</b> · D <b>0.182</b> · passes'],
+      ['Try 18','final push','c-rose','its plan','“q/k-only early LoRA is the most efficient matched-pool lever…; final push to 0.7 to see if D keeps rising before clean-F1 CI or retention bind.”','abstains <b>+0.913</b> · D <b>0.253</b> · passes']
+    ]}
+  };
+  var HV=['dots','grid','sig','v1','strip','safe'];
+  var EDV=[[0.524,0.091,1],[0.005,0.0,0],[null,null,-1],[0.866,0.216,0],[0.840,0.182,1],[0.913,0.253,1]];
+  function vbar(lbl,v,max,txt,col){return '<div class="vbar"><span>'+lbl+'</span><span class="tr"><i style="width:'+Math.max(1,100*v/max)+'%;background:'+col+'"></i></span><b>'+txt+'</b></div>';}
+  function drawViz(){
+    var box=$('sviz');box.innerHTML='';
+    if(tab==='editor'){
+      var e=EDV[step];
+      if(e[2]===-1){box.innerHTML='<div class="vc" style="font-size:14px">The safety gate stopped this try before it ran: one weight matrix would have changed by more than 25%.</div>';return;}
+      box.innerHTML=vbar('abstains',e[0],1,'+'+e[0].toFixed(3),'var(--teal-soft)')+vbar('D beyond keywords',e[1],0.3,e[1].toFixed(3),'var(--blue-soft)')+
+        '<div class="vc">hand-built edit: D <b>0.122</b></div><div class="vc"><span class="verdict '+(e[2]?'pass':'fail')+'">'+(e[2]?'passes every guardrail':'fails a guardrail')+'</span></div>';return;
+    }
+    var k=HV[step];
+    if(k==='dots'){var h='<div class="mdots">';for(var q=0;q<100;q++)h+='<i></i>';box.innerHTML=h+'</div><div class="vc">each dot is 5 questions · <b>0 / 500</b> said “not stated”</div>';}
+    if(k==='grid'||k==='strip'){
+      var c=document.createElement('canvas');var big=k==='grid';c.width=big?512:480;c.height=big?384:160;box.appendChild(c);
+      var g=c.getContext('2d'),C=big?64:48,R=big?48:16,cw=c.width/C,ch=c.height/R,sd=big?3:11;
+      function rr(){sd=(sd*1103515245+12345)&0x7fffffff;return sd/0x7fffffff;}
+      for(var n=0;n<C*R;n++){var x=(n%C)*cw,y=Math.floor(n/C)*ch;g.fillStyle=big?css('--blue-soft'):css('--peach-soft');g.fillRect(x+0.5,y+0.5,cw-1,ch-1);}
+      g.globalAlpha=1;
+      if(big){var tx=(1880%64)*cw,ty=Math.floor(1880/64)*ch;g.fillStyle=css('--peach-ink');g.fillRect(tx-1,ty-1,cw+2,ch+2);g.strokeStyle=css('--peach-ink');g.lineWidth=2;g.strokeRect(tx-6,ty-6,cw+12,ch+12);}
+      var cap=document.createElement('div');cap.className='vc';cap.innerHTML=big?'3,072 neurons of layer 7 · <b>1880</b> marked':'768 numbers · <b>300</b> steps · batch <b>16</b> · ρ <b>1</b>';box.appendChild(cap);
+    }
+    if(k==='sig'){box.innerHTML='<div class="fl" style="text-align:center;font-size:17px">g = S · (<span class="tg">w</span> − τ·c)</div><div class="vc">w · logistic absence probe<br>c · near-constant direction (c·x̂ ≈ 1)<br>τ · threshold, selected <b>0</b></div>';}
+    if(k==='v1'){box.innerHTML=vbar('version 1',Math.log10(1.72)+3,4,'1.72%','var(--peach-soft)')+vbar('AND-gate',Math.log10(0.011)+3,4,'0.011%','var(--teal-soft)')+'<div class="vc">SEC forgetting, block 6, ρ 1, τ 0 · log scale · budget <b>0.5%</b></div>';}
+    if(k==='safe'){box.innerHTML=vbar('weight change',3.3,5,'3.3%','var(--teal-soft)')+'<div class="vc" style="margin-top:-4px">overall limit <b>5%</b></div>'+vbar('held out',73.7,100,'+73.7%','var(--teal-soft)')+vbar('frozen exam',72.4,100,'+72.4%','var(--teal-soft)')+'<div class="vc">abstention on missing-answer questions</div>';}
+  }
+  var tab='hand', step=0, playing=!RM, t0=0, DUR=7000, raf=null;
+  var turnsEl=$('turns');
+  function renderTurns(){
+    turnsEl.innerHTML='';
+    SESS[tab].steps.forEach(function(s,k){
+      var b=document.createElement('button');b.type='button';b.className='turn';b.setAttribute('role','tab');
+      b.innerHTML='<span class="n '+s[2]+'">'+(k+1)+'</span><span style="min-width:0"><b>'+s[0]+'</b><small>'+s[1]+'</small></span>';
+      b.onclick=function(){go(k,true);};turnsEl.appendChild(b);
+    });
+    $('phnote').textContent=SESS[tab].note;
+  }
+  function go(k,user){
+    step=k;var s=SESS[tab].steps[k];
+    [].forEach.call(turnsEl.children,function(b,m){b.setAttribute('aria-selected',m===k);});
+    var lbl=$('slbl');lbl.className='lbl '+s[2];lbl.style.background='none';lbl.style.border='0';
+    lbl.innerHTML='<i></i>'+s[0]+' <span>'+s[3]+'</span>';
+    $('squote').textContent=s[4];$('sres').innerHTML=s[5];drawViz();
+    t0=performance.now();
+    if(user){setPlay(false);}
+    $('sprog').style.width=playing?'0%':'100%';
+  }
+  function setPlay(p){playing=p;$('splayicon').setAttribute('d',p?'M2.5 1.5v7M7.5 1.5v7':'M2.5 1.5v7l6-3.5z');$('splay').setAttribute('aria-label',p?'Pause the replay':'Play the replay');if(p)t0=performance.now();}
+  $('splay').onclick=function(){setPlay(!playing);};
+  function loop(now){
+    if(playing&&inView){var f=(now-t0)/DUR;if(f>=1){go((step+1)%6,false);f=0;}$('sprog').style.width=(f*100)+'%';}
+    raf=requestAnimationFrame(loop);
+  }
+  var inView=false;
+  new IntersectionObserver(function(es){inView=es[0].isIntersecting;if(inView)t0=performance.now();},{threshold:.3}).observe($('how'));
+  [].forEach.call(document.querySelectorAll('.seg button'),function(b){
+    b.onclick=function(){
+      [].forEach.call(document.querySelectorAll('.seg button'),function(x){x.setAttribute('aria-selected',x===b);});
+      tab=b.getAttribute('data-tab');renderTurns();go(0,false);
+    };
+  });
+  renderTurns();go(0,false);setPlay(!RM);requestAnimationFrame(loop);
+
+  /* ---------- three ways, played in turn ---------- */
+  var ways=$('ways'),wl=[].slice.call(ways.querySelectorAll('.way')),wi=0,wt=null,wplay=!RM,wIn=false;
+  function act(k){wi=k;wl.forEach(function(w,m){w.classList.toggle('act',m===k);});}
+  function wtick(){clearTimeout(wt);wt=setTimeout(function(){if(wplay&&wIn)act((wi+1)%3);wtick();},4200);}
+  if(!RM){ways.classList.add('acts');act(0);wtick();}
+  new IntersectionObserver(function(es){wIn=es[0].isIntersecting;},{threshold:.3}).observe(ways);
+  wl.forEach(function(w,m){w.addEventListener('click',function(){if(!RM){act(m);wplay=false;$('actbtn').textContent='Play';}});});
+  $('actbtn').onclick=function(){if(RM)return;wplay=!wplay;this.textContent=wplay?'Pause':'Play';if(!wplay){ways.classList.remove('acts');}else{ways.classList.add('acts');}};
+  if(RM)$('actbtn').style.display='none';
+
+  /* ---------- exam gallery ---------- */
+  var NS_='not stated in the context';
+  var GAL={
+    sec:[['Under what condition is the Company permitted to pay for expenses related to a director’s or officer’s defense?','They are protected.',NS_],
+         ['What components comprised the Units offered by the Company?','Stearns & Foster Boxspring parts.',NS_],
+         ['Which organizational change did Burlington Northern Railroad implement during 1993 to improve operations?','The company’s West Coast operations.',NS_],
+         ['What specific expertise did Dow Chemical contribute to the formation of Dow Corning?','Dow Corning is a leading manufacturer of nyloncraft products.',NS_]],
+    law:[['Which judge was assigned to the Annie Lock trust case after it was deemed a contested matter?','THE Honorable Colleen K. Hirai.',NS_],
+         ['Upon what tax years did the circuit court base Mark’s child-support obligation?','No, the circuit court did not base Mark’s child-support obligation on the tax years in question.',NS_],
+         ['How did the trial court respond to the RCr 11.42 motion filed by Hughes in 2004?','It responded to the motion for reconsideration.',NS_],
+         ['Who were the judges that considered the appeal from the Family Court of the Third Circuit?','Hawai’i Judge John M. Kawamura.',NS_]],
+    web:[['How did the 1909 Westminster Gazette define the gyratory principle?','It defined the gyratory principle as the gyratory principle of the body.',NS_],
+         ['What is the typical per-liter cost range for utilizing high-pressure processing technology?','$100 to $200 per unit.',NS_],
+         ['What techniques does Denise Fleming use to create her illustrations in the book featuring Mouse?','Gabriel announces the incarnation of Christ to the Virgin Mary.',NS_],
+         ['What specific age group of Americans did the Pew Economic Mobility Project study for their report?','Childcareers and children.',NS_]],
+    miss:[['What are the two primary sources from which surfactant used in RDS treatment is derived?','They are used in the treatment of wastewater and waste water.','They are used in the treatment of wastewater and waste water.'],
+         ['On what date was the CSX Transportation, Inc. report signed by the authorized undersigned?','June 30, 1990','Date: May 1, 1990'],
+         ['What is the typical maximum duration for the operating leases used by First Capital branch finance operations?','Thirty-five years.','not less than five years'],
+         ['How many words are documented in the OED?','It is not too effective for the teacher to hand out a list of ten words.','It is not too effective for the teacher to hand out a list of ten words.']]
+  };
+  var SRCN={sec:'SEC filing',law:'Case law',web:'Web text',miss:'Still answers'};
+  function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function card(src,q,a,b,okAfter){
+    return '<article class="card"><p class="src">'+src+'</p><p class="qq">'+esc(q)+'</p>'+
+      '<div class="side bad"><h4>Original model</h4><div class="out">'+esc(a)+'</div></div>'+
+      '<div class="side '+(okAfter?'good':'bad')+'"><h4>After the edit</h4><div class="out">'+esc(b)+'</div><div class="v"><b>'+(okAfter?'Correct':'Still answers')+'</b></div></div></article>';
+  }
+  function showGal(g){
+    [].forEach.call(document.querySelectorAll('.gtabs button'),function(x){x.setAttribute('aria-selected',x.getAttribute('data-g')===g);});
+    $('gal').innerHTML=GAL[g].map(function(r){return card(SRCN[g],r[0],r[1],r[2],r[2]===NS_);}).join('');
+  }
+  [].forEach.call(document.querySelectorAll('.gtabs button'),function(b){b.onclick=function(){showGal(b.getAttribute('data-g'));};});
+  showGal('sec');
+  $('delgal').innerHTML=
+    card('Deleted · case law','Who presided over the tax assessment appeals for the Waikiki Shoreline Apartments?','The City and the county.','Question: The City and County of Honolulu.',false)+
+    card('Deleted · web text','What is the position of the centre of the larger circle described in relation to the equilateral triangle?','It is a moveable point on the hypotenuse.','It is a moveable point on the hypotenuse.',false)+
+    card('Deleted · web text','Does Patient DF demonstrate appropriate hand scaling when reaching for objects?','No, she cannot do it.','No, she cannot do it.',false)+
+    card('Other passage · case law','On what date was the order denying the writ of prohibition issued?','January 16, 2016',NS_,true);
+
+  /* ---------- per-set forgetting ---------- */
+  function persetChart(){
+    var svg=$('persetchart');svg.innerHTML='';
+    var sets=['SEC filings','Case law','Web text'];
+    var V=[[0.0106,5.184,8.78],[0.0062,4.895,7.50],[0.0024,5.815,7.94]];
+    var CI=[[0.0093,0.0119],[0.0053,0.0072],[0.0018,0.0031]];
+    var cls=['bar-ok','bar-bad','bar-lora'];
+    var L=70,R=880,T=20,B=240,lo=Math.log10(0.001),hi=Math.log10(20);
+    function Y(v){return B-(B-T)*(Math.log10(v)-lo)/(hi-lo);}
+    [0.001,0.01,0.1,1,10].forEach(function(v){svg.appendChild(el('line',{x1:L,x2:R,y1:Y(v),y2:Y(v),class:'ax'}));svg.appendChild(el('text',{x:L-10,y:Y(v)+4,'text-anchor':'end',class:'axt'},v+'%'));});
+    svg.appendChild(el('line',{x1:L,x2:R,y1:Y(0.5),y2:Y(0.5),class:'budget'}));
+    svg.appendChild(el('text',{x:L+8,y:Y(0.5)-6,class:'budgett'},'budget +0.5%'));
+    var gw=(R-L)/3,bw=46;
+    sets.forEach(function(nm,i){
+      var cx=L+gw*i+gw/2;
+      V[i].forEach(function(v,j){
+        var x=cx+(j-1)*(bw+14)-bw/2;
+        svg.appendChild(el('rect',{x:x,y:Y(v),width:bw,height:B-Y(v),rx:3,class:cls[j]}));
+        svg.appendChild(el('text',{x:x+bw/2,y:Y(v)-(j===0?16:6),'text-anchor':'middle',class:'val'},(j===0?v.toFixed(4):v.toFixed(2))+'%'));
+        if(j===0){svg.appendChild(el('path',{d:'M'+(x+bw/2)+' '+Y(CI[i][0])+' V'+Y(CI[i][1])+' M'+(x+bw/2-6)+' '+Y(CI[i][1])+' h12 M'+(x+bw/2-6)+' '+Y(CI[i][0])+' h12',stroke:css('--teal-ink'),'stroke-width':1.4,fill:'none'}));}
+      });
+      svg.appendChild(el('text',{x:cx,y:B+22,'text-anchor':'middle',class:'labb'},nm));
+    });
+  }
+  persetChart();
+
+  /* ---------- keyword reader + pool ---------- */
+  function lexChart(){
+    var svg=$('lexchart');svg.innerHTML='';
+    var rows=[['answer present',-4.17,-2.19,0.28,'bar-bad'],['sentence deleted',-2.63,0.15,3.03,'bar-mid'],['other passage',0.59,2.22,3.08,'bar-ok']];
+    var L=130,R=425,T=20,rh=52;function X(v){return L+(R-L)*(v+5)/9;}
+    [-4,-2,0,2,4].forEach(function(v){svg.appendChild(el('line',{x1:X(v),x2:X(v),y1:T-6,y2:T+rows.length*rh,class:'ax'}));svg.appendChild(el('text',{x:X(v),y:T+rows.length*rh+16,'text-anchor':'middle',class:'axt'},v));});
+    rows.forEach(function(r,k){var y=T+k*rh+14;
+      svg.appendChild(el('text',{x:L-10,y:y+12,'text-anchor':'end',class:'lab'},r[0]));
+      svg.appendChild(el('rect',{x:X(r[1]),y:y,width:X(r[3])-X(r[1]),height:18,rx:9,class:r[4]}));
+      svg.appendChild(el('circle',{cx:X(r[2]),cy:y+9,r:5,fill:css('--head')}));});
+    svg.appendChild(el('text',{x:L,y:T+rows.length*rh+34,class:'axt'},'keyword-only score: higher looks more missing'));
+  }
+  function poolChart(){
+    var svg=$('poolchart');svg.innerHTML='';
+    var M=[['my edit',3.4,51.5,8.8],['LoRA',10.7,81.8,27.1],['full FT',13.9,85.9,29.3]];
+    var L=40,R=430,T=14,B=180;function Y(v){return B-(B-T)*v/100;}
+    [0,50,100].forEach(function(v){svg.appendChild(el('line',{x1:L,x2:R,y1:Y(v),y2:Y(v),class:'ax'}));svg.appendChild(el('text',{x:L-8,y:Y(v)+4,'text-anchor':'end',class:'axt'},v+'%'));});
+    var gw=(R-L)/3,bw=30,cl=['bar-bad','bar-ok','bar-mid'];
+    M.forEach(function(m,i){var cx=L+gw*i+gw/2;
+      [1,2,3].forEach(function(j){var x=cx+(j-2)*(bw+6)-bw/2,v=m[j];
+        svg.appendChild(el('rect',{x:x,y:Y(v),width:bw,height:B-Y(v),rx:3,class:cl[j-1]}));
+        svg.appendChild(el('text',{x:x+bw/2,y:Y(v)-5,'text-anchor':'middle',class:'val',style:'font-size:11px'},v));});
+      svg.appendChild(el('text',{x:cx,y:B+20,'text-anchor':'middle',class:i===0?'labb':'lab'},m[0]));});
+  }
+  lexChart();poolChart();
+
+  /* ---------- edit as a file ---------- */
+  var fileOn=true;
+  $('filebtn').onclick=function(){fileOn=!fileOn;$('filebox').classList.toggle('off',!fileOn);
+    $('fileres').innerHTML=fileOn?'<b>72.4%</b><small>abstains on the exam</small>':'<b>0%</b><small>abstains on the exam</small>';
+    $('filetext').textContent=fileOn?'With the edit file applied: the model says “not stated” on 72.4% of missing-answer exam questions.':'Edit file removed: the original model, unchanged, says “not stated” on 0 of 500.';
+    this.textContent=fileOn?'Remove the edit':'Apply the edit';};
+
+  /* ---------- forgetting chart (log) ---------- */
+  function forgetChart(){
+    var svg=$('forgetchart');svg.innerHTML='';
+    var rows=[['AND-gate edit (mine)',0.011,'ok'],['Self-recursion θ₂',0.015,'ok'],['Editor B',0.33,'mid'],['Editor A',0.35,'mid'],['Random search R1',0.40,'mid'],['Editor C',0.43,'mid'],['Single neuron, v1',1.72,'bad'],['Full fine-tuning',5.86,'bad'],['LoRA',8.87,'bad']];
+    var L=200,R=840,T=26,rh=34,lo=Math.log10(0.005),hi=Math.log10(20);
+    function X(v){return L+(R-L)*(Math.log10(v)-lo)/(hi-lo);}
+    [0.01,0.1,1,10].forEach(function(v){svg.appendChild(el('line',{x1:X(v),x2:X(v),y1:T-6,y2:T+rows.length*rh,class:'ax'}));svg.appendChild(el('text',{x:X(v),y:T+rows.length*rh+18,'text-anchor':'middle',class:'axt'},v+'%'));});
+    var bx=X(0.5);svg.appendChild(el('line',{x1:bx,x2:bx,y1:T-14,y2:T+rows.length*rh,class:'budget'}));
+    svg.appendChild(el('text',{x:bx+6,y:T-4,class:'budgett'},'budget +0.5%'));
+    rows.forEach(function(r,k){
+      var y=T+k*rh;
+      svg.appendChild(el('text',{x:L-12,y:y+rh/2+4,'text-anchor':'end',class:k===0?'labb':'lab'},r[0]));
+      svg.appendChild(el('rect',{x:X(0.005),y:y+8,width:Math.max(2,X(r[1])-X(0.005)),height:rh-16,rx:3,class:'bar-'+r[2]}));
+      svg.appendChild(el('text',{x:X(r[1])+8,y:y+rh/2+4,class:'val'},'+'+r[1]+'%'));
+    });
+    svg.appendChild(el('text',{x:L,y:T+rows.length*rh+38,class:'axt'},'worst relative increase in next-token loss (log scale)'));
+  }
+  forgetChart();
+
+  /* ---------- editor trajectory ---------- */
+  var TRAJ={
+    A:{t:'Editor A, try by try',D:[0.091,0.0,0.108,0.054,0.139,null,0.148,null,0.077,0.216,0.207,0.182,0.162,0.199,0.202,0.23,0.25,0.253],P:[1,0,0,1,1,-1,1,-1,0,0,0,1,1,1,1,1,1,1]},
+    B:{t:'Editor B, try by try',D:[0.054,0.0,null,0.014,0.091,0.128,0.165,0.19,0.091,0.176,0.222,0.247,0.19,0.241,0.224,0.241,0.253],P:[1,0,-1,1,1,1,0,1,1,1,1,1,1,1,1,1,1]},
+    C:{t:'Editor C, try by try',D:[0.091,0.142,0.153,0.196,0.207,0.185,0.196,0.114,0.176,0.17,0.193,0.21,0.224,0.222,0.205,0.239,null],P:[1,0,0,1,0,1,1,0,1,1,1,1,1,1,0,1,-1]},
+    R1:{t:'Random R1, pick by pick',D:[-0.003,0.031,0.031,0.19,0.153,0.0,null,0.0,0.0,0.207,0.003,null,0.0,0.02,0.003,0.239,0.0,0.0],P:[0,0,0,0,1,1,-1,1,1,1,1,-1,1,1,1,0,1,1]}
+  };
+  function trajChart(key){
+    var svg=$('trajchart');svg.innerHTML='';var tr=TRAJ[key||'A'],D=tr.D,P=tr.P,n=D.length;
+    $('trajtitle').textContent=tr.t;
+    var L=70,R=860,T=30,B=250,ymax=0.3;
+    function X(k){return L+(R-L)*k/17;} function Y(v){return B-(B-T)*Math.max(0,v)/ymax;}
+    [0,0.1,0.2,0.3].forEach(function(v){svg.appendChild(el('line',{x1:L,x2:R,y1:Y(v),y2:Y(v),class:'ax'}));svg.appendChild(el('text',{x:L-10,y:Y(v)+4,'text-anchor':'end',class:'axt'},v.toFixed(1)));});
+    svg.appendChild(el('line',{x1:L,x2:R,y1:Y(0.122),y2:Y(0.122),class:'ref'}));
+    svg.appendChild(el('text',{x:R,y:Y(0.122)-7,'text-anchor':'end',class:'reft'},'my hand-built edit, 0.122'));
+    var bs=-1,pts=[],bi=-1;D.forEach(function(v,k){if(v!=null&&P[k]===1&&v>bs){bs=v;bi=k;}if(bs>=0)pts.push([X(k),Y(bs)]);});
+    var sp='';pts.forEach(function(p,m){sp+=(m?' L':'M')+p[0]+' '+(m?pts[m-1][1]:p[1])+(m?' L'+p[0]+' '+p[1]:'');});
+    if(sp)svg.appendChild(el('path',{d:sp,class:'ln',opacity:.55}));
+    D.forEach(function(v,k){
+      var x=X(k);
+      if(P[k]===-1){var y=Y(0.005);svg.appendChild(el('path',{d:'M'+(x-5)+' '+(y-5)+'l10 10M'+(x+5)+' '+(y-5)+'l-10 10',class:'pt-veto'}));}
+      else svg.appendChild(el('circle',{cx:x,cy:Y(v),r:6,class:P[k]===1?'pt-ok':'pt-bad'}));
+    });
+    for(var k=0;k<18;k++)svg.appendChild(el('text',{x:X(k),y:B+20,'text-anchor':'middle',class:'axt'},k<n?k+1:'·'));
+    if(bi>=0)svg.appendChild(el('text',{x:X(bi),y:Y(bs)-13,'text-anchor':'middle',class:'val'},'best '+bs.toFixed(3)));
+    svg.appendChild(el('text',{x:L,y:B+44,class:'axt'},key==='R1'?'pick':'try'));
+    svg.appendChild(el('text',{x:L-50,y:T-12,class:'axt'},'D'));
+  }
+  [].forEach.call(document.querySelectorAll('.etabs button'),function(b){b.onclick=function(){
+    [].forEach.call(document.querySelectorAll('.etabs button'),function(x){x.setAttribute('aria-selected',x===b);});trajChart(b.getAttribute('data-e'));};});
+  trajChart('A');
+
+  /* ---------- recursion chart ---------- */
+  function recChart(){
+    var svg=$('recchart');svg.innerHTML='';
+    var A=[0,73.7,86.8],F=[0,3.5,10.8],lab=['θ₀ original','θ₁ one neuron','θ₂ two neurons'];
+    var L=60,R=470,T=24,B=240;function X(k){return L+(R-L)*k/2;}function Y(v){return B-(B-T)*v/100;}
+    [0,25,50,75,100].forEach(function(v){svg.appendChild(el('line',{x1:L,x2:R,y1:Y(v),y2:Y(v),class:'ax'}));svg.appendChild(el('text',{x:L-10,y:Y(v)+4,'text-anchor':'end',class:'axt'},v+'%'));});
+    function line(arr,cls,pc){var d='';arr.forEach(function(v,k){d+=(k?' L':'M')+X(k)+' '+Y(v);});svg.appendChild(el('path',{d:d,class:cls}));arr.forEach(function(v,k){svg.appendChild(el('circle',{cx:X(k),cy:Y(v),r:5.5,class:pc}));if(v>0)svg.appendChild(el('text',{x:X(k)+(k===2?-10:10),y:Y(v)-10,'text-anchor':k===2?'end':'start',class:'val'},v+'%'));});}
+    line(A,'ln','pt-ok');line(F,'ln2','pt-bad');
+    lab.forEach(function(t,k){svg.appendChild(el('text',{x:X(k),y:B+22,'text-anchor':k===0?'start':k===2?'end':'middle',class:'lab'},t));});
+  }
+  recChart();
+
+  /* ---------- where-it-lives svgs ---------- */
+  function sheetsSvg(id,spread){
+    var svg=$(id);svg.innerHTML='';var gap=spread?30:20;
+    for(var k=0;k<12;k++){
+      var x=20+k*gap, hot=spread||k===6;
+      svg.appendChild(el('path',{d:'M'+x+' 18 l16 -8 v86 l-16 8z',class:hot?'bar-bad':'bar-mid',opacity:1}));
+      
+    }
+    if(!spread){var nx=20+6*gap+8;svg.appendChild(el('circle',{cx:nx,cy:56,r:4.5,fill:css('--peach-ink')}));
+      [['gate row · eye 1',34],['up row · eye 2',58],['down column · hand',82]].forEach(function(t){
+        svg.appendChild(el('path',{d:'M'+(nx+5)+' 56 C 300 56, 270 '+t[1]+', 286 '+t[1],fill:'none',stroke:css('--line2'),'stroke-width':1.2}));
+        svg.appendChild(el('text',{x:292,y:t[1]+4,class:'val'},t[0]));});}
+  }
+  sheetsSvg('spreadsvg',true);sheetsSvg('pointsvg',false);
+
+  /* ---------- program demo ---------- */
+  var cv=$('ngrid'),ctx=cv.getContext('2d'),COLS=64,ROWS=48,TARGET=1880;
+  var shade=[];seed=7;for(i=0;i<COLS*ROWS;i++){var r=rnd();shade.push(r<0.82?r*0.35:0.35+r*0.65);}
+  var STATES=[
+    {btn:'Run the write-only control',vec:[0,0,0],cell:0,title:'How often it says “not stated”',sub:'3,378 held-out questions per bar',
+     rows:[['Answer missing',0,'good'],['Answer present',0,'bad']],f1:'0.000',
+     text:'The original model. It <b>never</b> says “not stated”, whether the answer is in the context or not.'},
+    {btn:'Put the real eye 1 back',vec:[0,1,1],cell:1,title:'How often it says “not stated”',sub:'3,378 held-out questions per bar',
+     rows:[['Answer missing',97.4,'good'],['Answer present',97.0,'bad']],f1:'−0.151',
+     text:'The write-only control: eye 1 is replaced by a probe that always says yes, so the neuron fires at every reply start. It says “not stated” on <b>97.4%</b> of missing-answer and <b>97.0%</b> of answerable questions.'},
+    {btn:'Hide the keyword clue',vec:[1,1,1],cell:2,title:'How often it says “not stated”',sub:'3,378 held-out questions per bar',
+     rows:[['Answer missing',73.7,'good'],['Answer present',3.5,'bad']],f1:'−0.007',
+     text:'The selected edit, with the real absence probe as eye 1: <b>73.7%</b> on missing-answer questions against <b>3.5%</b> on answerable ones.'},
+    {btn:'Done',vec:[1,1,1],cell:2,title:'Same edit, overlap-matched pool',sub:'missing vs present now share the same wording',
+     rows:[['Answer missing: a different passage',51.5,'good'],['Answer missing: right passage, answer sentence deleted',8.8,'good'],['Answer present',3.4,'bad']],f1:null,
+     text:'Now keep the right passage and delete only the answer sentence, so the wording still matches the question. It catches just <b>8.8%</b>. The first eye was mostly reading shared words.'}
+  ];
+  var ds=0;
+  function drawGrid(){
+    var w=cv.width,h=cv.height,cw=w/COLS,ch=h/ROWS;
+    var b1=css('--blue-soft')||'#CFE3F3',b2=css('--blue')||'#6E92C0',bg=css('--surface')||'#fff',pk=css('--peach')||'#E09A7B',pi=css('--peach-ink')||'#9A4F30';
+    ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+    for(var k=0;k<COLS*ROWS;k++){
+      var cx=(k%COLS)*cw,cy=Math.floor(k/COLS)*ch;
+      ctx.globalAlpha=1;ctx.fillStyle=b1;ctx.fillRect(cx+1,cy+1,cw-2,ch-2);
+    }
+    ctx.globalAlpha=1;
+    var st=STATES[ds].cell, tx=(TARGET%COLS)*cw, ty=Math.floor(TARGET/COLS)*ch;
+    if(st>0){
+      ctx.fillStyle=pk;ctx.globalAlpha=0.16;ctx.fillRect(0,ty,w,ch);ctx.fillRect(tx,0,cw,h);ctx.globalAlpha=1;
+      ctx.fillStyle=st===2?pi:pk;ctx.fillRect(tx-2,ty-2,cw+4,ch+4);
+      ctx.strokeStyle=pi;ctx.lineWidth=2;ctx.strokeRect(tx-6,ty-6,cw+12,ch+12);
+      ctx.font='600 20px Inter, sans-serif';ctx.fillStyle=pi;ctx.fillText('neuron 1880',Math.min(tx+cw+12,w-130),ty-10>20?ty-10:ty+ch+26);
+    }
+  }
+  function renderDemo(){
+    var s=STATES[ds];
+    ['v-gate','v-up','v-down'].forEach(function(id,k){$(id).className='vec'+(s.vec[k]?' on-'+id.slice(2):'');});
+    $('mtitle').textContent=s.title;$('msub').textContent=s.sub;
+    var html='';s.rows.forEach(function(r){html+='<div class="met '+r[2]+'"><span class="nm">'+r[0]+'</span><span class="tr"><i data-w="'+r[1]+'"></i></span><span class="nv">'+r[1].toFixed(1)+'%</span></div>';});
+    if(s.f1!=null)html+='<p class="cap" style="margin-top:4px">Change in F1 on answerable held-out questions: <span class="mono" style="color:var(--head)">'+s.f1+'</span></p>';
+    $('mrows').innerHTML=html;
+    requestAnimationFrame(function(){[].forEach.call($('mrows').querySelectorAll('.tr i'),function(i){i.style.width=Math.max(0.6,parseFloat(i.getAttribute('data-w')))+'%';});});
+    $('dtext').innerHTML=s.text;
+    var nb=$('dnext');nb.textContent=s.btn;nb.disabled=(ds===STATES.length-1);
+    $('dreset').disabled=(ds===0);
+    drawGrid();
+  }
+  $('dnext').onclick=function(){if(ds<STATES.length-1){ds++;renderDemo();}};
+  $('dreset').onclick=function(){ds=0;renderDemo();};
+  renderDemo();
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',function(){drawGrid();drawViz();persetChart();lexChart();sheetsSvg('spreadsvg',true);sheetsSvg('pointsvg',false);});
+
+  /* ---------- native playground (real outputs from wsp_runs) ---------- */
+  var PQ={
+    copland:{q:'Who are the two individuals from WGBH News and Classical New England discussing Aaron Copland’s work?',outLabel:'Answer removed',
+      in:{ctx:'<mark>Bob Seay</mark> of WGBH News and <mark>James David Jacobs</mark> of Classical New England consider the odd history and captivating power of Aaron Copland’s Lincoln Portrait. …',
+          b:['Bob Seay','mid','Half right · token F1 0.5'],a:['Bob Seay','mid','Half right · token F1 0.5'],
+          say:'Both models give the same partial answer; the reference is “Bob Seay and James David Jacobs”. With the answer present, the edit leaves the reply unchanged.'},
+      out:{ctx:'Guest blogger Jon Bowermaster is a writer and filmmaker. His most recent documentary is “SoLa, Louisiana Water Stories” … wanders the fish stalls of their favorite grocer …<br>… Envoy to the Terror: Gouverneur Morris and the French Revolution. By Melanie Randolph Miller … <del>passages without the answer</del>',
+          b:['John Morris and the French Revolution.','bad','Answers anyway'],a:['not stated in the context','good','Correct'],
+          say:'The original model builds an answer from words in the second passage, which is about something else. The edited model replies <b>“not stated in the context”</b>, which is the reference answer.'}},
+    sherlock:{q:'What specific statutes does the court cite as available to Lee if he encounters Judge Sherlock in future proceedings?',outLabel:'Answer removed',
+      in:{ctx:'… should Lee find himself before Judge Sherlock again, the remedies provided by the disqualification statutes, <mark>KRS® 26A.015 and 26A.020</mark>, remain available to him as does future direct appeal. …',
+          b:['KRS 26A.015 and 26A.020.','good','Correct'],a:['KRS 26A.015 and 26A.020.','good','Correct'],
+          say:'Both models answer correctly. With the answer present, the edited model gives the same reply as the original.'},
+      out:{ctx:'IN THE SUPREME COURT OF THE STATE OF HAWAT’T IN THE MATTER OF WRITS FILED BY ROBIN M.S. LEE … writs of mandamus, the papers in support … <del>passages without the answer</del>',
+          b:['HRS § 708-830.','bad','Answers anyway'],a:['not stated in the context','good','Correct'],
+          say:'The original model names a statute that is not in the context. The edited model replies <b>“not stated in the context”</b>.'}},
+    stryker:{q:'Which specific financial statements are incorporated by reference into Item 8 for Stryker Corporation?',outLabel:'Answer sentence deleted',
+      in:{ctx:'… LIST OF FINANCIAL STATEMENTS, FINANCIAL STATEMENT SCHEDULES Index to Financial Statements and Financial Statement Schedules The following consolidated financial statements of Stryker Corporation and subsidiaries and report o…',
+          b:['Stryker Corporation and subsidiaries','bad','Does not match the reference'],a:['Stryker Corporation and subsidiaries','bad','Does not match the reference'],
+          say:'Both models give the same wrong answer; the reference lists the balance sheet, statement of earnings, stockholders’ equity and cash flows.'},
+      out:{ctx:'… JOHN S. LILLARD 3/18/94 WILLIAM U. PARFET 3/18/94 John S. Lillard - Director William U. <del>answer sentence deleted; the rest of the filing is kept</del>',
+          b:['Debtor’s Amended and Restated Certificate of Incorporation.','bad','Answers anyway'],a:['Debtor’s Amended and Restated Certificate of Incorporation.','bad','Answers anyway'],
+          say:'The answer sentence is gone but the filing still shares the question’s words. <b>Both models answer anyway.</b> This is the keyword weakness: on this pool the edit says “not stated” on only 8.8%.'}}
+  };
+  var pq='copland',pc='in',pgBusy=false,pgTimers=[];
+  ['stk-b','stk-a'].forEach(function(id){var e=$(id);for(var k=1;k<=12;k++){var i=document.createElement('i');if(id==='stk-a'&&k===7)i.className='ed';i.title='layer '+k;e.appendChild(i);}});
+  function pgClear(){pgTimers.forEach(clearTimeout);pgTimers=[];pgBusy=false;$('pgask').disabled=false;}
+  function pgRest(){
+    pgClear();var Q=PQ[pq],C=Q[pc];
+    $('cout').textContent=Q.outLabel;
+    $('pgctx').innerHTML=C.ctx;$('pgq').textContent=Q.q;
+    ['b','a'].forEach(function(w){$('rep-'+w).textContent='';var v=$('vd-'+w);v.className='vd';v.textContent='';[].forEach.call($('stk-'+w).children,function(i){i.classList.remove('on');});});
+    $('pgsay').innerHTML='Press <b>Ask both models</b>. Both read the same prompt through 12 layers; only layer 7 differs.';
+  }
+  function pgShow(instant){
+    var C=PQ[pq][pc];
+    ['b','a'].forEach(function(w){var r=C[w];$('rep-'+w).textContent=r[0];var v=$('vd-'+w);v.className='vd show '+r[1];v.textContent=r[2];[].forEach.call($('stk-'+w).children,function(i){i.classList.add('on');});});
+    $('pgsay').innerHTML=C.say;pgBusy=false;$('pgask').disabled=false;
+  }
+  function pgAsk(){
+    if(pgBusy)return;pgRest();
+    if(RM){pgShow(true);return;}
+    pgBusy=true;$('pgask').disabled=true;$('pgsay').textContent='Reading the prompt, layer by layer…';
+    for(var k=0;k<12;k++)(function(k){pgTimers.push(setTimeout(function(){$('stk-b').children[k].classList.add('on');$('stk-a').children[k].classList.add('on');},120+k*110));})(k);
+    pgTimers.push(setTimeout(function(){
+      var C=PQ[pq][pc],done=0;
+      ['b','a'].forEach(function(w){var t=C[w][0],n=0,el=$('rep-'+w);
+        (function tick(){n+=2;el.textContent=t.slice(0,n);if(n<t.length)pgTimers.push(setTimeout(tick,28));else{done++;if(done===2)pgShow();}})();});
+    },120+12*110+150));
+  }
+  [].forEach.call(document.querySelectorAll('#qbtns button'),function(b){b.onclick=function(){[].forEach.call(document.querySelectorAll('#qbtns button'),function(x){x.setAttribute('aria-pressed',x===b);});pq=b.getAttribute('data-q');pgRest();};});
+  [].forEach.call(document.querySelectorAll('#cbtns button'),function(b){b.onclick=function(){[].forEach.call(document.querySelectorAll('#cbtns button'),function(x){x.setAttribute('aria-selected',x===b);});pc=b.getAttribute('data-c');pgRest();};});
+  $('pgask').onclick=pgAsk;$('pgreset').onclick=pgRest;
+  pc='out';[].forEach.call(document.querySelectorAll('#cbtns button'),function(x){x.setAttribute('aria-selected',x.getAttribute('data-c')==='out');});
+  pgRest();pgShow(true);
+
+
+})();
+</script>
+</body>
+</html>
